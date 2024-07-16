@@ -1,15 +1,25 @@
 <template>
-  <!-- <Sidebar />
-  <Workspace /> -->
+  <AppHeader />
+  <div id="main-wrapper">
+    <RouterView />
+  </div>
 </template>
 <script>
-// import Sidebar from '@/views/sidebar/NodeList.vue'
-// import Workspace from '@/views/workspace/Workspace.vue'
+import AppHeader from '@/views/app/AppHeader.vue'
+
 export default {
   name: 'App',
   components: {
-    // Sidebar,
-    // Workspace
+    AppHeader
   }
 }
 </script>
+<style scoped>
+#main-wrapper {
+  padding-top: 80px;
+  padding-bottom: 0px;
+  min-height: calc(100% - 80px);
+  height: calc(100% - 80px);
+  overflow-y: auto;
+}
+</style>
