@@ -6,7 +6,7 @@
       :key="node.id"
       class="node"
       draggable="true"
-      @dragstart="onDragStart(node)"
+      @dragstart="(e) => onDragStart(e, node)"
     >
       {{ node.label }}
     </div>
@@ -19,15 +19,15 @@ export default {
   data() {
     return {
       nodes: [
-        { id: 1, label: 'Node 1' },
-        { id: 2, label: 'Node 2' },
-        { id: 3, label: 'Node 3' }
+        { id: 'N01', label: 'CSV Reader', options: { input: 0, output: 1 } },
+        { id: 'N02', label: 'CSV Writer', options: { input: 1, output: 1 } },
+        { id: 'N03', label: 'File Writer', options: { input: 1, output: 1 } }
       ]
     }
   },
   methods: {
-    onDragStart(node) {
-      event.dataTransfer.setData('node', JSON.stringify(node))
+    onDragStart(e, node) {
+      e.dataTransfer.setData('node', JSON.stringify(node))
     }
   }
 }
