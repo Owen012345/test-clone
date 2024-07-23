@@ -1,8 +1,8 @@
 import { ClassicPreset } from 'rete'
 
 class Node extends ClassicPreset.Node {
-  width = 180
-  height = 100
+  width = 120
+  height = 80
 }
 
 export async function createNode(container, area, selectedNode, event) {
@@ -13,18 +13,18 @@ export async function createNode(container, area, selectedNode, event) {
 
   if (selectedNode.options.input) {
     for (let i = 0; i < selectedNode.options.input; i++) {
-      node.addInput('port', new ClassicPreset.Input(socket))
+      node.addInput(`input-${i}`, new ClassicPreset.Input(socket))
     }
   }
   if (selectedNode.options.output) {
     for (let i = 0; i < selectedNode.options.output; i++) {
-      node.addOutput('port', new ClassicPreset.Output(socket))
+      node.addOutput(`output-${i}`, new ClassicPreset.Output(socket))
     }
   }
-
   area.area.setPointerFrom(event)
   const { x, y } = area.area.pointer
   await container.addNode(node)
+
   await area.translate(node.id, { x: x, y: y })
 
   return {

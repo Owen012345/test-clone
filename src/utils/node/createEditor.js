@@ -1,7 +1,13 @@
 import { NodeEditor } from 'rete'
 import { AreaPlugin, AreaExtensions } from 'rete-area-plugin'
-import { ConnectionPlugin, Presets as ConnectionPresets } from 'rete-connection-plugin'
+import {
+  BidirectFlow,
+  ConnectionPlugin,
+  Presets as ConnectionPresets
+} from 'rete-connection-plugin'
 import { VuePlugin, Presets } from 'rete-vue-plugin'
+
+import CustomNode from '@/components/workspace/node/CustomNode.vue'
 
 export async function createEditor(container) {
   const editor = new NodeEditor('demo@0.1.0')
@@ -13,8 +19,20 @@ export async function createEditor(container) {
     accumulating: AreaExtensions.accumulateOnCtrl()
   })
 
-  render.addPreset(Presets.classic.setup())
-  connection.addPreset(ConnectionPresets.classic.setup())
+  render.addPreset(
+    Presets.classic.setup({
+      customize: {
+        node() {
+          return CustomNode
+          // return Presets.classic.Node
+        }
+        // socket() {
+        //   return CustomSocket
+        // }
+      }
+    })
+  )
+  connection.addPreset(() => new BidirectFlow())
 
   editor.use(area)
   area.use(connection)
