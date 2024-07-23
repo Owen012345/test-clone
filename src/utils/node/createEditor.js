@@ -26,21 +26,33 @@ export async function createEditor(container) {
           return CustomNode
           // return Presets.classic.Node
         }
-        // socket() {
-        //   return CustomSocket
-        // }
       }
     })
   )
+
   connection.addPreset(() => new BidirectFlow())
 
   editor.use(area)
   area.use(connection)
   area.use(render)
 
+  editor.addPipe((context) => {
+    if (
+      context.type === 'nodecreated' ||
+      context.type === 'noderemoved' ||
+      context.type === 'connectioncreated' ||
+      context.type === 'connectionremoved'
+    ) {
+      console.log(context)
+    }
+    return context
+  })
+
   AreaExtensions.simpleNodesOrder(area)
 
   AreaExtensions.zoomAt(area, editor.getNodes())
+
+  // const syncWithVuex = () => {}
 
   return { editor, area }
 }

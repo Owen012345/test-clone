@@ -6,7 +6,6 @@ class Node extends ClassicPreset.Node {
 }
 
 export async function createNode(container, area, selectedNode, event) {
-  console.log(event)
   const socket = new ClassicPreset.Socket('socket')
 
   const node = new Node(selectedNode.label)
