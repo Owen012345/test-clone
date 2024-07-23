@@ -5,7 +5,8 @@ class Node extends ClassicPreset.Node {
   height = 100
 }
 
-export async function createNode(container, area, selectedNode, x, y) {
+export async function createNode(container, area, selectedNode, event) {
+  console.log(event)
   const socket = new ClassicPreset.Socket('socket')
 
   const node = new Node(selectedNode.label)
@@ -21,8 +22,12 @@ export async function createNode(container, area, selectedNode, x, y) {
     }
   }
 
+  area.area.setPointerFrom(event)
+  const { x, y } = area.area.pointer
   await container.addNode(node)
   await area.translate(node.id, { x: x, y: y })
 
-  return node
+  return {
+    destroy: () => area.destroy()
+  }
 }
