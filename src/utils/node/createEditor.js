@@ -8,6 +8,8 @@ import {
 import { VuePlugin, Presets } from 'rete-vue-plugin'
 
 import CustomNode from '@/components/workspace/node/CustomNode.vue'
+import CustomConnection from '@/components/workspace/node/CustomConnection.vue'
+import { h } from 'vue'
 
 export async function createEditor(container) {
   const editor = new NodeEditor('demo@0.1.0')
@@ -15,9 +17,36 @@ export async function createEditor(container) {
   const connection = new ConnectionPlugin()
   const render = new VuePlugin()
 
-  AreaExtensions.selectableNodes(area, AreaExtensions.selector(), {
-    accumulating: AreaExtensions.accumulateOnCtrl()
-  })
+  const selector = AreaExtensions.selector()
+  const accumulating = AreaExtensions.accumulateOnCtrl()
+
+  AreaExtensions.selectableNodes(area, selector, { accumulating })
+
+  function SelectableConnectionBind() {
+    function handleSelect(props) {
+      const id = props.id
+      const label = 'connection'
+
+      selector.add(
+        {
+          id,
+          label,
+          translate() {},
+          unselect() {
+            props.selected = false
+            area.update('connection', id)
+          }
+        },
+        accumulating.active()
+      )
+      props.selected = true
+      area.update('connection', id)
+    }
+
+    return h(CustomConnection, {
+      onSelect: handleSelect
+    })
+  }
 
   render.addPreset(
     Presets.classic.setup({
@@ -25,6 +54,9 @@ export async function createEditor(container) {
         node() {
           return CustomNode
           // return Presets.classic.Node
+        },
+        connection() {
+          return SelectableConnectionBind()
         }
       }
     })
@@ -40,8 +72,8 @@ export async function createEditor(container) {
     if (
       context.type === 'nodecreated' ||
       context.type === 'noderemoved' ||
-      context.type === 'connectioncreated' ||
-      context.type === 'connectionremoved'
+      context.type === 'connectionremoved' ||
+      context.type === 'connectioncreated'
     ) {
       console.log(context)
     }
