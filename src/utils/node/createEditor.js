@@ -1,3 +1,4 @@
+import { h } from 'vue'
 import { NodeEditor } from 'rete'
 import { AreaPlugin, AreaExtensions } from 'rete-area-plugin'
 import {
@@ -9,7 +10,7 @@ import { VuePlugin, Presets } from 'rete-vue-plugin'
 
 import CustomNode from '@/components/workspace/node/CustomNode.vue'
 import CustomConnection from '@/components/workspace/node/CustomConnection.vue'
-import { h } from 'vue'
+import { removeNodeWithConnections } from './removeNodeWithConnections'
 
 export async function createEditor(container) {
   const editor = new NodeEditor('demo@0.1.0')
@@ -26,7 +27,6 @@ export async function createEditor(container) {
     function handleSelect(props) {
       const id = props.id
       const label = 'connection'
-
       selector.add(
         {
           id,
@@ -42,7 +42,6 @@ export async function createEditor(container) {
       props.selected = true
       area.update('connection', id)
     }
-
     return h(CustomConnection, {
       onSelect: handleSelect
     })
@@ -84,7 +83,23 @@ export async function createEditor(container) {
 
   AreaExtensions.zoomAt(area, editor.getNodes())
 
+  // TODO : vuex 연동 필요?
   // const syncWithVuex = () => {}
 
-  return { editor, area }
+  return {
+    removeSelected: async () => {
+      for (const item of [...editor.getConnections()]) {
+        if (item.selected) {
+          await editor.removeConnection(item.id)
+        }
+      }
+      for (const item of [...editor.getNodes()]) {
+        if (item.selected) {
+          await removeNodeWithConnections(editor, item.id)
+        }
+      }
+    },
+    editor,
+    area
+  }
 }

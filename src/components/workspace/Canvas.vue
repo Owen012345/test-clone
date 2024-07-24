@@ -1,4 +1,5 @@
 <template>
+  <button @click="testRemove">Test Remove</button>
   <div id="editor" ref="editor" @drop="(e) => onDrop(e)" @dragover="onDragOver"></div>
 </template>
 
@@ -15,6 +16,9 @@ export default {
     }
   },
   methods: {
+    testRemove() {
+      this.editor.removeSelected()
+    },
     async onDrop(event) {
       event.preventDefault()
       const node = JSON.parse(event.dataTransfer.getData('node'))
@@ -30,8 +34,9 @@ export default {
   },
   async mounted() {
     const container = this.$refs.editor
-    const { editor, area } = await createEditor(container)
+    const { removeSelected, editor, area } = await createEditor(container)
 
+    editor.removeSelected = removeSelected
     this.editor = editor
     this.area = area
   },

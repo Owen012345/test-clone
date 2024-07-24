@@ -1,7 +1,9 @@
 <template>
-  <svg data-testid="connection" @click="handleClick">
-    <path :d="path" :style="pathStyle"></path>
-  </svg>
+  <div>
+    <svg data-testid="connection" @click="handleClick">
+      <path :d="path" :style="getPathStyle()"></path>
+    </svg>
+  </div>
 </template>
 
 <script>
@@ -9,31 +11,15 @@ import { defineComponent } from 'vue'
 
 export default defineComponent({
   props: ['data', 'start', 'end', 'path', 'onSelect'],
-  data() {
-    return {
-      cpProps: { ...this.data }
-    }
-  },
-  watch: {
-    data: {
-      handler(newData) {
-        this.cpProps = { ...newData }
-      },
-      deep: true,
-      immediate: true
-    }
-  },
   methods: {
     handleClick() {
-      this.onSelect(this.cpProps)
-    }
-  },
-  computed: {
-    pathStyle() {
+      this.onSelect(this.data)
+    },
+    getPathStyle() {
       return {
         fill: 'none',
         strokeWidth: '5px',
-        stroke: this.cpProps.selected ? 'rgb(61, 199, 61)' : 'black' // 선택된 상태에 따라 색상 변경
+        stroke: this.data.selected ? 'rgb(61, 199, 61)' : 'black' // 선택된 상태에 따라 색상 변경
       }
     }
   }
