@@ -1,5 +1,5 @@
 <template lang="">
-  <div>N01</div>
+  <div>N01 Settings</div>
 </template>
 <script>
 export default {}

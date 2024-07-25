@@ -26,6 +26,9 @@ const actions = {
   }
 }
 const getters = {
+  getSelectedNode: (state) => {
+    return state.selectedNode?.nodeId
+  },
   getNodes: (state) => state.nodes,
   getConnections: (state) => state.connections
 }
