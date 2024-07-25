@@ -1,9 +1,7 @@
 <template lang="">
-  <div>Node Details</div>
+  <div>N01</div>
 </template>
 <script>
-export default {
-  name: 'NodeDetails'
-}
+export default {}
 </script>
 <style lang=""></style>

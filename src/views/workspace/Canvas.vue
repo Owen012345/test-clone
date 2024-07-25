@@ -1,5 +1,5 @@
 <template>
-  <button @click="testRemove">Test Remove</button>
+  <!-- <button style="z-index: 100" @click="testRemove">Test Remove</button> -->
   <div id="editor" ref="editor" @drop="(e) => onDrop(e)" @dragover="onDragOver"></div>
 </template>
 

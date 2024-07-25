@@ -1,8 +1,12 @@
 const state = {
+  selectedNode: null,
   nodes: [],
   connections: []
 }
 const mutations = {
+  SET_NODE(state, node) {
+    state.selectedNode = node
+  },
   SET_NODES(state, nodes) {
     state.nodes = nodes
   },
@@ -11,6 +15,9 @@ const mutations = {
   }
 }
 const actions = {
+  updateSelectedNode({ commit }, node) {
+    commit('SET_NODE', node)
+  },
   updateNodes({ commit }, nodes) {
     commit('SET_NODES', nodes)
   },

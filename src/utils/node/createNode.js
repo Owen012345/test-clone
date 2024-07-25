@@ -1,14 +1,18 @@
 import { ClassicPreset } from 'rete'
 
 class Node extends ClassicPreset.Node {
-  width = 120
-  height = 80
+  constructor(label, nodeId) {
+    super(label)
+    this.width = 120
+    this.height = 80
+    this.nodeId = nodeId
+  }
 }
 
 export async function createNode(container, area, selectedNode, event) {
   const socket = new ClassicPreset.Socket('socket')
 
-  const node = new Node(selectedNode.label)
+  const node = new Node(selectedNode.label, selectedNode.id)
 
   if (selectedNode.options.input) {
     for (let i = 0; i < selectedNode.options.input; i++) {

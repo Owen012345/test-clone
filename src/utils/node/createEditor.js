@@ -1,5 +1,6 @@
 import { h } from 'vue'
 import { NodeEditor } from 'rete'
+import store from '@/stores'
 import { AreaPlugin, AreaExtensions } from 'rete-area-plugin'
 import {
   BidirectFlow,
@@ -67,6 +68,20 @@ export async function createEditor(container) {
   area.use(connection)
   area.use(render)
 
+  // Rete.js Event watcher
+  area.addPipe((context) => {
+    if (context.type === 'nodepicked') {
+      const allNodes = editor.getNodes(context.data.id)
+
+      const selectedNodes = allNodes.filter((node) => node.selected === true)
+
+      if (selectedNodes) {
+        store.dispatch('workflow/updateSelectedNode', selectedNodes[0])
+      }
+    }
+    return context
+  })
+
   editor.addPipe((context) => {
     if (
       context.type === 'nodecreated' ||
@@ -79,6 +94,7 @@ export async function createEditor(container) {
     }
     return context
   })
+  //
 
   AreaExtensions.simpleNodesOrder(area)
 
