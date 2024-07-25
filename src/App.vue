@@ -19,7 +19,7 @@ export default {
   padding-top: 80px;
   padding-bottom: 0px;
   min-height: calc(100% - 80px);
-  height: calc(100% - 80px);
+  height: 100%;
   overflow-y: auto;
 }
 </style>
