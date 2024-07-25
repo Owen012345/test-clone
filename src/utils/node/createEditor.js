@@ -8,8 +8,8 @@ import {
 } from 'rete-connection-plugin'
 import { VuePlugin, Presets } from 'rete-vue-plugin'
 
-import CustomNode from '@/components/workspace/node/CustomNode.vue'
-import CustomConnection from '@/components/workspace/node/CustomConnection.vue'
+import CustomNode from '@/views/workspace/node/CustomNode.vue'
+import CustomConnection from '@/views/workspace/node/CustomConnection.vue'
 import { removeNodeWithConnections } from './removeNodeWithConnections'
 
 export async function createEditor(container) {
@@ -74,7 +74,8 @@ export async function createEditor(container) {
       context.type === 'connectionremoved' ||
       context.type === 'connectioncreated'
     ) {
-      console.log(context)
+      // console.log(context)
+      // console.log(editor.getConnections(), editor.getNodes())
     }
     return context
   })

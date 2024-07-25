@@ -8,9 +8,9 @@
   </div>
 </template>
 <script>
-import FlowChart from '@/components/workspace/Canvas.vue'
-import NodeDetails from '@/components/workspace/NodeDetails.vue'
-import NodeList from '@/components/workspace/NodeList.vue'
+import FlowChart from '@/views/workspace/Canvas.vue'
+import NodeDetails from '@/views/workspace/NodeDetails.vue'
+import NodeList from '@/views/workspace/NodeList.vue'
 
 export default {
   name: 'Workspace',
