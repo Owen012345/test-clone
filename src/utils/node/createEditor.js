@@ -12,6 +12,7 @@ import { VuePlugin, Presets } from 'rete-vue-plugin'
 import CustomNode from '@/views/workflow/node/CustomNode.vue'
 import CustomConnection from '@/views/workflow/node/CustomConnection.vue'
 import { removeNodeWithConnections } from './removeNodeWithConnections'
+import { checkMultiplePort } from './handleConnections'
 
 export async function createEditor(container) {
   const editor = new NodeEditor('demo@0.1.0')
@@ -71,7 +72,12 @@ export async function createEditor(container) {
   // Rete.js Event watcher
 
   area.addPipe((context) => {
+    if (context.type === 'pointerdown') {
+      // 빈 공간 클릭 시 선택 해제
+      store.dispatch('workflow/removeNode')
+    }
     if (context.type === 'nodepicked') {
+      console.log(context)
       const allNodes = editor.getNodes(context.data.id)
 
       const selectedNodes = allNodes.filter((node) => node.selected === true)
@@ -87,12 +93,27 @@ export async function createEditor(container) {
     if (
       context.type === 'nodecreated' ||
       context.type === 'noderemoved' ||
-      context.type === 'connectionremoved' ||
-      context.type === 'connectioncreated'
+      context.type === 'connectionremoved'
     ) {
       // console.log(context)
       // console.log(editor.getConnections(), editor.getNodes())
     }
+    if (context.type === 'connectioncreated') {
+      // input 에 연결 되었을때
+      const { data } = context
+      const targetInput = data.targetInput // 생성된 connection 의 target input id
+      const targetNode = editor.getNode(data.target)
+
+      checkMultiplePort(editor, targetNode, targetInput)
+      // const isMultiplePort = targetNode.inputs[targetInput].multipleConnections
+      // console.log(editor)
+      // if (!isMultiplePort && targetNode.inputs[targetInput].connections.length > 1) {
+      //   editor.removeConnection(data.id)
+      // }
+
+      // console.log(targetNode)
+    }
+
     return context
   })
   //

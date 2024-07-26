@@ -19,9 +19,21 @@ export default {
   data() {
     return {
       nodes: [
-        { id: 'N01', label: 'CSV Reader', options: { input: 1, output: 2 } },
-        { id: 'N02', label: 'CSV Writer', options: { input: 0, output: 1 } },
-        { id: 'N03', label: 'File Writer', options: { input: 1, output: 1 } }
+        {
+          id: 'N01',
+          label: 'CSV Reader',
+          options: { input: { cnt: 0 }, output: { cnt: 2, multiple: false } }
+        },
+        {
+          id: 'N02',
+          label: 'CSV Writer',
+          options: { input: { cnt: 2, multiple: true }, output: { cnt: 1, multiple: true } }
+        },
+        {
+          id: 'N03',
+          label: 'File Writer',
+          options: { input: { cnt: 1, multiple: false }, output: { cnt: 1, multiple: false } }
+        }
       ]
     }
   },

@@ -8,13 +8,10 @@
 
 <script>
 import { defineComponent } from 'vue'
-// import { mapActions } from 'vuex'
 export default defineComponent({
   props: ['data', 'start', 'end', 'path', 'onSelect'],
   methods: {
-    // ...mapActions('workflow', ['removeNode']),
     handleClick() {
-      // this.removeNode()
       this.onSelect(this.data)
     },
     getPathStyle() {
