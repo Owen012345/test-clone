@@ -12,6 +12,9 @@ const mutations = {
   },
   SET_CONNECTIONS(state, connections) {
     state.connections = connections
+  },
+  REMOVE_NODE(state) {
+    state.selectedNode = null
   }
 }
 const actions = {
@@ -23,6 +26,9 @@ const actions = {
   },
   updateConnections({ commit }, connections) {
     commit('SET_CONNECTIONS', connections)
+  },
+  removeNode({ commit }) {
+    commit('REMOVE_NODE')
   }
 }
 const getters = {

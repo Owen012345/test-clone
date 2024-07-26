@@ -11,7 +11,7 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import ComponentRender from '@/views/workspace/details/ComponentRender.vue'
+import ComponentRender from '@/views/workflow/details/ComponentRender.vue'
 export default {
   name: 'NodeDetails',
   components: { ComponentRender },

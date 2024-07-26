@@ -1,5 +1,5 @@
 <template lang="">
-  <div class="workspace">
+  <div class="workflow">
     <NodeList class="node-list" />
     <div class="main-content">
       <FlowChart class="flow-chart" />
@@ -8,12 +8,12 @@
   </div>
 </template>
 <script>
-import FlowChart from '@/views/workspace/Canvas.vue'
-import NodeDetails from '@/views/workspace/NodeDetails.vue'
-import NodeList from '@/views/workspace/NodeList.vue'
+import FlowChart from '@/views/workflow/Canvas.vue'
+import NodeDetails from '@/views/workflow/NodeDetails.vue'
+import NodeList from '@/views/workflow/NodeList.vue'
 
 export default {
-  name: 'Workspace',
+  name: 'Workflow',
   components: {
     FlowChart,
     NodeDetails,
@@ -22,7 +22,7 @@ export default {
 }
 </script>
 <style>
-.workspace {
+.workflow {
   display: flex;
   height: 100%;
 }

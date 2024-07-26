@@ -9,8 +9,8 @@ import {
 } from 'rete-connection-plugin'
 import { VuePlugin, Presets } from 'rete-vue-plugin'
 
-import CustomNode from '@/views/workspace/node/CustomNode.vue'
-import CustomConnection from '@/views/workspace/node/CustomConnection.vue'
+import CustomNode from '@/views/workflow/node/CustomNode.vue'
+import CustomConnection from '@/views/workflow/node/CustomConnection.vue'
 import { removeNodeWithConnections } from './removeNodeWithConnections'
 
 export async function createEditor(container) {
@@ -69,6 +69,7 @@ export async function createEditor(container) {
   area.use(render)
 
   // Rete.js Event watcher
+
   area.addPipe((context) => {
     if (context.type === 'nodepicked') {
       const allNodes = editor.getNodes(context.data.id)

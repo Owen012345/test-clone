@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '@/views/home/Home.vue'
-import Workspace from '@/views/workspace/Workspace.vue'
+import Workflow from '@/views/workflow/Workflow.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -11,9 +11,9 @@ const router = createRouter({
       component: Home
     },
     {
-      path: '/workspace',
-      name: 'Workspace',
-      component: Workspace
+      path: '/workflow',
+      name: 'Workflow',
+      component: Workflow
     }
   ]
 })
