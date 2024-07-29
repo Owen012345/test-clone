@@ -73,7 +73,6 @@ export async function createEditor(container) {
 
   area.addPipe((context) => {
     if (context.type === 'pointerdown') {
-      // 빈 공간 클릭 시 선택 해제
       store.dispatch('workflow/removeNode')
     }
     if (context.type === 'nodepicked') {

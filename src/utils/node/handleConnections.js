@@ -1,5 +1,5 @@
 export function checkMultiplePort(editor, connectionId, targetNode, targetInput) {
-  // editor / 타겟 노드 / 타겟 노드의 input 포트 정보
+  // editor / 추가된 커넥션 id / 타겟 노드 / 타겟 노드의 input 포트 정보
 
   // 1. 모든 connections 에서 targetNode의 targetInput에 해당하는 connection을 찾는다.
   // 2. targetNode의 targetInput 속성에 multipleConnections 가 true 인지 확인한다.

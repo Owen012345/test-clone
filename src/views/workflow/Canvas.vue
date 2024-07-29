@@ -1,5 +1,4 @@
 <template>
-  <!-- <button style="z-index: 100" @click="testRemove">Test Remove</button> -->
   <div id="editor" ref="editor" @drop="(e) => onDrop(e)" @dragover="onDragOver"></div>
 </template>
 
@@ -16,9 +15,6 @@ export default {
     }
   },
   methods: {
-    testRemove() {
-      this.editor.removeSelected()
-    },
     async onDrop(event) {
       event.preventDefault()
       const node = JSON.parse(event.dataTransfer.getData('node'))
@@ -27,12 +23,20 @@ export default {
         await createNode(this.editor, this.area, node, event)
       }
     },
-
     onDragOver(event) {
       event.preventDefault()
+    },
+
+    handleKeydown(event) {
+      console.log(event.key)
+      if (event.key === 'Delete') {
+        this.editor.removeSelected()
+      }
     }
   },
   async mounted() {
+    window.addEventListener('keydown', this.handleKeydown)
+
     const container = this.$refs.editor
     const { removeSelected, editor, area } = await createEditor(container)
 
@@ -40,7 +44,9 @@ export default {
     this.editor = editor
     this.area = area
   },
-  beforeUnmount() {}
+  beforeUnmount() {
+    window.removeEventListener('keydown', this.handleKeydown)
+  }
 }
 </script>
 
