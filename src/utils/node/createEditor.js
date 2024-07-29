@@ -99,11 +99,15 @@ export async function createEditor(container) {
     }
     if (context.type === 'connectioncreated') {
       const { data } = context
-      const targetInput = data.targetInput
+
+      const targetInput = data.targetInput // targetNode 의 input id
+      const sourceOutput = data.sourceOutput // sourceNode 의 output id
+
       const targetNode = editor.getNode(data.target)
+      const sourceNode = editor.getNode(data.source)
       const connectionId = data.id
 
-      checkMultiplePort(editor, connectionId, targetNode, targetInput)
+      checkMultiplePort(editor, connectionId, targetNode, targetInput, sourceNode, sourceOutput)
     }
 
     return context
