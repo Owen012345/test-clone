@@ -1,10 +1,10 @@
 <template lang="">
   <div class="workflow">
-    <div class="sidebar-content">
+    <div class="sidebar-container">
       <NodeExecution class="flow-execution" />
       <NodeList class="node-list" />
     </div>
-    <div class="main-content">
+    <div class="main-container">
       <FlowChart class="flow-chart" />
       <NodeDetails class="node-details" />
     </div>
@@ -37,12 +37,12 @@ export default {
 .node-list {
   flex: 9;
 }
-.main-content {
+.main-container {
   display: flex;
   flex: 1;
   flex-direction: column;
 }
-.sidebar-content {
+.sidebar-container {
   display: flex;
   width: 220px;
   border-right: 1px solid #ccc;
