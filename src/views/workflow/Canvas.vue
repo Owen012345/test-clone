@@ -28,7 +28,6 @@ export default {
     },
 
     handleKeydown(event) {
-      console.log(event.key)
       if (event.key === 'Delete') {
         this.editor.removeSelected()
       }

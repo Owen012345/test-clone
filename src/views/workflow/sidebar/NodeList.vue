@@ -47,7 +47,6 @@ export default {
 
 <style>
 .sidebar {
-  width: 200px;
   background-color: #f4f4f4;
   padding: 10px;
 }

@@ -1,6 +1,9 @@
 <template lang="">
   <div class="workflow">
-    <NodeList class="node-list" />
+    <div class="sidebar-content">
+      <NodeExecution class="node-execution" />
+      <NodeList class="node-list" />
+    </div>
     <div class="main-content">
       <FlowChart class="flow-chart" />
       <NodeDetails class="node-details" />
@@ -10,7 +13,7 @@
 <script>
 import FlowChart from '@/views/workflow/Canvas.vue'
 import NodeDetails from '@/views/workflow/NodeDetails.vue'
-import NodeList from '@/views/workflow/NodeList.vue'
+import NodeList from '@/views/workflow/sidebar/NodeList.vue'
 
 export default {
   name: 'Workflow',
@@ -21,21 +24,30 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
 .workflow {
   display: flex;
   height: 100%;
 }
 
+.node-execution {
+  min-height: 45px;
+}
 .node-list {
-  width: 200px;
-  border-right: 1px solid #ccc;
-  box-sizing: border-box;
+  flex: 9;
 }
 
 .main-content {
   display: flex;
   flex: 1;
+  flex-direction: column;
+}
+
+.sidebar-content {
+  display: flex;
+  width: 220px;
+  border-right: 1px solid #ccc;
+  box-sizing: border-box;
   flex-direction: column;
 }
 

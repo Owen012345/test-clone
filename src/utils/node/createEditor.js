@@ -9,8 +9,8 @@ import {
 } from 'rete-connection-plugin'
 import { VuePlugin, Presets } from 'rete-vue-plugin'
 
-import CustomNode from '@/views/workflow/node/CustomNode.vue'
-import CustomConnection from '@/views/workflow/node/CustomConnection.vue'
+import CustomNode from '@/components/nodes/node/CustomNode.vue'
+import CustomConnection from '@/components/nodes/node/CustomConnection.vue'
 import { removeNodeWithConnections } from './removeNodeWithConnections'
 import { checkMultiplePort } from './handleConnections'
 
