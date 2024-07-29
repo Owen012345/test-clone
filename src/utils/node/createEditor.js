@@ -49,11 +49,15 @@ export async function createEditor(container) {
     })
   }
 
+  function CustomNodeBind() {
+    return h(CustomNode, {})
+  }
+
   render.addPreset(
     Presets.classic.setup({
       customize: {
         node() {
-          return CustomNode
+          return CustomNodeBind()
           // return Presets.classic.Node
         },
         connection() {

@@ -1,4 +1,5 @@
 <template>
+  <CustomNodeToolbar />
   <div class="node" :class="{ selected: data.selected }" :style="nodeStyles()" data-testid="node">
     <div class="title" data-testid="title">{{ data.label }}</div>
     <!-- Outputs-->
@@ -75,6 +76,7 @@
 <script lang="js">
 import { defineComponent } from 'vue'
 import { Ref } from 'rete-vue-plugin'
+import CustomNodeToolbar from './CustomNodeToolbar.vue'
 
 function sortByIndex(entries) {
   entries.sort((a, b) => {
@@ -106,7 +108,8 @@ export default defineComponent({
     }
   },
   components: {
-    Ref
+    Ref,
+    CustomNodeToolbar
   }
 })
 </script>
