@@ -99,19 +99,12 @@ export async function createEditor(container) {
       // console.log(editor.getConnections(), editor.getNodes())
     }
     if (context.type === 'connectioncreated') {
-      // input 에 연결 되었을때
       const { data } = context
-      const targetInput = data.targetInput // 생성된 connection 의 target input id
+      const targetInput = data.targetInput
       const targetNode = editor.getNode(data.target)
+      const connectionId = data.id
 
-      checkMultiplePort(editor, targetNode, targetInput)
-      // const isMultiplePort = targetNode.inputs[targetInput].multipleConnections
-      // console.log(editor)
-      // if (!isMultiplePort && targetNode.inputs[targetInput].connections.length > 1) {
-      //   editor.removeConnection(data.id)
-      // }
-
-      // console.log(targetNode)
+      checkMultiplePort(editor, connectionId, targetNode, targetInput)
     }
 
     return context
