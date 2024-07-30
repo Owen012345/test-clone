@@ -1,4 +1,5 @@
 const state = {
+  editor: null,
   selectedNode: null,
   nodes: [],
   connections: []
@@ -15,6 +16,9 @@ const mutations = {
   },
   REMOVE_NODE(state) {
     state.selectedNode = null
+  },
+  SET_EDITOR(state, editor) {
+    state.editor = editor
   }
 }
 const actions = {
@@ -32,6 +36,7 @@ const actions = {
   }
 }
 const getters = {
+  getEditor: (state) => state.editor,
   getSelectedNode: (state) => {
     return state.selectedNode?.nodeId
   },

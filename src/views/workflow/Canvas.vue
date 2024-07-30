@@ -5,6 +5,7 @@
 <script>
 import { createEditor } from '@/utils/node/createEditor'
 import { createNode } from '@/utils/node/createNode'
+import { mapMutations } from 'vuex'
 
 export default {
   name: 'Canvas',
@@ -15,6 +16,7 @@ export default {
     }
   },
   methods: {
+    ...mapMutations('workflow', ['SET_EDITOR']),
     async onDrop(event) {
       event.preventDefault()
       const node = JSON.parse(event.dataTransfer.getData('node'))
@@ -42,6 +44,8 @@ export default {
     editor.removeSelected = removeSelected
     this.editor = editor
     this.area = area
+
+    this.SET_EDITOR(editor)
   },
   beforeUnmount() {
     window.removeEventListener('keydown', this.handleKeydown)

@@ -17,7 +17,8 @@ export default {
   },
   methods: {
     flowExecution() {
-      getDataStructure() // this 없이 함수 호출
+      console.log('execution')
+      // getDataStructure()
     }
   }
 }
@@ -26,7 +27,7 @@ export default {
 .node-execution {
   display: flex;
   > div {
-    flex: 1; /* 기본 flex 비율을 1로 설정 */
+    flex: 1;
     padding: 10px;
     background-color: lightgrey;
     border: 1px solid #ddd;
