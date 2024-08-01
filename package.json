@@ -19,7 +19,14 @@
     "rete-vue-plugin": "^2.1.0",
     "vue": "^3.4.29",
     "vue-router": "^4.3.3",
-    "vuex": "^4.1.0"
+    "vuex": "^4.1.0",
+    "@jsonforms/core": "^3.3.0",
+    "@jsonforms/vue": "^3.3.0",
+    "@jsonforms/vue-vuetify": "^3.3.0-preview.0",
+    "vuetify": "^3.6.13",
+    "webfontloader": "^1.0.0",
+    "@mdi/font": "7.0.96",
+    "roboto-fontface": "*"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.8.0",
