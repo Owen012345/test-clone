@@ -55,5 +55,7 @@ export default {
 }
 .node-details {
   flex: 2;
+  max-height: 200px;
+  overflow-y: auto;
 }
 </style>

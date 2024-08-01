@@ -1,7 +1,19 @@
 <template lang="">
-  <div>N01 Settings</div>
+  <div>{{ selectedTab }}</div>
+  <JsonForms />
 </template>
 <script>
-export default {}
+import JsonForms from '@/components/jsonforms/index.vue'
+export default {
+  name: 'N01-Default',
+  props: {
+    selectedTab: {
+      type: String
+    }
+  },
+  components: {
+    JsonForms
+  }
+}
 </script>
 <style lang=""></style>

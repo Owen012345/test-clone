@@ -1,14 +1,22 @@
 <template lang="">
-  <b-tabs content-class="mt-3" v-model="selectedTabIdx">
-    <b-tab v-for="(tab, idx) in tabs" :key="idx" :title="tab.title">
-      <ComponentRender
-        v-if="getSelectedNode"
-        :selectedTab="selectedTabTitle"
-        :selectedNode="selectedNode"
-      />
-    </b-tab>
-  </b-tabs>
+  <div>
+    <v-tabs v-model="selectedTabIdx">
+      <v-tab v-for="(tab, idx) in tabs" :key="idx" :title="tab.title">
+        {{ tab.title }}
+      </v-tab>
+    </v-tabs>
+    <v-tabs-window v-model="selectedTabIdx">
+      <v-tabs-window-item v-for="(tab, idx) in tabs" :key="idx">
+        <ComponentRender
+          v-if="getSelectedNode"
+          :selectedTab="selectedTabTitle"
+          :selectedNode="selectedNode"
+        />
+      </v-tabs-window-item>
+    </v-tabs-window>
+  </div>
 </template>
+
 <script>
 import { mapGetters } from 'vuex'
 import ComponentRender from '@/views/workflow/details/ComponentRender.vue'
@@ -17,7 +25,7 @@ export default {
   components: { ComponentRender },
   data() {
     return {
-      selectedTabIdx: 0,
+      selectedTabIdx: 1,
       selectedTabTitle: '',
       tabs: [{ title: 'Metadata' }, { title: 'Settings' }, { title: 'Input' }, { title: 'Output' }]
     }
@@ -39,4 +47,5 @@ export default {
   methods: {}
 }
 </script>
-<style lang=""></style>
+
+<style lang="scss"></style>

@@ -1,5 +1,5 @@
 <template lang="">
-  <component v-if="selectedTab && selectedNode" :is="selectedNode" />
+  <component v-if="selectedTab && selectedNode" :is="selectedNode" :selectedTab="selectedTab" />
 </template>
 <script>
 import N01 from '@/components/nodes/N01/N01.vue'
