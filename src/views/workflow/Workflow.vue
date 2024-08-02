@@ -5,8 +5,9 @@
       <NodeList class="node-list" />
     </div>
     <div class="main-container">
-      <FlowChart class="flow-chart" />
-      <NodeDetails class="node-details" />
+      <FlowChart class="flow-chart" :style="{ flex: flowChartFlex }" />
+      <div class="resizer" id="resizer" @mousedown="startResize"></div>
+      <NodeDetails class="node-details" :style="{ flex: nodeDetailsFlex }" />
     </div>
   </div>
 </template>
@@ -23,6 +24,45 @@ export default {
     NodeDetails,
     NodeList,
     NodeExecution
+  },
+  data() {
+    return {
+      isResizing: false,
+      initialY: 0,
+      initialFlexFlowChart: 8,
+      initialFlexNodeDetails: 2,
+      flowChartFlex: 8,
+      nodeDetailsFlex: 2
+    }
+  },
+  methods: {
+    startResize(event) {
+      this.isResizing = true
+      this.initialY = event.clientY
+      this.initialFlexFlowChart = this.flowChartFlex
+      this.initialFlexNodeDetails = this.nodeDetailsFlex
+      window.addEventListener('mousemove', this.resize)
+      window.addEventListener('mouseup', this.stopResize)
+    },
+    resize(event) {
+      if (this.isResizing) {
+        const deltaY = event.clientY - this.initialY
+        const totalFlex = this.initialFlexFlowChart + this.initialFlexNodeDetails
+        const newFlowChartFlex = Math.max(
+          this.initialFlexFlowChart + deltaY / 100, // 조절 스케일을 조정할 수 있습니다.
+          1
+        )
+        const newNodeDetailsFlex = totalFlex - newFlowChartFlex
+
+        this.flowChartFlex = newFlowChartFlex
+        this.nodeDetailsFlex = newNodeDetailsFlex
+      }
+    },
+    stopResize() {
+      this.isResizing = false
+      window.removeEventListener('mousemove', this.resize)
+      window.removeEventListener('mouseup', this.stopResize)
+    }
   }
 }
 </script>
@@ -51,11 +91,15 @@ export default {
 }
 .flow-chart {
   flex: 8;
-  border-bottom: 1px solid #ccc;
 }
 .node-details {
   flex: 2;
-  max-height: 200px;
   overflow-y: auto;
+}
+.resizer {
+  cursor: s-resize;
+  height: 5px;
+  width: 100%;
+  background-color: #ccc;
 }
 </style>
