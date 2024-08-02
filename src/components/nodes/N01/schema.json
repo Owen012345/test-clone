@@ -1,0 +1,20 @@
+{
+    "type": "object",
+    "properties": {
+        "filterRadioEnum": {
+            "type": "string",
+            "enum": [
+                "Include rows by attribute value",
+                "Exclude rows by attribute value",
+                "Include rows by row number",
+                "Exclude rows by row number"
+            ]
+        },
+        "columSelectionEnum": {
+            "type": "string",
+            "enum": [
+                ""
+            ]
+        }
+    }
+}

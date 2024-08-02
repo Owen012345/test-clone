@@ -29,10 +29,10 @@ export default {
     return {
       isResizing: false,
       initialY: 0,
-      initialFlexFlowChart: 8,
-      initialFlexNodeDetails: 2,
-      flowChartFlex: 8,
-      nodeDetailsFlex: 2
+      initialFlexFlowChart: 2,
+      initialFlexNodeDetails: 8,
+      flowChartFlex: 2,
+      nodeDetailsFlex: 8
     }
   },
   methods: {
