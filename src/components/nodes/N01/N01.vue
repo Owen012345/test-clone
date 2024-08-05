@@ -1,6 +1,6 @@
 <template lang="">
-  <JsonForms :data="jsonData" :schema="jsonschema" :uischema="jsonUiSchema" @update:data="handleDataUpdate">
-  </JsonForms>  
+  <!-- <JsonForms :data="jsonData" :schema="jsonschema" :uischema="jsonUiSchema" @update:data="handleDataUpdate">
+  </JsonForms>   -->
   <v-container>
     <v-card flat>
       <v-card-title>
@@ -98,6 +98,27 @@
     </v-card>
     <v-card flat v-if="formData.filterRadioEnum === 'Include rows by row number'">
       <v-card-title>Row Number Range</v-card-title>
+      <v-card-text>
+        <v-row>
+          <v-col cols="4">
+            <v-text-field 
+              label="Min" 
+              v-model="formData.rowNumberRangeMin"
+              variant="outlined"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="4">
+            <v-text-field 
+              label="Max" 
+              v-model="formData.rowNumberRangeMax"
+              variant="outlined"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="4">
+            <v-checkbox v-model="formData.rowNumberRangeEnd" label="to the end of the table"></v-checkbox>
+          </v-col>
+        </v-row>
+      </v-card-text>
     </v-card>
   </v-container>
 </template>
@@ -126,6 +147,9 @@ export default {
         includeRowValueEnum: "use pattern matching",
         rangeCheckingMin: '',
         rangeCheckingMax: '',
+        rowNumberRangeMin: '',
+        rowNumberRangeMax: '',
+        rowNumberRangeEnd: false
       }
     }
   },
@@ -133,15 +157,15 @@ export default {
     JsonForms
   },
   methods: {
-    handleDataUpdate(updatedData) {
-      this.jsonData = updatedData
-      console.log(this.jsonData)
-    }
+    // handleDataUpdate(updatedData) {
+    //   this.jsonData = updatedData
+    //   console.log(this.jsonData)
+    // }
   },
   computed: {
-    jsonschema() {
-      return schema
-    },
+    // jsonschema() {
+    //   return schema
+    // },
     jsonschema2() {
       return schema2
     },
@@ -150,7 +174,7 @@ export default {
     },
   },
   created() {
-    this.jsonData = data
+    // this.jsonData = data
   }
 }
 </script>
