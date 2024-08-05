@@ -8,13 +8,15 @@
                 "Exclude rows by attribute value",
                 "Include rows by row number",
                 "Exclude rows by row number"
-            ]
+            ],
+            "default" : "Include rows by attribute value"
         },
-        "columSelectionEnum": {
+        "columnValueMatching": {
             "type": "string",
             "enum": [
                 null
-            ]
+            ],
+            "default" : null
         },
         "includeRowValueEnum" : {
             "type": "string",
@@ -23,18 +25,39 @@
                 "use range checking",
                 "only missing values"
             ],
-            "properties": {
-                "patternMatching": {
-                    "type": "string"
-                },
-                "matchingType" : {
-                    "type": "string",
-                    "enum": [
-                        "equals",
-                        "contains"
-                    ]
-                }
-            }
+            "default" : "use pattern matching"
+        },
+        "patternMatching": {
+            "type": "string",
+            "default" : ""
+        },
+        "patternMatchingType" : {
+            "type": "string",
+            "enum": [
+                "equals",
+                "contains"
+            ],
+            "default" : "equals"
+        },
+        "rangeCheckingMin": {
+            "type":"number",
+            "default" : ""
+        },
+        "rangeCheckingMax": {
+            "type":"number",
+            "default" : ""
+        },
+        "rowNumberRangeMin": {
+            "type":"number",
+            "default" : ""
+        },
+        "rowNumberRangeMax": {
+            "type":"number",
+            "default" : ""
+        },
+        "endOfTheTable" :{
+            "type":"boolean",
+            "default" : false
         }
     }
 }

@@ -1,21 +1,19 @@
 <template lang="">
-  <!-- <JsonForms :data="jsonData" :schema="jsonschema" :uischema="jsonUiSchema" @update:data="handleDataUpdate">
-  </JsonForms>   -->
   <v-container>
-    <v-card flat>
+    <!-- <v-card flat>
       <v-card-title>
         Form Data
       </v-card-title>
       <v-card-text>
         <pre>{{ formData }}</pre>
       </v-card-text>
-    </v-card>
+    </v-card> -->
     <v-card flat>
       <v-card-title>Filter</v-card-title>
       <v-card-text>
         <v-radio-group v-model="formData.filterRadioEnum" inline >
           <v-radio
-            v-for="(item, index) in jsonschema2.properties.filterRadioEnum.enum"
+            v-for="(item, index) in schema.properties.filterRadioEnum.enum"
             :key="index"
             :label="item"
             :value="item"
@@ -29,13 +27,13 @@
       <v-card-text>
         <v-row>
           <v-col cols="3" >
-            <v-select variant="outlined" v-model="formData.columnValueMatching" :items="jsonschema2.properties.columnValueMatching.enum"></v-select>
+            <v-select variant="outlined" v-model="formData.columnValueMatching" :items="schema.properties.columnValueMatching.enum"></v-select>
           </v-col>
         </v-row>
         <v-row>
           <v-radio-group v-model="formData.includeRowValueEnum">
             <template
-              v-for="(item, index) in jsonschema2.properties.includeRowValueEnum.enum"
+              v-for="(item, index) in schema.properties.includeRowValueEnum.enum"
               :key="index"
             >
               <v-radio
@@ -60,7 +58,7 @@
                   <v-col>
                     <v-radio-group v-model="formData.patternMatchingType" inline :disabled="formData.includeRowValueEnum !== 'use pattern matching'" >
                       <v-radio
-                        v-for="(item, index) in jsonschema2.properties.patternMatchingType.enum"
+                        v-for="(item, index) in schema.properties.patternMatchingType.enum"
                         :key="index"
                         :label="item"
                         :value="item"
@@ -123,11 +121,7 @@
   </v-container>
 </template>
 <script>
-import JsonForms from '@/components/jsonforms/index.vue'
 import schema from '@/components/nodes/N01/schema.json'
-import schema2 from '@/components/nodes/N01/schema2.json'
-import uiSchema from '@/components/nodes/N01/uiSchema.json'
-import data from '@/components/nodes/N01/data.json'
 
 export default {
   name: 'N01-Default',
@@ -139,42 +133,46 @@ export default {
   data() {
     return {
       jsonData: null,
+      schema: null,
       formData: {
-        filterRadioEnum : "Include rows by attribute value",
+        filterRadioEnum: "",
         columnValueMatching: null,
-        patternMatching: '',
-        patternMatchingType: null,
-        includeRowValueEnum: "use pattern matching",
-        rangeCheckingMin: '',
-        rangeCheckingMax: '',
-        rowNumberRangeMin: '',
-        rowNumberRangeMax: '',
-        rowNumberRangeEnd: false
+        includeRowValueEnum: "",
+        patternMatching: "",
+        patternMatchingType: "",
+        rangeCheckingMin: "",
+        rangeCheckingMax: "",
+        rowNumberRangeMin: "",
+        rowNumberRangeMax: "",
+        endOfTheTable: false
       }
     }
   },
   components: {
-    JsonForms
   },
   methods: {
-    // handleDataUpdate(updatedData) {
-    //   this.jsonData = updatedData
-    //   console.log(this.jsonData)
-    // }
   },
   computed: {
-    // jsonschema() {
-    //   return schema
-    // },
-    jsonschema2() {
-      return schema2
-    },
-    jsonUiSchema() {
-      return uiSchema
-    },
   },
   created() {
-    // this.jsonData = data
+    try {
+      this.schema = schema;
+      const property = schema.properties;
+
+      this.formData.filterRadioEnum = property.filterRadioEnum.default;
+      this.formData.columnValueMatching = property.columnValueMatching.default;
+      this.formData.includeRowValueEnum = property.includeRowValueEnum.default;
+      this.formData.patternMatching = property.patternMatching.default;
+      this.formData.patternMatchingType = property.patternMatchingType.default;
+      this.formData.rangeCheckingMin = property.rangeCheckingMin.default;
+      this.formData.rangeCheckingMax = property.rangeCheckingMax.default;
+      this.formData.rowNumberRangeMin = property.rowNumberRangeMin.default;
+      this.formData.rowNumberRangeMax = property.rowNumberRangeMax.default;
+      this.formData.endOfTheTable = property.endOfTheTable.default;
+
+    } catch (error) {
+      console.error('Failed to initialize formData:', error);
+    }
   }
 }
 </script>
