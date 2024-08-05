@@ -10,12 +10,7 @@
                     "label": "",
                     "scope": "#/properties/filterRadioEnum",
                     "options": {
-                        "format": "radio",
-                        "vuetify": {
-                            "v-radio-group": {
-                                "inline": true
-                            }
-                        }
+                        "format": "radio"
                     }
                 }
             ]
@@ -29,12 +24,29 @@
                     "label": "",
                     "scope": "#/properties/columSelectionEnum",
                     "options": {
-                        "vuetify": {
-                            "v-select": {
-                                "max-width": "300px"
-                            }
-                        }
                     }
+                },
+                {
+                    "type": "Control",
+                    "label": "",
+                    "scope": "#/properties/includeRowValueEnum",
+                    "options": {
+                        "format": "radio"
+                    },
+                    "elements": [
+                        {
+                            "type": "Control",
+                            "label": "",
+                            "scope": "#/properties/includeRowValueEnum/properties/patternMatching"
+                            
+                        },
+                        {
+                            "type": "Control",
+                            "label": "",
+                            "scope": "#/properties/includeRowValueEnum/properties/matchingType"
+                            
+                        }
+                    ]
                 }
             ]
         }

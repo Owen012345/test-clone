@@ -1,3 +1,4 @@
 {
-    "filterRadioEnum": "Include rows by attribute value"
+    "filterRadioEnum": "Include rows by attribute value",
+    "includeRowValueEnum": "use pattern matching"
 }

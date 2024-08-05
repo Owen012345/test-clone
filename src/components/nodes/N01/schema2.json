@@ -10,7 +10,7 @@
                 "Exclude rows by row number"
             ]
         },
-        "columSelectionEnum": {
+        "columnValueMatching": {
             "type": "string",
             "enum": [
                 null
@@ -22,19 +22,32 @@
                 "use pattern matching",
                 "use range checking",
                 "only missing values"
-            ],
-            "properties": {
-                "patternMatching": {
-                    "type": "string"
-                },
-                "matchingType" : {
-                    "type": "string",
-                    "enum": [
-                        "equals",
-                        "contains"
-                    ]
-                }
-            }
+            ]
+        },
+        "patternMatching": {
+            "type": "string"
+        },
+        "patternMatchingType" : {
+            "type": "string",
+            "enum": [
+                "equals",
+                "contains"
+            ]
+        },
+        "rangeCheckingMin": {
+            "type":"number"
+        },
+        "rangeCheckingMax": {
+            "type":"number"
+        },
+        "rowNumberRangeMin": {
+            "type":"number"
+        },
+        "rowNumberRangeMax": {
+            "type":"number"
+        },
+        "endOfTheTable" :{
+            "type":"boolean"
         }
     }
 }
