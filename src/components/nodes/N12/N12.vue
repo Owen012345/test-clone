@@ -121,7 +121,7 @@
   </v-container>
 </template>
 <script>
-import schema from '@/components/nodes/N01/schema.json'
+import schema from '@/components/nodes/N12/schema.json'
 
 export default {
   name: 'N01-Default',
