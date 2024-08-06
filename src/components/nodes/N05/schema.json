@@ -1,0 +1,32 @@
+{
+    "type": "object",
+    "properties": {
+        "readFromEnum": {
+            "type": "string",
+            "enum": [
+                "Local File System",
+                "Mountpoint",
+                "Relativer to",
+                "Server URL"
+            ],
+            "default": "Local File System"
+        },
+        "modeEnum": {
+            "type": "string",
+            "enum": [
+                "Files in Folder",
+                "Folders",
+                "Files and Folder"
+            ],
+            "default": "Files in Folder"
+        },
+        "includeParentFolder": {
+            "type": "boolean",
+            "default": false
+        },
+        "addFolderIdentiferColumn": {
+            "type": "boolean",
+            "default": false
+        }
+    }
+}

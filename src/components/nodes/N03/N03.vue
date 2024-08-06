@@ -51,11 +51,11 @@ export default {
       this.schema = schema
       const property = schema.properties
 
-      this.formData.readFromEnum = property.readFromEnum.default
-      this.formData.file = property.file.default
-      this.formData.columnDelimiter = property.columnDelimiter.default
-      this.formData.hasColumnHeader = property.hasColumnHeader.default
-      this.formData.hasRowId = property.hasRowId.default
+      this.formData.readFromEnum = property.readFromEnum?.default
+      this.formData.file = property.file?.default
+      this.formData.columnDelimiter = property.columnDelimiter?.default
+      this.formData.hasColumnHeader = property.hasColumnHeader?.default
+      this.formData.hasRowId = property.hasRowId?.default
     } catch (error) {
       console.error('Failed to initialize formData:', error)
     }

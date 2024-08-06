@@ -6,6 +6,7 @@ import N01 from '@/components/nodes/N01/N01.vue'
 import N02 from '@/components/nodes/N02/N02.vue'
 import N03 from '@/components/nodes/N03/N03.vue'
 import N04 from '@/components/nodes/N04/N04.vue'
+import N05 from '@/components/nodes/N05/N05.vue'
 import N12 from '@/components/nodes/N12/N12.vue'
 
 export default {
@@ -15,6 +16,7 @@ export default {
     N02,
     N03,
     N04,
+    N05,
     N12
   },
   props: {

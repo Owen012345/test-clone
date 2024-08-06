@@ -1,10 +1,7 @@
 <template lang="">
   <v-container>
     <CustomCard title="Input Location" flat>
-      <v-select
-        :items="schema.properties.pathEnum.enum"
-        v-model="formData.pathEnumDefault"
-      ></v-select>
+      <v-select :items="schema.properties.pathEnum.enum" v-model="formData.pathEnum"></v-select>
       <v-checkbox
         hide-details
         v-model="formData.failOnMissingPath"
@@ -17,14 +14,14 @@
       ></v-checkbox>
     </CustomCard>
     <CustomCard title="Reader Options" flat>
-      <v-radio-group v-model="formData.readerOptionRadioEnumDefault">
+      <v-radio-group v-model="formData.readerOptionRadioEnum">
         <template
           v-for="(item, index) in schema.properties.readerOptionRadioEnum.enum"
           :key="index"
         >
           <v-radio :label="item" :value="item"></v-radio>
           <v-text-field
-            :disabled="formData.readerOptionRadioEnumDefault !== 'Append column'"
+            :disabled="formData.readerOptionRadioEnum !== 'Append column'"
             hide-details
             v-if="item === 'Append column'"
             v-model="formData.appendColumnName"
@@ -51,10 +48,10 @@ export default {
     return {
       schema: null,
       formData: {
-        pathEnumDefault: null,
+        pathEnum: null,
         failOnMissingPath: false,
         failOnMissingValues: false,
-        readerOptionRadioEnumDefault: null,
+        readerOptionRadioEnum: null,
         appendColumnName: ''
       }
     }
@@ -64,11 +61,11 @@ export default {
       this.schema = schema
       const property = schema.properties
 
-      this.formData.pathEnumDefault = property.pathEnum.default
-      this.formData.failOnMissingPath = property.failOnMissingPath.default
-      this.formData.failOnMissingValues = property.failOnMissingValues.default
-      this.formData.readerOptionRadioEnumDefault = property.readerOptionRadioEnum.default
-      this.formData.appendColumnName = property.appendColumnName.default
+      this.formData.pathEnum = property.pathEnum?.default
+      this.formData.failOnMissingPath = property.failOnMissingPath?.default
+      this.formData.failOnMissingValues = property.failOnMissingValues?.default
+      this.formData.readerOptionRadioEnum = property.readerOptionRadioEnum?.default
+      this.formData.appendColumnName = property.appendColumnName?.default
     } catch (error) {
       console.error('Failed to initialize formData:', error)
     }
