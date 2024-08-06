@@ -1,0 +1,4 @@
+@use 'vuetify/settings' with (
+    $list-item-padding: 0px 0px,
+    $expansion-panel-text-padding: 0px
+);
