@@ -18,7 +18,7 @@ export default {
   methods: {
     flowExecution() {
       console.log('execution')
-      // getDataStructure()
+      getDataStructure()
     }
   }
 }

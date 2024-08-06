@@ -1,0 +1,484 @@
+{
+    "Collection": [
+      {"id": "N01", "label": "CSV Reader","options": { "input": { "cnt": 0 }, "output": { "cnt": 2, "multiple": false }}},
+      {"id": "N02", "label": "CSV Writer","options": { "input": { "cnt": 2, "multiple": true }, "output": { "cnt": 1, "multiple": true }}},
+      {"id": "N03", "label": "File Reader","options": { "input": { "cnt": 1, "multiple": false }, "output": { "cnt": 1, "multiple": false }}},
+      {
+        "id": "N04", 
+        "label": "Path to URI", 
+        "options": {
+          "input": {"cnt": 1}, 
+          "output": {"cnt": 1}
+        }
+      },
+      {
+        "id": "N05", 
+        "label": "List Files/Folders", 
+        "options": {
+          "input": {"cnt": 1}, 
+          "output": {"cnt": 1}
+        }
+      },
+      {
+        "id": "N06", 
+        "label": "URL to String", 
+        "options": {
+          "input": {"cnt": 1}, 
+          "output": {"cnt": 1}
+        }
+      },
+      {
+        "id": "N07", 
+        "label": "String to URI", 
+        "options": {
+          "input": {"cnt": 1}, 
+          "output": {"cnt": 1}
+        }
+      },
+      {
+        "id": "N08", 
+        "label": "URI to String", 
+        "options": {
+          "input": {"cnt": 1}, 
+          "output": {"cnt": 1}
+        }
+      }
+    ],
+    "RestAPI": [
+      {
+        "id": "N09", 
+        "label": "GET Request", 
+        "options": {
+          "input": {"cnt": 1}, 
+          "output": {"cnt": 1}
+        }
+      },
+      {
+        "id": "N10", 
+        "label": "POST Request", 
+        "options": {
+          "input": {"cnt": 1}, 
+          "output": {"cnt": 1}
+        }
+      },
+      {
+        "id": "N11", 
+        "label": "PUT Request", 
+        "options": {
+          "input": {"cnt": 1}, 
+          "output": {"cnt": 1}
+        }
+      },
+      {
+        "id": "N12", 
+        "label": "DELETE Request", 
+        "options": {
+          "input": {"cnt": 1}, 
+          "output": {"cnt": 1}
+        }
+      }
+    ],
+    "Preprocess": [
+      {
+        "id": "N13", 
+        "label": "Row Filter", 
+        "options": {
+          "input": {"cnt": 1}, 
+          "output": {"cnt": 1}
+        }
+      },
+      {
+        "id": "N14", 
+        "label": "Column Filter", 
+        "options": {
+          "input": {"cnt": 1}, 
+          "output": {"cnt": 1}
+        }
+      },
+      {
+        "id": "N15", 
+        "label": "GroupBy", 
+        "options": {
+          "input": {"cnt": 1}, 
+          "output": {"cnt": 1}
+        }
+      },
+      {
+        "id": "N16", 
+        "label": "Missing Value", 
+        "options": {
+          "input": {"cnt": 1}, 
+          "output": {"cnt": 1}
+        }
+      },
+      {
+        "id": "N17", 
+        "label": "Sorter", 
+        "options": {
+          "input": {"cnt": 1}, 
+          "output": {"cnt": 1}
+        }
+      },
+      {
+        "id": "N18", 
+        "label": "Normalizer", 
+        "options": {
+          "input": {"cnt": 1}, 
+          "output": {"cnt": 1}
+        }
+      }
+    ],
+    "Transformation": [
+      {
+        "id": "N22", 
+        "label": "Create Date&Time Range", 
+        "options": {
+          "input": {"cnt": 1}, 
+          "output": {"cnt": 1}
+        }
+      },
+      {
+        "id": "N23", 
+        "label": "Column Appender", 
+        "options": {
+          "input": {"cnt": 1}, 
+          "output": {"cnt": 1}
+        }
+      },
+      {
+        "id": "N24", 
+        "label": "String to Date&Time", 
+        "options": {
+          "input": {"cnt": 1}, 
+          "output": {"cnt": 1}
+        }
+      },
+      {
+        "id": "N25", 
+        "label": "Date&Time to String", 
+        "options": {
+          "input": {"cnt": 1}, 
+          "output": {"cnt": 1}
+        }
+      },
+      {
+        "id": "N26", 
+        "label": "Date&Time-based Row Filter", 
+        "options": {
+          "input": {"cnt": 1}, 
+          "output": {"cnt": 1}
+        }
+      },
+      {
+        "id": "N27", 
+        "label": "Date&Time Difference", 
+        "options": {
+          "input": {"cnt": 1}, 
+          "output": {"cnt": 1}
+        }
+      }
+    ],
+    "Visualization": [
+      {
+        "id": "N29", 
+        "label": "Bar Chart", 
+        "options": {
+          "input": {"cnt": 1}, 
+          "output": {"cnt": 1}
+        }
+      },
+      {
+        "id": "N30", 
+        "label": "Line Plot", 
+        "options": {
+          "input": {"cnt": 1}, 
+          "output": {"cnt": 1}
+        }
+      },
+      {
+        "id": "N31", 
+        "label": "Pie Chart", 
+        "options": {
+          "input": {"cnt": 1}, 
+          "output": {"cnt": 1}
+        }
+      },
+      {
+        "id": "N32", 
+        "label": "Scatter Plot", 
+        "options": {
+          "input": {"cnt": 1}, 
+          "output": {"cnt": 1}
+        }
+      },
+      {
+        "id": "N33", 
+        "label": "Statistics View", 
+        "options": {
+          "input": {"cnt": 1}, 
+          "output": {"cnt": 1}
+        }
+      },
+      {
+        "id": "N34", 
+        "label": "Heatmap", 
+        "options": {
+          "input": {"cnt": 1}, 
+          "output": {"cnt": 1}
+        }
+      },
+      {
+        "id": "N35", 
+        "label": "Histogram", 
+        "options": {
+          "input": {"cnt": 1}, 
+          "output": {"cnt": 1}
+        }
+      },
+      {
+        "id": "N36", 
+        "label": "Box Plot", 
+        "options": {
+          "input": {"cnt": 1}, 
+          "output": {"cnt": 1}
+        }
+      },
+      {
+        "id": "N37", 
+        "label": "Table View", 
+        "options": {
+          "input": {"cnt": 1}, 
+          "output": {"cnt": 1}
+        }
+      }
+    ],
+    "DataMining": [
+      {
+        "id": "N38", 
+        "label": "Partitioning", 
+        "options": {
+          "input": {"cnt": 1}, 
+          "output": {"cnt": 1}
+        }
+      },
+      {
+        "id": "N39", 
+        "label": "Decision Tree Learner", 
+        "options": {
+          "input": {"cnt": 1}, 
+          "output": {"cnt": 1}
+        }
+      },
+      {
+        "id": "N40", 
+        "label": "Decision Tree Predictor", 
+        "options": {
+          "input": {"cnt": 1}, 
+          "output": {"cnt": 1}
+        }
+      },
+      {
+        "id": "N41", 
+        "label": "Scorer", 
+        "options": {
+          "input": {"cnt": 1}, 
+          "output": {"cnt": 1}
+        }
+      },
+      {
+        "id": "N42", 
+        "label": "Statistics", 
+        "options": {
+          "input": {"cnt": 1}, 
+          "output": {"cnt": 1}
+        }
+      },
+      {
+        "id": "N43", 
+        "label": "Linear Regression Learner", 
+        "options": {
+          "input": {"cnt": 1}, 
+          "output": {"cnt": 1}
+        }
+      },
+      {
+        "id": "N44", 
+        "label": "Linear Regression Predictor", 
+        "options": {
+          "input": {"cnt": 1}, 
+          "output": {"cnt": 1}
+        }
+      },
+      {
+        "id": "N45", 
+        "label": "k-Means", 
+        "options": {
+          "input": {"cnt": 1}, 
+          "output": {"cnt": 1}
+        }
+      },
+      {
+        "id": "N46", 
+        "label": "Value Counter", 
+        "options": {
+          "input": {"cnt": 1}, 
+          "output": {"cnt": 1}
+        }
+      },
+      {
+        "id": "N47", 
+        "label": "SVM Learner", 
+        "options": {
+          "input": {"cnt": 1}, 
+          "output": {"cnt": 1}
+        }
+      },
+      {
+        "id": "N48", 
+        "label": "SVM Predictor", 
+        "options": {
+          "input": {"cnt": 1}, 
+          "output": {"cnt": 1}
+        }
+      },
+      {
+        "id": "N49", 
+        "label": "K Nearest Neighbor", 
+        "options": {
+          "input": {"cnt": 1}, 
+          "output": {"cnt": 1}
+        }
+      },
+      {
+        "id": "N50", 
+        "label": "DBSCAN", 
+        "options": {
+          "input": {"cnt": 1}, 
+          "output": {"cnt": 1}
+        }
+      }
+    ],
+    "SQL": [
+      {
+        "id": "N53", 
+        "label": "PostgreSQL Connector", 
+        "options": {
+          "input": {"cnt": 1}, 
+          "output": {"cnt": 1}
+        }
+      },
+      {
+        "id": "N54", 
+        "label": "DB Query Reader", 
+        "options": {
+          "input": {"cnt": 1}, 
+          "output": {"cnt": 1}
+        }
+      },
+      {
+        "id": "N55", 
+        "label": "DB Table Selector", 
+        "options": {
+          "input": {"cnt": 1}, 
+          "output": {"cnt": 1}
+        }
+      },
+      {
+        "id": "N56", 
+        "label": "DB Query", 
+        "options": {
+          "input": {"cnt": 1}, 
+          "output": {"cnt": 1}
+        }
+      },
+      {
+        "id": "N57", 
+        "label": "DB Joiner", 
+        "options": {
+          "input": {"cnt": 1}, 
+          "output": {"cnt": 1}
+        }
+      },
+      {
+        "id": "N58", 
+        "label": "DB GroupBy", 
+        "options": {
+          "input": {"cnt": 1}, 
+          "output": {"cnt": 1}
+        }
+      },
+      {
+        "id": "N59", 
+        "label": "DB Row Filter", 
+        "options": {
+          "input": {"cnt": 1}, 
+          "output": {"cnt": 1}
+        }
+      },
+      {
+        "id": "N60", 
+        "label": "DB Writer", 
+        "options": {
+          "input": {"cnt": 1}, 
+          "output": {"cnt": 1}
+        }
+      },
+      {
+        "id": "N61", 
+        "label": "DB SQL Executor", 
+        "options": {
+          "input": {"cnt": 1}, 
+          "output": {"cnt": 1}
+        }
+      },
+      {
+        "id": "N62", 
+        "label": "DB Column Filter", 
+        "options": {
+          "input": {"cnt": 1}, 
+          "output": {"cnt": 1}
+        }
+      },
+      {
+        "id": "N63", 
+        "label": "DB Table Creator", 
+        "options": {
+          "input": {"cnt": 1}, 
+          "output": {"cnt": 1}
+        }
+      },
+      {
+        "id": "N64", 
+        "label": "DB Insert", 
+        "options": {
+          "input": {"cnt": 1}, 
+          "output": {"cnt": 1}
+        }
+      },
+      {
+        "id": "N65", 
+        "label": "DB Column Rename", 
+        "options": {
+          "input": {"cnt": 1}, 
+          "output": {"cnt": 1}
+        }
+      },
+      {
+        "id": "N66", 
+        "label": "DB Update", 
+        "options": {
+          "input": {"cnt": 1}, 
+          "output": {"cnt": 1}
+        }
+      },
+      {
+        "id": "N67", 
+        "label": "DB Merge", 
+        "options": {
+          "input": {"cnt": 1}, 
+          "output": {"cnt": 1}
+        }
+      }
+    ]
+  }
+  
