@@ -1,13 +1,5 @@
 <template lang="">
   <v-container>
-    <!-- <v-card flat>
-      <v-card-title>
-        Form Data
-      </v-card-title>
-      <v-card-text>
-        <pre>{{ formData }}</pre>
-      </v-card-text>
-    </v-card> -->
     <v-card flat>
       <v-card-title>Filter</v-card-title>
       <v-card-text>
@@ -132,7 +124,6 @@ export default {
   },
   data() {
     return {
-      jsonData: null,
       schema: null,
       formData: {
         filterRadioEnum: "",
