@@ -1,16 +1,23 @@
 <template lang="">
-    <v-container>
+  <v-container>
     <CustomCard title="Input Location" flat>
       <span>Read From</span>
-      <v-select :items="schema.properties.readFromEnum.enum" v-model="formData.readFromEnum"></v-select>
+      <v-select
+        :items="schema.properties.readFromEnum.enum"
+        v-model="formData.readFromEnum"
+      ></v-select>
       <span>File</span>
       <v-text-field hide-details v-model="formData.file"></v-text-field>
     </CustomCard>
     <CustomCard title="Reader Options" flat>
       <span>Column Delimiter</span>
       <v-text-field hide-details v-model="formData.columnDelimiter"></v-text-field>
-      <v-checkbox hide-details v-model="formData.hasColumnHeader" label="Column Header"></v-checkbox>
-      <v-checkbox hide-details v-model="formData.hasRowId" label="Row ID"></v-checkbox>
+      <v-checkbox
+        hide-details
+        v-model="formData.hasColumnHeader"
+        label="Has column header"
+      ></v-checkbox>
+      <v-checkbox hide-details v-model="formData.hasRowId" label="Has RowID"></v-checkbox>
     </CustomCard>
   </v-container>
 </template>
@@ -18,44 +25,41 @@
 import schema from '@/components/nodes/N03/schema.json'
 import CustomCard from '@/components/custom/customCard.vue'
 export default {
-    name: 'N03',
-    props: {
-        selectedTab: {
-            type: String
-        }
-    },
-    components: {
-        CustomCard
-    },
-    data() {
-        return {
-            schema : null,
-            formData : {
-                readFromEnum : null,
-                file: "",
-                columnDelimiter: "",
-                hasColumnHeader : false,
-                hasRowId :false,
-            }
-        }
-    },
-    created() {
-        try {
-            this.schema = schema;
-            const property = schema.properties;
-
-            this.formData.readFromEnum = property.readFromEnum.default;
-            this.formData.file = property.file.default;
-            this.formData.columnDelimiter = property.columnDelimiter.default;
-            this.formData.hasColumnHeader = property.hasColumnHeader.default;
-            this.formData.hasRowId = property.hasRowId.default;
-
-        } catch (error) {
-            console.error('Failed to initialize formData:', error);
-        }
+  name: 'N03',
+  props: {
+    selectedTab: {
+      type: String
     }
+  },
+  components: {
+    CustomCard
+  },
+  data() {
+    return {
+      schema: null,
+      formData: {
+        readFromEnum: null,
+        file: '',
+        columnDelimiter: '',
+        hasColumnHeader: false,
+        hasRowId: false
+      }
+    }
+  },
+  created() {
+    try {
+      this.schema = schema
+      const property = schema.properties
+
+      this.formData.readFromEnum = property.readFromEnum.default
+      this.formData.file = property.file.default
+      this.formData.columnDelimiter = property.columnDelimiter.default
+      this.formData.hasColumnHeader = property.hasColumnHeader.default
+      this.formData.hasRowId = property.hasRowId.default
+    } catch (error) {
+      console.error('Failed to initialize formData:', error)
+    }
+  }
 }
 </script>
-<style lang="">
-    
-</style>
+<style lang=""></style>

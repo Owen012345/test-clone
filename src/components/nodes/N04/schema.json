@@ -1,0 +1,27 @@
+{
+    "type": "object",
+    "properties": {
+        "pathEnum": {
+            "type": "string",
+            "enum": ["Path"],
+            "default" : "Path"
+        },
+        "failOnMissingPath" :{
+            "type":"boolean",
+            "default" : false
+        },
+        "failOnMissingValues" :{
+            "type":"boolean",
+            "default" : false
+        },
+        "readerOptionRadioEnum": {
+            "type":"string",
+            "enum": ["Append column", "Replace selected column"],
+            "default" : "Append column"
+        },
+        "appendColumnName": {
+            "type":"string",
+            "default" : ""
+        }
+    }
+}
