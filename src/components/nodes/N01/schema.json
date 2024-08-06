@@ -1,0 +1,26 @@
+{
+    "type": "object",
+    "properties": {
+        "readFromEnum": {
+            "type": "string",
+            "enum": ["Local File System", "Mountpoint", "Relativer to", "Server URL"],
+            "default" : "Local File System"
+        },
+        "file": {
+            "type": "string",
+            "default" : ""
+        },
+        "columnDelimiter" : {
+            "type": "string",
+            "default" : ","
+        },
+        "columnHeader" :{
+            "type":"boolean",
+            "default" : false
+        },
+        "rowId" :{
+            "type":"boolean",
+            "default" : false
+        }
+    }
+}
