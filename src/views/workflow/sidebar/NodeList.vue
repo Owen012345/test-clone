@@ -94,6 +94,7 @@ export default {
 .sidebar {
   background-color: #f4f4f4;
   padding: 10px;
+  overflow-y: auto;
 }
 .node {
   margin: 5px 0;
