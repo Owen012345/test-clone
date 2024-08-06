@@ -1,7 +1,7 @@
 {
     "type": "object",
     "properties": {
-        "readFromEnum": {
+        "writeToEnum": {
             "type": "string",
             "enum": ["Local File System", "Mountpoint", "Relativer to", "Server URL"],
             "default" : "Local File System"

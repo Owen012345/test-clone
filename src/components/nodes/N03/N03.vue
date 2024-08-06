@@ -3,7 +3,7 @@
     <CustomCard title="Input Location" flat>
       <span>Read From</span>
       <v-select :items="schema.properties.readFromEnum.enum" v-model="formData.readFromEnum"></v-select>
-      <span>File(csv)</span>
+      <span>File</span>
       <v-text-field hide-details v-model="formData.file"></v-text-field>
     </CustomCard>
     <CustomCard title="Reader Options" flat>
@@ -15,10 +15,10 @@
   </v-container>
 </template>
 <script>
-import schema from '@/components/nodes/N01/schema.json'
+import schema from '@/components/nodes/N03/schema.json'
 import CustomCard from '@/components/custom/customCard.vue'
 export default {
-    name: 'N01',
+    name: 'N03',
     props: {
         selectedTab: {
             type: String
