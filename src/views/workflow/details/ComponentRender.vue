@@ -2,21 +2,21 @@
   <component v-if="selectedTab && selectedNode" :is="selectedNode" :selectedTab="selectedTab" />
 </template>
 <script>
-import N01 from '@/components/nodes/N01/N01.vue'
-import N02 from '@/components/nodes/N02/N02.vue'
-import N03 from '@/components/nodes/N03/N03.vue'
-import N04 from '@/components/nodes/N04/N04.vue'
-import N05 from '@/components/nodes/N05/N05.vue'
+import C1_N01 from '@/components/nodes/collection/C1_N01.vue'
+import C1_N02 from '@/components/nodes/collection/C1_N02.vue'
+import C1_N03 from '@/components/nodes/collection/C1_N03.vue'
+import C1_N04 from '@/components/nodes/collection/C1_N04.vue'
+import C1_N05 from '@/components/nodes/collection/C1_N05.vue'
 import N12 from '@/components/nodes/N12/N12.vue'
 
 export default {
   name: 'ComponentRender',
   components: {
-    N01,
-    N02,
-    N03,
-    N04,
-    N05,
+    C1_N01,
+    C1_N02,
+    C1_N03,
+    C1_N04,
+    C1_N05,
     N12
   },
   props: {

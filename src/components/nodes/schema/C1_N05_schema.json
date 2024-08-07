@@ -24,7 +24,7 @@
             "type": "boolean",
             "default": false
         },
-        "addFolderIdentiferColumn": {
+        "addFolderIdentifierColumn": {
             "type": "boolean",
             "default": false
         }

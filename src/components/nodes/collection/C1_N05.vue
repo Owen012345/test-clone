@@ -23,7 +23,7 @@
   </v-container>
 </template>
 <script>
-import schema from '@/components/nodes/N05/schema.json'
+import schema from '@/components/nodes/schema/C1_N05_schema.json'
 import CustomCard from '@/components/custom/customCard.vue'
 export default {
   name: 'N05',
@@ -53,7 +53,7 @@ export default {
 
       this.formData.readFromEnum = property.readFromEnum?.default
       this.formData.modeEnum = property.modeEnum?.default
-      this.formData.includeParentFolder = property.hasColumnHeader?.default
+      this.formData.includeParentFolder = property.includeParentFolder?.default
       this.formData.addFolderIdentifierColumn = property.addFolderIdentifierColumn?.default
     } catch (error) {
       console.error('Failed to initialize formData:', error)

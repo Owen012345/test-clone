@@ -32,7 +32,7 @@
   </v-container>
 </template>
 <script>
-import schema from '@/components/nodes/N04/schema.json'
+import schema from '@/components/nodes/schema/C1_N04_schema.json'
 import CustomCard from '@/components/custom/customCard.vue'
 export default {
   name: 'N04',

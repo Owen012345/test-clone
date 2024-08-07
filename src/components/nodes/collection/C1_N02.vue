@@ -1,9 +1,9 @@
 <template lang="">
   <v-container>
     <CustomCard title="Input Location" flat>
-      <span>Read From</span>
+      <span>Write To</span>
       <v-select
-        :items="schema.properties.readFromEnum.enum"
+        :items="schema.properties.writeToEnum.enum"
         v-model="formData.readFromEnum"
       ></v-select>
       <span>File</span>
@@ -22,10 +22,10 @@
   </v-container>
 </template>
 <script>
-import schema from '@/components/nodes/N03/schema.json'
+import schema from '@/components/nodes/schema/C1_N02_schema.json'
 import CustomCard from '@/components/custom/customCard.vue'
 export default {
-  name: 'N03',
+  name: 'N02',
   props: {
     selectedTab: {
       type: String
@@ -51,7 +51,7 @@ export default {
       this.schema = schema
       const property = schema.properties
 
-      this.formData.readFromEnum = property.readFromEnum?.default
+      this.formData.readFromEnum = property.writeToEnum?.default
       this.formData.file = property.file?.default
       this.formData.columnDelimiter = property.columnDelimiter?.default
       this.formData.hasColumnHeader = property.hasColumnHeader?.default

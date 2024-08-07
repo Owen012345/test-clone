@@ -22,10 +22,10 @@
   </v-container>
 </template>
 <script>
-import schema from '@/components/nodes/N01/schema.json'
+import schema from '@/components/nodes/schema/C1_N01_schema.json'
 import CustomCard from '@/components/custom/customCard.vue'
 export default {
-  name: 'N01',
+  name: 'C1_N01',
   props: {
     selectedTab: {
       type: String
@@ -49,6 +49,7 @@ export default {
   created() {
     try {
       this.schema = schema
+      console.log('schema:', schema)
       const property = schema.properties
 
       this.formData.readFromEnum = property.readFromEnum?.default
