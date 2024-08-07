@@ -7,7 +7,7 @@
   </div>
 </template>
 <script>
-import { getDataStructure } from '@/utils/node/getDataStructure'
+// import { getDataStructure } from '@/utils/node/getDataStructure'
 export default {
   name: 'NodeExecution',
   data() {
@@ -15,10 +15,11 @@ export default {
       test: 'test'
     }
   },
+
   methods: {
     flowExecution() {
-      console.log('execution')
-      getDataStructure()
+      console.log('flowExecution')
+      // getDataStructure()
     }
   }
 }

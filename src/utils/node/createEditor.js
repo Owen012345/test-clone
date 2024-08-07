@@ -93,11 +93,15 @@ export async function createEditor(container) {
   })
 
   editor.addPipe((context) => {
-    if (
-      context.type === 'nodecreated' ||
-      context.type === 'noderemoved' ||
-      context.type === 'connectionremoved'
-    ) {
+    if (context.type === 'nodecreated') {
+      const { data } = context
+      const node = {
+        id: data.id,
+        nodeId: data.nodeId
+      }
+      store.dispatch('nodeDetail/initNodeDataWithSchema', node)
+    }
+    if (context.type === 'noderemoved' || context.type === 'connectionremoved') {
       // console.log(context)
       // console.log(editor.getConnections(), editor.getNodes())
     }

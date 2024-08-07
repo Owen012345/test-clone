@@ -1,5 +1,10 @@
 <template lang="">
-  <component v-if="selectedTab && selectedNode" :is="selectedNode" :selectedTab="selectedTab" />
+  <component
+    v-if="selectedTab && selectedNode"
+    :is="selectedNode.nodeId"
+    :selectedNodeId="selectedNode.id"
+    :selectedTab="selectedTab"
+  />
 </template>
 <script>
 import C1_N01 from '@/components/nodes/collection/C1_N01.vue'
@@ -29,7 +34,7 @@ export default {
       required: true
     },
     selectedNode: {
-      type: String,
+      type: Object,
       required: true
     }
   }

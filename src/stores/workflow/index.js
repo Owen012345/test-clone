@@ -38,7 +38,10 @@ const actions = {
 const getters = {
   getEditor: (state) => state.editor,
   getSelectedNode: (state) => {
-    return state.selectedNode?.nodeId
+    return {
+      id: state.selectedNode?.id,
+      nodeId: state.selectedNode?.nodeId
+    }
   },
   getNodes: (state) => state.nodes,
   getConnections: (state) => state.connections

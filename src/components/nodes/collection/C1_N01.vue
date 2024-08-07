@@ -22,43 +22,32 @@
   </v-container>
 </template>
 <script>
-import schema from '@/components/nodes/schema/C1_N01_schema.json'
+// import schema from '@/components/nodes/schema/C1_N01_schema.json'
 import CustomCard from '@/components/custom/customCard.vue'
+import { mapGetters } from 'vuex'
 export default {
   name: 'C1_N01',
   props: {
     selectedTab: {
+      type: String
+    },
+    selectedNodeId: {
       type: String
     }
   },
   components: {
     CustomCard
   },
-  data() {
-    return {
-      schema: null,
-      formData: {
-        readFromEnum: null,
-        file: '',
-        columnDelimiter: '',
-        hasColumnHeader: false,
-        hasRowId: false
-      }
-    }
-  },
-  created() {
-    try {
-      this.schema = schema
-      console.log('schema:', schema)
-      const property = schema.properties
-
-      this.formData.readFromEnum = property.readFromEnum?.default
-      this.formData.file = property.file?.default
-      this.formData.columnDelimiter = property.columnDelimiter?.default
-      this.formData.hasColumnHeader = property.hasColumnHeader?.default
-      this.formData.hasRowId = property.hasRowId?.default
-    } catch (error) {
-      console.error('Failed to initialize formData:', error)
+  computed: {
+    ...mapGetters('nodeDetail', {
+      getInitNodeSchema: 'getInitNodeSchema',
+      getDefaultNodeSchema: 'getDefaultNodeSchema'
+    }),
+    formData() {
+      return this.getDefaultNodeSchema(this.selectedNodeId)
+    },
+    schema() {
+      return this.getInitNodeSchema(this.selectedNodeId)
     }
   }
 }
