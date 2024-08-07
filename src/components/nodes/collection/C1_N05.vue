@@ -1,7 +1,6 @@
 <template lang="">
   <v-container>
     <CustomCard title="Read" flat>
-      <pre>{{ formData }}</pre>
       <span>Read From</span>
       <v-select
         :items="schema.properties.readFromEnum.enum"

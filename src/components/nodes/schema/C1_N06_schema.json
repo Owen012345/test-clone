@@ -1,0 +1,28 @@
+{
+    "type": "object",
+    "properties": {
+        "inputLocationEnum": {
+            "type": "string",
+            "enum": [
+                null
+            ],
+            "default": null
+        },
+        "failOnMissingFiles": {
+            "type": "boolean",
+            "default": false
+        },
+        "readerOptionRadioEnum": {
+            "type": "string",
+            "enum": [
+                "Append column",
+                "Replace selected column"
+            ],
+            "default": "Append column"
+        },
+        "appendColumnName": {
+            "type": "string",
+            "default": ""
+        }
+    }
+}
