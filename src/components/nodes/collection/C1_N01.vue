@@ -22,7 +22,6 @@
   </v-container>
 </template>
 <script>
-// import schema from '@/components/nodes/schema/C1_N01_schema.json'
 import CustomCard from '@/components/custom/customCard.vue'
 import { mapGetters } from 'vuex'
 export default {

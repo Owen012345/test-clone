@@ -30,41 +30,31 @@
   </v-container>
 </template>
 <script>
-import schema from '@/components/nodes/schema/C1_N06_schema.json'
 import CustomCard from '@/components/custom/customCard.vue'
+import { mapGetters } from 'vuex'
 export default {
   name: 'N06',
   props: {
     selectedTab: {
+      type: String
+    },
+    selectedNodeId: {
       type: String
     }
   },
   components: {
     CustomCard
   },
-  data() {
-    return {
-      schema: null,
-      formData: {
-        inputLocationEnum: null,
-        failOnMissingFiles: false,
-        failOnMissingValues: false,
-        readerOptionRadioEnum: null,
-        appendColumnName: ''
-      }
-    }
-  },
-  created() {
-    try {
-      this.schema = schema
-      const property = schema.properties
-
-      this.formData.inputLocationEnum = property.inputLocationEnum?.default
-      this.formData.failOnMissingFiles = property.failOnMissingFiles?.default
-      this.formData.readerOptionRadioEnum = property.readerOptionRadioEnum?.default
-      this.formData.appendColumnName = property.appendColumnName?.default
-    } catch (error) {
-      console.error('Failed to initialize formData:', error)
+  computed: {
+    ...mapGetters('nodeDetail', {
+      getInitNodeSchema: 'getInitNodeSchema',
+      getDefaultNodeSchema: 'getDefaultNodeSchema'
+    }),
+    formData() {
+      return this.getDefaultNodeSchema(this.selectedNodeId)
+    },
+    schema() {
+      return this.getInitNodeSchema(this.selectedNodeId)
     }
   }
 }

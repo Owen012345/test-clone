@@ -10,7 +10,7 @@ const mutations = {
     }
   },
   UPDATE_NODE_SCHEMA_DEFAULT(state, { id, formData }) {
-    console.log(id, formData)
+    // console.log(id, formData)
     if (state.defaultNodeSchema[id]) {
       state.defaultNodeSchema[id] = { ...state.defaultNodeSchema[id], ...formData }
     } else {
@@ -23,7 +23,7 @@ const getters = {
     return state.defaultNodeSchema[id]
   },
   getInitNodeSchema: (state) => (id) => {
-    console.log(id)
+    // console.log(id)
     return state.initialNodeSchema[id]
   }
 }
@@ -35,13 +35,11 @@ const actions = {
       commit('INIT_NODE_SCHEMA', { id: node.id, data: schema.default })
 
       const property = schema.properties
-      const formData = {
-        readFromEnum: property.readFromEnum?.default,
-        file: property.file?.default,
-        columnDelimiter: property.columnDelimiter?.default,
-        hasColumnHeader: property.hasColumnHeader?.default,
-        hasRowId: property.hasRowId?.default
-      }
+      const formData = Object.keys(property).reduce((acc, key) => {
+        acc[key] = property[key]?.default
+        return acc
+      }, {})
+      //   console.log(formData)
 
       commit('UPDATE_NODE_SCHEMA_DEFAULT', { id: node.id, formData: formData })
     } catch (error) {

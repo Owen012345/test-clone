@@ -4,7 +4,7 @@
       <span>Write To</span>
       <v-select
         :items="schema.properties.writeToEnum.enum"
-        v-model="formData.readFromEnum"
+        v-model="formData.writeToEnum"
       ></v-select>
       <span>File</span>
       <v-text-field hide-details v-model="formData.file"></v-text-field>
@@ -22,42 +22,31 @@
   </v-container>
 </template>
 <script>
-import schema from '@/components/nodes/schema/C1_N02_schema.json'
 import CustomCard from '@/components/custom/customCard.vue'
+import { mapGetters } from 'vuex'
 export default {
   name: 'N02',
   props: {
     selectedTab: {
+      type: String
+    },
+    selectedNodeId: {
       type: String
     }
   },
   components: {
     CustomCard
   },
-  data() {
-    return {
-      schema: null,
-      formData: {
-        readFromEnum: null,
-        file: '',
-        columnDelimiter: '',
-        hasColumnHeader: false,
-        hasRowId: false
-      }
-    }
-  },
-  created() {
-    try {
-      this.schema = schema
-      const property = schema.properties
-
-      this.formData.readFromEnum = property.writeToEnum?.default
-      this.formData.file = property.file?.default
-      this.formData.columnDelimiter = property.columnDelimiter?.default
-      this.formData.hasColumnHeader = property.hasColumnHeader?.default
-      this.formData.hasRowId = property.hasRowId?.default
-    } catch (error) {
-      console.error('Failed to initialize formData:', error)
+  computed: {
+    ...mapGetters('nodeDetail', {
+      getInitNodeSchema: 'getInitNodeSchema',
+      getDefaultNodeSchema: 'getDefaultNodeSchema'
+    }),
+    formData() {
+      return this.getDefaultNodeSchema(this.selectedNodeId)
+    },
+    schema() {
+      return this.getInitNodeSchema(this.selectedNodeId)
     }
   }
 }
