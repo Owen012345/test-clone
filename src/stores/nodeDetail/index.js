@@ -9,6 +9,12 @@ const mutations = {
       [id]: data
     }
   },
+  REMOVE_NODE_SCEHMA(state, id) {
+    if (state.initialNodeSchema[id] && state.defaultNodeSchema[id]) {
+      delete state.initialNodeSchema[id]
+      delete state.defaultNodeSchema[id]
+    }
+  },
   UPDATE_NODE_SCHEMA_DEFAULT(state, { id, formData }) {
     // console.log(id, formData)
     if (state.defaultNodeSchema[id]) {
@@ -46,6 +52,10 @@ const actions = {
       console.error(error)
     }
   },
+  removeNodeDataWithSchema({ commit }, id) {
+    commit('REMOVE_NODE_SCEHMA', id)
+  },
+
   updateFormData({ commit }, { nodeId, formData }) {
     console.log(nodeId, formData)
     commit('UPDATE_NODE_SCHEMA_DEFAULT', { id: nodeId, formData: formData })
