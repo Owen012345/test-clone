@@ -3,24 +3,29 @@
     "properties": {
         "readFromEnum": {
             "type": "string",
-            "enum": ["Local File System", "Mountpoint", "Relativer to", "Server URL"],
-            "default" : "Local File System"
+            "enum": [
+                "Local File System",
+                "Mountpoint",
+                "Relativer to",
+                "Server URL"
+            ],
+            "default": "Local File System"
         },
         "file": {
             "type": "string",
-            "default" : ""
+            "default": ""
         },
-        "columnDelimiter" : {
+        "columnDelimiter": {
             "type": "string",
-            "default" : ","
+            "default": ","
         },
-        "hasColumnHeader" :{
-            "type":"boolean",
-            "default" : false
+        "hasColumnHeader": {
+            "type": "boolean",
+            "default": false
         },
-        "hasRowId" :{
-            "type":"boolean",
-            "default" : false
+        "hasRowId": {
+            "type": "boolean",
+            "default": false
         }
     }
 }

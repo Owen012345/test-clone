@@ -9,7 +9,7 @@
       ></v-checkbox>
       <v-checkbox
         hide-details
-        v-model="formData.hasColumnHeader"
+        v-model="formData.failOnMissingValues"
         label="Fail on missing values"
       ></v-checkbox>
     </CustomCard>
@@ -21,6 +21,7 @@
         >
           <v-radio :label="item" :value="item"></v-radio>
           <v-text-field
+            :type="schema.properties.appendColumnName.type"
             :disabled="formData.readerOptionRadioEnum !== 'Append column'"
             hide-details
             v-if="item === 'Append column'"
@@ -33,32 +34,13 @@
 </template>
 <script>
 import CustomCard from '@/components/custom/customCard.vue'
-import { mapGetters } from 'vuex'
+import formMixin from '@/components/mixins/formMixin'
 export default {
-  name: 'N04',
-  props: {
-    selectedTab: {
-      type: String
-    },
-    selectedNodeId: {
-      type: String
-    }
-  },
+  name: 'C1_N04',
   components: {
     CustomCard
   },
-  computed: {
-    ...mapGetters('nodeDetail', {
-      getInitNodeSchema: 'getInitNodeSchema',
-      getDefaultNodeSchema: 'getDefaultNodeSchema'
-    }),
-    formData() {
-      return this.getDefaultNodeSchema(this.selectedNodeId)
-    },
-    schema() {
-      return this.getInitNodeSchema(this.selectedNodeId)
-    }
-  }
+  mixins: [formMixin]
 }
 </script>
 <style lang=""></style>

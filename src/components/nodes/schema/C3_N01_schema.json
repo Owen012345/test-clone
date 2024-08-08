@@ -9,55 +9,55 @@
                 "Include rows by row number",
                 "Exclude rows by row number"
             ],
-            "default" : "Include rows by attribute value"
+            "default": "Include rows by attribute value"
         },
-        "columnValueMatching": {
+        "columnValueMatchingEnum": {
             "type": "string",
             "enum": [
                 null
             ],
-            "default" : null
+            "default": null
         },
-        "includeRowValueEnum" : {
+        "includeRowValueEnum": {
             "type": "string",
             "enum": [
                 "use pattern matching",
                 "use range checking",
                 "only missing values"
             ],
-            "default" : "use pattern matching"
+            "default": "use pattern matching"
         },
         "patternMatching": {
             "type": "string",
-            "default" : ""
+            "default": ""
         },
-        "patternMatchingType" : {
+        "patternMatchingType": {
             "type": "string",
             "enum": [
                 "equals",
                 "contains"
             ],
-            "default" : "equals"
+            "default": "equals"
         },
         "rangeCheckingMin": {
-            "type":"number",
-            "default" : ""
+            "type": "string",
+            "default": ""
         },
         "rangeCheckingMax": {
-            "type":"number",
-            "default" : ""
+            "type": "string",
+            "default": ""
         },
         "rowNumberRangeMin": {
-            "type":"number",
-            "default" : ""
+            "type": "string",
+            "default": ""
         },
         "rowNumberRangeMax": {
-            "type":"number",
-            "default" : ""
+            "type": "string",
+            "default": ""
         },
-        "endOfTheTable" :{
-            "type":"boolean",
-            "default" : false
+        "endOfTheTable": {
+            "type": "boolean",
+            "default": false
         }
     }
 }

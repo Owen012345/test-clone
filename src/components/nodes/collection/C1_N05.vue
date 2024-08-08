@@ -23,32 +23,13 @@
 </template>
 <script>
 import CustomCard from '@/components/custom/customCard.vue'
-import { mapGetters } from 'vuex'
+import formMixin from '@/components/mixins/formMixin'
 export default {
-  name: 'N05',
-  props: {
-    selectedTab: {
-      type: String
-    },
-    selectedNodeId: {
-      type: String
-    }
-  },
+  name: 'C1_N05',
   components: {
     CustomCard
   },
-  computed: {
-    ...mapGetters('nodeDetail', {
-      getInitNodeSchema: 'getInitNodeSchema',
-      getDefaultNodeSchema: 'getDefaultNodeSchema'
-    }),
-    formData() {
-      return this.getDefaultNodeSchema(this.selectedNodeId)
-    },
-    schema() {
-      return this.getInitNodeSchema(this.selectedNodeId)
-    }
-  }
+  mixins: [formMixin]
 }
 </script>
 <style lang=""></style>

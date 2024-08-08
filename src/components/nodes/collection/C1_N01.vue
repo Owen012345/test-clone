@@ -7,11 +7,19 @@
         v-model="formData.readFromEnum"
       ></v-select>
       <span>File(csv)</span>
-      <v-text-field hide-details v-model="formData.file"></v-text-field>
+      <v-text-field
+        hide-details
+        v-model="formData.file"
+        :type="schema.properties.file.type"
+      ></v-text-field>
     </CustomCard>
     <CustomCard title="Reader Options" flat>
       <span>Column Delimiter</span>
-      <v-text-field hide-details v-model="formData.columnDelimiter"></v-text-field>
+      <v-text-field
+        hide-details
+        :type="schema.properties.columnDelimiter.type"
+        v-model="formData.columnDelimiter"
+      ></v-text-field>
       <v-checkbox
         hide-details
         v-model="formData.hasColumnHeader"
@@ -23,32 +31,13 @@
 </template>
 <script>
 import CustomCard from '@/components/custom/customCard.vue'
-import { mapGetters } from 'vuex'
+import formMixin from '@/components/mixins/formMixin'
 export default {
   name: 'C1_N01',
-  props: {
-    selectedTab: {
-      type: String
-    },
-    selectedNodeId: {
-      type: String
-    }
-  },
   components: {
     CustomCard
   },
-  computed: {
-    ...mapGetters('nodeDetail', {
-      getInitNodeSchema: 'getInitNodeSchema',
-      getDefaultNodeSchema: 'getDefaultNodeSchema'
-    }),
-    formData() {
-      return this.getDefaultNodeSchema(this.selectedNodeId)
-    },
-    schema() {
-      return this.getInitNodeSchema(this.selectedNodeId)
-    }
-  }
+  mixins: [formMixin]
 }
 </script>
 <style lang=""></style>
