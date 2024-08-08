@@ -57,7 +57,6 @@ const actions = {
   },
 
   updateFormData({ commit }, { nodeId, formData }) {
-    console.log(nodeId, formData)
     commit('UPDATE_NODE_SCHEMA_DEFAULT', { id: nodeId, formData: formData })
   }
 }

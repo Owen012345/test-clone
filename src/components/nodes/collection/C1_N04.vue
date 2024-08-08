@@ -1,5 +1,5 @@
 <template lang="">
-  <v-container>
+  <v-container fluid>
     <CustomCard title="Input Location" flat>
       <v-select :items="schema.properties.pathEnum.enum" v-model="formData.pathEnum"></v-select>
       <v-checkbox

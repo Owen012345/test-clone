@@ -1,5 +1,5 @@
 <template lang="">
-  <v-container>
+  <v-container fluid>
     <CustomCard title="Input Location" flat>
       <span>Read From</span>
       <v-select

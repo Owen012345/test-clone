@@ -1,5 +1,5 @@
 <template lang="">
-  <v-container>
+  <v-container fluid>
     <CustomCard title="Filter" flat>
       <v-radio-group v-model="formData.filterRadioEnum" inline>
         <v-radio
@@ -11,7 +11,14 @@
         </v-radio>
       </v-radio-group>
     </CustomCard>
-    <CustomCard title="Column Value Matching" flat>
+    <CustomCard
+      title="Column Value Matching"
+      flat
+      v-if="
+        formData.filterRadioEnum === 'Include rows by attribute value' ||
+        formData.filterRadioEnum === 'Exclude rows by attribute value'
+      "
+    >
       <v-select
         :items="schema.properties.columnValueMatchingEnum.enum"
         v-model="formData.columnValueMatchingEnum"
@@ -29,6 +36,7 @@
                   :type="schema.properties.patternMatching.type"
                 ></v-text-field>
               </v-col>
+              <v-col cols="auto">matching type</v-col>
               <v-col>
                 <v-radio-group
                   v-model="formData.patternMatchingType"
@@ -68,6 +76,36 @@
           </slot>
         </template>
       </v-radio-group>
+    </CustomCard>
+    <CustomCard
+      title="Row number range"
+      flat
+      v-if="
+        formData.filterRadioEnum === 'Include rows by row number' ||
+        formData.filterRadioEnum === 'Exclude rows by row number'
+      "
+    >
+      <v-row>
+        <v-col>
+          <v-text-field hide-details v-model="formData.rowNumberRangeMin"> </v-text-field>
+        </v-col>
+        <v-col>
+          <v-text-field
+            :type="schema.properties.rowNumberRangeMax.type"
+            :disabled="formData.endOfTheTable"
+            hide-details
+            v-model="formData.rowNumberRangeMax"
+          >
+          </v-text-field>
+        </v-col>
+        <v-col cols="auto">
+          <v-checkbox
+            hide-details
+            v-model="formData.endOfTheTable"
+            label="to the end of the table"
+          />
+        </v-col>
+      </v-row>
     </CustomCard>
   </v-container>
 </template>
