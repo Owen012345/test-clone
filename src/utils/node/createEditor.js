@@ -103,9 +103,10 @@ export async function createEditor(container) {
     }
     if (context.type === 'noderemoved') {
       const { data } = context
+      store.dispatch('workflow/removeNode')
       store.dispatch('nodeDetail/removeNodeDataWithSchema', data.id)
     }
-    if (context.type === 'noderemoved' || context.type === 'connectionremoved') {
+    if (context.type === 'connectionremoved') {
       // console.log(context)
       // console.log(editor.getConnections(), editor.getNodes())
     }
