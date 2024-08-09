@@ -26,7 +26,7 @@
       <v-radio-group v-model="formData.includeRowValueEnum">
         <template v-for="(item, index) in schema.properties.includeRowValueEnum.enum" :key="index">
           <v-radio :label="item" :value="item"></v-radio>
-          <slot v-if="item === 'use pattern matching'">
+          <div v-if="item === 'use pattern matching'">
             <v-row>
               <v-col>
                 <v-text-field
@@ -53,8 +53,8 @@
                 </v-radio-group>
               </v-col>
             </v-row>
-          </slot>
-          <slot v-if="item === 'use range checking'">
+          </div>
+          <div v-if="item === 'use range checking'">
             <v-row>
               <v-col>
                 <v-text-field
@@ -73,7 +73,7 @@
                 </v-text-field>
               </v-col>
             </v-row>
-          </slot>
+          </div>
         </template>
       </v-radio-group>
     </CustomCard>

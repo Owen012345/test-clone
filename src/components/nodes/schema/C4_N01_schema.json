@@ -1,0 +1,84 @@
+{
+    "type": "object",
+    "properties": {
+        "ouputTypeEnum": {
+            "type": "string",
+            "enum": [
+                "Date&Time",
+                "Date",
+                "Time",
+                "Date&time with zone"
+            ],
+            "default": "Date&Time"
+        },
+        "newColumnName": {
+            "type": "string",
+            "default": ""
+        },
+        "numberOfRowsEnum": {
+            "type": "string",
+            "enum": [
+                "Fixed",
+                "Variable"
+            ],
+            "default": "Fixed"
+        },
+        "fixedRowLength": {
+            "type": "string",
+            "default": ""
+        },
+        "startingPointTypeEnum": {
+            "type": "string",
+            "enum": [
+                "Start",
+                "Use execution"
+            ],
+            "default": "Start"
+        },
+        "startingPointDate": {
+            "type": "date",
+            "default": ""
+        },
+        "startingPointTime": {
+            "type": "time",
+            "default": ""
+        },
+        "startingPointTimeZonesEnum": {
+            "type": "string",
+            "enum": [
+                "UTC",
+                "America/New_York",
+                "Europe/London",
+                "Europe/Paris",
+                "Asia/Tokyo",
+                "Asia/Seoul",
+                "Asia/Shanghai",
+                "America/Los_Angeles",
+                "Australia/Sydney",
+                "America/Sao_Paulo"
+            ],
+            "default": ""
+        },
+        "endingPointTypeEnum": {
+            "type": "string",
+            "enum": [
+                "Interval",
+                "End",
+                "Use execution"
+            ],
+            "default": "Interval"
+        },
+        "endingPointInterval": {
+            "type": "string",
+            "default": ""
+        },
+        "endingPointDate": {
+            "type": "date",
+            "default": ""
+        },
+        "endingPointTime": {
+            "type": "time",
+            "default": ""
+        }
+    }
+}
