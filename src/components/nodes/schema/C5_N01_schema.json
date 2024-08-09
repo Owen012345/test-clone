@@ -1,0 +1,30 @@
+{
+    "type": "object",
+    "properties": {
+        "partitionType": {
+            "type": "string",
+            "enum": [
+                "Absolute",
+                "Relative[%]"
+            ],
+            "default": "Absolute"
+        },
+        "partitionAbsolute": {
+            "type": "number",
+            "default": ""
+        },
+        "partitionRelative": {
+            "type": "number",
+            "default": ""
+        },
+        "partitioningOptions": {
+            "type": "string",
+            "enum": [
+                "Take from top",
+                "Linear sampling",
+                "Draw randomly"
+            ],
+            "default": "Take from top"
+        }
+    }
+}

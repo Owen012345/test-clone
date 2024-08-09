@@ -1,0 +1,14 @@
+{
+    "type": "object",
+    "properties": {
+        "rowIdEnum": {
+            "type": "string",
+            "enum": [
+                "Identical RowIDs and table lengths",
+                "Generate new RowIDs",
+                "Use RowIDs from the selected input table"
+            ],
+            "default": "Identical RowIDs and table lengths"
+        }
+    }
+}

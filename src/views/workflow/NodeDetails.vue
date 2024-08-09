@@ -55,15 +55,16 @@ export default {
 </script>
 <style lang="scss">
 .execution-footer {
-  border-top: 2px solid black;
-  height: 2.75rem;
+  position: relative;
+  background-color: white;
+  border-top: 1px solid black;
+  height: 50px;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  align-self: stretch;
   > .v-btn {
-    margin: 20px 10px;
+    margin: 10px 20px;
   }
 }
 </style>

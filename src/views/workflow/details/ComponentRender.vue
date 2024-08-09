@@ -19,6 +19,9 @@ import C3_N01 from '@/components/nodes/preprocess/C3_N01.vue'
 import C3_N03 from '@/components/nodes/preprocess/C3_N03.vue'
 
 import C4_N01 from '@/components/nodes/transformation/C4_N01.vue'
+import C4_N02 from '@/components/nodes/transformation/C4_N02.vue'
+
+import C5_N01 from '@/components/nodes/datamining/C5_N01.vue'
 export default {
   name: 'ComponentRender',
   components: {
@@ -31,7 +34,9 @@ export default {
     C1_N07,
     C3_N01,
     C3_N03,
-    C4_N01
+    C4_N01,
+    C4_N02,
+    C5_N01
   },
   props: {
     selectedTab: {
