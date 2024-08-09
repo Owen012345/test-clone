@@ -8,11 +8,16 @@
     <v-tabs-window v-model="selectedTabIdx">
       <v-tabs-window-item v-for="(tab, idx) in tabs" :key="idx">
         <ComponentRender
-          v-if="getSelectedNode"
+          v-if="selectedNode"
           :selectedTab="selectedTabTitle"
           :selectedNode="selectedNode"
         />
       </v-tabs-window-item>
+      <div v-if="selectedNode" class="execution-footer">
+        <v-btn>OK</v-btn>
+        <v-btn>Cancel</v-btn>
+        <v-btn>Execute</v-btn>
+      </div>
     </v-tabs-window>
   </div>
 </template>
@@ -33,7 +38,8 @@ export default {
   computed: {
     ...mapGetters('workflow', ['getSelectedNode']),
     selectedNode() {
-      return this.getSelectedNode
+      if (!this.getSelectedNode.id && !this.getSelectedNode.nodeId) return null
+      else return this.getSelectedNode
     }
   },
   watch: {
@@ -47,5 +53,17 @@ export default {
   methods: {}
 }
 </script>
-
-<style lang="scss"></style>
+<style lang="scss">
+.execution-footer {
+  border-top: 2px solid black;
+  height: 2.75rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: stretch;
+  > .v-btn {
+    margin: 20px 10px;
+  }
+}
+</style>

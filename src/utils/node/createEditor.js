@@ -80,7 +80,7 @@ export async function createEditor(container) {
       store.dispatch('workflow/removeNode')
     }
     if (context.type === 'nodepicked') {
-      console.log(context)
+      // console.log(context)
       const allNodes = editor.getNodes(context.data.id)
 
       const selectedNodes = allNodes.filter((node) => node.selected === true)
