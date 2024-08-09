@@ -11,11 +11,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
-    "@jsonforms/core": "^3.3.0",
-    "@jsonforms/vue": "^3.3.0",
-    "@jsonforms/vue-vuetify": "^3.3.0-preview.0",
     "@mdi/font": "7.0.96",
-    "bootstrap-vue-3": "^0.5.1",
     "rete": "^2.0.3",
     "rete-area-plugin": "^2.0.4",
     "rete-connection-plugin": "^2.0.2",
