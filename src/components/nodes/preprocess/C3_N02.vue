@@ -2,6 +2,8 @@
   <v-container fluid>
     <CustomCard title="Column Filter Settings" flat>
       <CustomSelectList
+        :leftHeader="'Exclude'"
+        :rightHeader="'Include'"
         v-model="formData.ColumnSelectionEnum"
         :items="schema.properties.ColumnSelectionEnum.enum"
       >

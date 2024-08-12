@@ -2,20 +2,14 @@
   <v-container fluid>
     <CustomCard title="Grouping Setting">
       <span>grouping column</span>
-      <v-select
-        :items="schema.properties.groupingColumnEnum.enum"
+      <CustomSelectList
+        :leftHeader="'available columns'"
+        :rightHeader="'group columns'"
         v-model="formData.groupingColumnEnum"
-        placeholder="Column Selection"
-        hide-details
-        multiple
-      ></v-select>
-      <v-table>
-        <tbody>
-          <tr v-for="(item, key) in formData.groupingColumnEnum" :key="key">
-            <td>{{ item }}</td>
-          </tr>
-        </tbody>
-      </v-table>
+        :items="schema.properties.groupingColumnEnum.enum"
+      >
+      </CustomSelectList>
+
       <span>select aggregation columns</span>
       <v-select
         :items="schema.properties.aggregationColumnEnum.enum"
@@ -53,10 +47,12 @@
 <script>
 import CustomCard from '@/components/custom/customCard.vue'
 import formMixin from '@/components/mixins/formMixin'
+import CustomSelectList from '@/components/custom/customSelectList.vue'
 export default {
   name: 'C3_N03',
   components: {
-    CustomCard
+    CustomCard,
+    CustomSelectList
   },
   mixins: [formMixin]
 }

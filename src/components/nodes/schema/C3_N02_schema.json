@@ -3,16 +3,7 @@
     "properties": {
         "ColumnSelectionEnum": {
             "type": "string",
-            "enum": [
-                "a",
-                "b",
-                "c",
-                "d",
-                "e",
-                "f",
-                "g",
-                "h"
-            ],
+            "enum": [],
             "default": []
         }
     }

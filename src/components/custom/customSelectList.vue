@@ -3,7 +3,7 @@
     <v-row justify="center">
       <!-- 전체 목록 (왼쪽) -->
       <v-col cols="4">
-        <span>Exclude</span>
+        <span>{{ leftHeader }}</span>
         <v-list class="list-wrapper">
           <v-list-item
             v-for="(item, index) in availableItems"
@@ -36,7 +36,7 @@
 
       <!-- 선택된 목록 (오른쪽) -->
       <v-col cols="4">
-        <span>Include</span>
+        <span>{{ rightHeader }}</span>
         <v-list class="list-wrapper">
           <v-list-item
             v-for="(item, index) in includedItems"
@@ -58,6 +58,14 @@
 export default {
   name: 'CustomSelectList',
   props: {
+    leftHeader: {
+      type: String,
+      default: ''
+    },
+    rightHeader: {
+      type: String,
+      default: ''
+    },
     modelValue: {
       type: Array,
       default: () => []
