@@ -1,4 +1,5 @@
 import store from '@/stores'
+import { structures } from 'rete-structures'
 
 export function getDataStructure() {
   const editor = store.getters['workflow/getEditor']
@@ -39,8 +40,37 @@ export function getDataStructure() {
   }
 
   // 콘솔에 출력
-  console.log(JSON.stringify(dataStructure, null, 2))
-
-  // JSON 데이터를 반환
   console.log(dataStructure)
+  const data = dataStructure
+  const getOutgoingConnections = (nodeId) => {
+    return data.connections.filter(conn => conn.sourceNode === nodeId);
+  };
+  
+  const getIncomingConnections = (nodeId) => {
+    return data.connections.filter(conn => conn.targetNode === nodeId);
+  };
+  
+  // Identify nodes
+  const startNode = data.nodes.find(node => {
+    return getOutgoingConnections(node.id).length > 0 && getIncomingConnections(node.id).length === 0;
+  });
+  
+  const endNode = data.nodes.find(node => {
+    return getIncomingConnections(node.id).length > 0 && getOutgoingConnections(node.id).length === 0;
+  });
+  
+  const middleNodes = data.nodes.filter(node => {
+    return getIncomingConnections(node.id).length > 0 && getOutgoingConnections(node.id).length > 0;
+  });
+  
+  // Output the nodes in order
+  const orderedNodes = [];
+  
+  if (startNode) orderedNodes.push(startNode.name);
+  if (middleNodes.length > 0) {
+    middleNodes.forEach(node => orderedNodes.push(node.name));
+  }
+  if (endNode) orderedNodes.push(endNode.name);
+  
+  console.log("Node order:", orderedNodes);
 }
