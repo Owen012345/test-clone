@@ -5,7 +5,7 @@
         :leftHeader="'Exclude'"
         :rightHeader="'Include'"
         v-model="formData.ColumnSelectionEnum"
-        :items="schema.properties.ColumnSelectionEnum.enum"
+        :items="[]"
       >
       </CustomSelectList>
     </CustomCard>

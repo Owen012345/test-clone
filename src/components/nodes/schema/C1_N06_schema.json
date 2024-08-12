@@ -1,12 +1,11 @@
 {
     "type": "object",
     "properties": {
-        "inputLocationEnum": {
-            "type": "string",
-            "enum": [
-                null
-            ],
-            "default": null
+        "inputLocationArray": {
+            "type": "Array",
+            "items": {
+                "type": "string"
+            }
         },
         "failOnMissingFiles": {
             "type": "boolean",

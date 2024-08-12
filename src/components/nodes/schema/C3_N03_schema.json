@@ -3,30 +3,35 @@
     "properties": {
         "groupingColumnEnum": {
             "type": "string",
-            "enum": [
-                "a",
-                "b",
-                "c"
-            ],
-            "default": []
+            "items": {
+                "type": "string"
+            }
         },
         "aggregationColumnEnum": {
-            "type": "string",
-            "enum": [
-                "column1",
-                "column2",
-                "column3"
-            ],
-            "default": ""
+            "type": "Array",
+            "items": {
+                "type": "string"
+            }
         },
         "aggregationFunctionEnum": {
             "type": "string",
-            "enum": [
-                "func1",
-                "func2",
-                "func3"
-            ],
-            "default": ""
+            "items": {
+                "type": "string"
+            }
+        },
+        "aggregationTable": {
+            "type": "Array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "column": {
+                        "type": "string"
+                    },
+                    "function": {
+                        "type": "string"
+                    }
+                }
+            }
         }
     }
 }

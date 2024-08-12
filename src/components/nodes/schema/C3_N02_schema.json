@@ -2,9 +2,10 @@
     "type": "object",
     "properties": {
         "ColumnSelectionEnum": {
-            "type": "string",
-            "enum": [],
-            "default": []
+            "type": "Array",
+            "items": {
+                "type": "string"
+            }
         }
     }
 }

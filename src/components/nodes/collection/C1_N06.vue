@@ -2,8 +2,8 @@
   <v-container fluid>
     <CustomCard title="Input Location" flat>
       <v-select
-        :items="schema.properties.inputLocationEnum.enum"
-        v-model="formData.inputLocationEnum"
+        :items="[]"
+        v-model="formData.inputLocationArray"
       ></v-select>
       <v-checkbox
         hide-details

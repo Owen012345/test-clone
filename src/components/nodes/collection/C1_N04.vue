@@ -1,7 +1,7 @@
 <template lang="">
   <v-container fluid>
     <CustomCard title="Input Location" flat>
-      <v-select :items="schema.properties.pathEnum.enum" v-model="formData.pathEnum"></v-select>
+      <v-select :items="[]" v-model="formData.pathArray"></v-select>
       <v-checkbox
         hide-details
         v-model="formData.failOnMissingPath"

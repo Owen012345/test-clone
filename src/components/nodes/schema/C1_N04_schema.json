@@ -1,10 +1,11 @@
 {
     "type": "object",
     "properties": {
-        "pathEnum": {
-            "type": "string",
-            "enum": ["Path"],
-            "default" : "Path"
+        "pathArray": {
+            "type": "Array",
+            "items": {
+                "type": "string"
+            }
         },
         "failOnMissingPath" :{
             "type":"boolean",
