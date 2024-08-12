@@ -1,0 +1,18 @@
+{
+    "type": "object",
+    "properties": {
+        "ColumnFilterEnum": {
+            "type": "string",
+            "enum": [
+                "Includes",
+                "Excludes"
+            ],
+            "default": "Includes"
+        },
+        "ColumnSelectionEnum": {
+            "type": "string",
+            "enum": [],
+            "default": []
+        }
+    }
+}
