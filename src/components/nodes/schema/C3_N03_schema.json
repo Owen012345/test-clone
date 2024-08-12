@@ -3,17 +3,29 @@
     "properties": {
         "groupingColumnEnum": {
             "type": "string",
-            "enum": [],
+            "enum": [
+                "a",
+                "b",
+                "c"
+            ],
             "default": []
         },
         "aggregationColumnEnum": {
             "type": "string",
-            "enum": [],
+            "enum": [
+                "column1",
+                "column2",
+                "column3"
+            ],
             "default": ""
         },
         "aggregationFunctionEnum": {
             "type": "string",
-            "enum": [],
+            "enum": [
+                "func1",
+                "func2",
+                "func3"
+            ],
             "default": ""
         }
     }

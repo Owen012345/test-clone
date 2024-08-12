@@ -24,23 +24,11 @@
         placeholder="Function Selection"
         hide-details
       ></v-select>
-      <v-btn>add</v-btn>
-      <v-btn>remove</v-btn>
-      <v-btn>remove all</v-btn>
-      <v-table>
-        <thead>
-          <tr>
-            <th>agg column</th>
-            <th>agg function</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- <tr v-for="(item, key) in formData.aggregationColumnEnum" :key="key">
-            <td>{{ item }}</td>
-            <td>{{ formData.aggregationFunctionEnum }}</td>
-          </tr> -->
-        </tbody>
-      </v-table>
+      <CustomTableWithAddItems
+        :headers="['agg column', 'agg function']"
+        :items="[formData.aggregationColumnEnum, formData.aggregationFunctionEnum]"
+      >
+      </CustomTableWithAddItems>
     </CustomCard>
   </v-container>
 </template>
@@ -48,11 +36,14 @@
 import CustomCard from '@/components/custom/customCard.vue'
 import formMixin from '@/components/mixins/formMixin'
 import CustomSelectList from '@/components/custom/customSelectList.vue'
+import CustomTableWithAddItems from '@/components/custom/CustomTableWithAddItems.vue'
+
 export default {
   name: 'C3_N03',
   components: {
     CustomCard,
-    CustomSelectList
+    CustomSelectList,
+    CustomTableWithAddItems
   },
   mixins: [formMixin]
 }
