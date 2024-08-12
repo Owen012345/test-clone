@@ -1,23 +1,57 @@
-<template lang="">
-  <v-select hide-details v-model="localSelected" :items="items" multiple></v-select>
-  <div>
-    <v-btn @click="removeSelectedItems">제거</v-btn>
-    <v-btn @click="removeAll">전체 제거</v-btn>
-  </div>
-  <div>
-    <v-list class="table-list">
-      <v-list-item
-        v-for="(item, index) in localSelected"
-        :key="index"
-        :class="['table-row', { 'selected-item': isSelected(item) }]"
-        @click="toggleItemSelection(item)"
-      >
-        <v-list-item class="table-cell">
-          {{ item }}
-        </v-list-item>
-      </v-list-item>
-    </v-list>
-  </div>
+<template>
+  <v-sheet>
+    <v-row justify="center">
+      <!-- 전체 목록 (왼쪽) -->
+      <v-col cols="4">
+        <span>Exclude</span>
+        <v-list class="list-wrapper">
+          <v-list-item
+            v-for="(item, index) in availableItems"
+            :key="index"
+            :class="['list-row', { 'selected-item': isSelected(item) }]"
+            @click="toggleItemSelection(item, 'exclude')"
+          >
+            <v-list-item class="table-cell">
+              {{ item }}
+            </v-list-item>
+          </v-list-item>
+        </v-list>
+      </v-col>
+
+      <!-- 이동 버튼들 -->
+      <v-col cols="2" class="text-center d-flex flex-column justify-center align-center">
+        <v-btn @click="moveSelectedItemsTo('include')">
+          <v-icon>mdi-chevron-right</v-icon>
+        </v-btn>
+        <v-btn @click="moveAllItemsTo('include')">
+          <v-icon>mdi-chevron-double-right</v-icon>
+        </v-btn>
+        <v-btn @click="moveSelectedItemsTo('exclude')">
+          <v-icon>mdi-chevron-left</v-icon>
+        </v-btn>
+        <v-btn @click="moveAllItemsTo('exclude')">
+          <v-icon>mdi-chevron-double-left</v-icon>
+        </v-btn>
+      </v-col>
+
+      <!-- 선택된 목록 (오른쪽) -->
+      <v-col cols="4">
+        <span>Include</span>
+        <v-list class="list-wrapper">
+          <v-list-item
+            v-for="(item, index) in includedItems"
+            :key="index"
+            :class="['list-row', { 'selected-item': isSelected(item) }]"
+            @click="toggleItemSelection(item, 'include')"
+          >
+            <v-list-item class="table-cell">
+              {{ item }}
+            </v-list-item>
+          </v-list-item>
+        </v-list>
+      </v-col>
+    </v-row>
+  </v-sheet>
 </template>
 
 <script>
@@ -25,7 +59,8 @@ export default {
   name: 'CustomSelectList',
   props: {
     modelValue: {
-      type: Array
+      type: Array,
+      default: () => []
     },
     items: {
       type: Array,
@@ -34,58 +69,66 @@ export default {
   },
   data() {
     return {
-      selectedItems: []
+      selectedItems: [],
+      localSelected: []
     }
   },
   computed: {
-    localSelected: {
-      get() {
-        return this.modelValue
-      },
-      set(value) {
-        this.$emit('update:modelValue', value)
-      }
+    availableItems() {
+      return this.items.filter((item) => !this.modelValue.includes(item))
+    },
+    includedItems() {
+      return this.modelValue
     }
   },
   methods: {
-    removeSelectedItems() {
-      this.localSelected = this.localSelected.filter((item) => !this.selectedItems.includes(item))
-      this.selectedItems = []
+    moveSelectedItemsTo(destination) {
+      const itemsToMove = this.selectedItems
+      if (destination === 'include') {
+        this.localSelected = [...this.localSelected, ...itemsToMove]
+        this.selectedItems = []
+      } else if (destination === 'exclude') {
+        this.localSelected = this.localSelected.filter((item) => !itemsToMove.includes(item))
+        this.selectedItems = []
+      }
     },
-    removeAll() {
-      this.localSelected = []
-      this.selectedItems = []
+    moveAllItemsTo(destination) {
+      if (destination === 'include') {
+        this.localSelected = [...this.localSelected, ...this.availableItems]
+      } else if (destination === 'exclude') {
+        this.localSelected = []
+      }
     },
-    toggleItemSelection(item) {
-      const index = this.selectedItems.indexOf(item)
-      if (index > -1) {
-        this.selectedItems.splice(index, 1)
-      } else {
-        this.selectedItems.push(item)
+    toggleItemSelection(item, list) {
+      console.log(item, list)
+      if (list === 'exclude' || list === 'include') {
+        const index = this.selectedItems.indexOf(item)
+        if (index > -1) {
+          this.selectedItems.splice(index, 1)
+        } else {
+          this.selectedItems.push(item)
+        }
       }
     },
     isSelected(item) {
       return this.selectedItems.includes(item)
+    }
+  },
+  watch: {
+    localSelected(newValue) {
+      this.$emit('update:modelValue', newValue)
     }
   }
 }
 </script>
 
 <style scoped>
-.table-list {
-  display: table;
-  width: 100%;
-  border-collapse: collapse;
+.list-wrapper {
+  max-height: 200px;
 }
 
-.table-row {
-  display: table-row;
-  cursor: pointer;
-}
-
-.table-cell {
-  padding: 8px;
-  border: 1px solid #ddd;
+.list-row {
+  border: 1px solid lightgray;
 }
 
 .selected-item {
