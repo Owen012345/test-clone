@@ -2,7 +2,7 @@
     "type": "object",
     "properties": {
         "ColumnSelectionEnum": {
-            "type": "Array",
+            "type": "array",
             "items": {
                 "type": "string"
             }

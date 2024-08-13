@@ -2,27 +2,30 @@
     "type": "object",
     "properties": {
         "pathArray": {
-            "type": "Array",
+            "type": "array",
             "items": {
                 "type": "string"
             }
         },
-        "failOnMissingPath" :{
-            "type":"boolean",
-            "default" : false
+        "failOnMissingPath": {
+            "type": "boolean",
+            "default": false
         },
-        "failOnMissingValues" :{
-            "type":"boolean",
-            "default" : false
+        "failOnMissingValues": {
+            "type": "boolean",
+            "default": false
         },
-        "readerOptionRadioEnum": {
-            "type":"string",
-            "enum": ["Append column", "Replace selected column"],
-            "default" : "Append column"
+        "readerOptionEnum": {
+            "type": "string",
+            "enum": [
+                "Append column",
+                "Replace selected column"
+            ],
+            "default": "Append column"
         },
         "appendColumnName": {
-            "type":"string",
-            "default" : ""
+            "type": "string",
+            "default": ""
         }
     }
 }

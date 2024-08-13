@@ -47,15 +47,7 @@
             "type": "string",
             "enum": [
                 "UTC",
-                "America/New_York",
-                "Europe/London",
-                "Europe/Paris",
-                "Asia/Tokyo",
-                "Asia/Seoul",
-                "Asia/Shanghai",
-                "America/Los_Angeles",
-                "Australia/Sydney",
-                "America/Sao_Paulo"
+                "Asia/Seoul"
             ],
             "default": ""
         },

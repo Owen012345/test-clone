@@ -1,7 +1,7 @@
 {
     "type": "object",
     "properties": {
-        "filterRadioEnum": {
+        "filterEnum": {
             "type": "string",
             "enum": [
                 "Include rows by attribute value",
@@ -11,12 +11,11 @@
             ],
             "default": "Include rows by attribute value"
         },
-        "columnValueMatchingEnum": {
-            "type": "string",
-            "enum": [
-                null
-            ],
-            "default": null
+        "columnValueMatchingArray": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
         },
         "includeRowValueEnum": {
             "type": "string",

@@ -7,19 +7,19 @@
                 "type": "string"
             }
         },
-        "aggregationColumnEnum": {
-            "type": "Array",
+        "aggregationColumnArray": {
+            "type": "array",
             "items": {
                 "type": "string"
             }
         },
-        "aggregationFunctionEnum": {
-            "type": "string",
+        "aggregationFunctionArray": {
+            "type": "array",
             "items": {
                 "type": "string"
             }
         },
-        "aggregationTable": {
+        "aggregationList": {
             "type": "Array",
             "items": {
                 "type": "object",

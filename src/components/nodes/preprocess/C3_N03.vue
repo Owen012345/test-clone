@@ -12,15 +12,15 @@
 
       <span>select aggregation columns</span>
       <v-select
-        :items="schema.properties.aggregationColumnEnum.enum"
-        v-model="formData.aggregationColumnEnum"
+        :items="[]"
+        v-model="formData.aggregationColumnArray"
         placeholder="Column Selection"
         hide-details
       ></v-select>
       <span>select aggregation functions</span>
       <v-select
-        :items="schema.properties.aggregationFunctionEnum.enum"
-        v-model="formData.aggregationFunctionEnum"
+        :items="[]"
+        v-model="formData.aggregationColumnArray"
         placeholder="Function Selection"
         hide-details
       ></v-select>

@@ -2,7 +2,7 @@
     "type": "object",
     "properties": {
         "inputLocationArray": {
-            "type": "string",
+            "type": "array",
             "items": {
                 "type": "string"
             }
@@ -11,7 +11,7 @@
             "type": "boolean",
             "default": false
         },
-        "readerOptionRadioEnum": {
+        "readerOptionEnum": {
             "type": "string",
             "enum": [
                 "Append column",

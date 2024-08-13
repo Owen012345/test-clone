@@ -1,9 +1,9 @@
 <template lang="">
   <v-container fluid>
     <CustomCard title="Filter" flat>
-      <v-radio-group v-model="formData.filterRadioEnum" inline>
+      <v-radio-group v-model="formData.filterEnum" inline>
         <v-radio
-          v-for="(item, index) in schema.properties.filterRadioEnum.enum"
+          v-for="(item, index) in schema.properties.filterEnum.enum"
           :key="index"
           :label="item"
           :value="item"
@@ -15,14 +15,11 @@
       title="Column Value Matching"
       flat
       v-if="
-        formData.filterRadioEnum === 'Include rows by attribute value' ||
-        formData.filterRadioEnum === 'Exclude rows by attribute value'
+        formData.filterEnum === 'Include rows by attribute value' ||
+        formData.filterEnum === 'Exclude rows by attribute value'
       "
     >
-      <v-select
-        :items="schema.properties.columnValueMatchingEnum.enum"
-        v-model="formData.columnValueMatchingEnum"
-      ></v-select>
+      <v-select :items="[]" v-model="formData.columnValueMatchingArray"></v-select>
       <v-radio-group v-model="formData.includeRowValueEnum">
         <template v-for="(item, index) in schema.properties.includeRowValueEnum.enum" :key="index">
           <v-radio :label="item" :value="item"></v-radio>
@@ -81,8 +78,8 @@
       title="Row number range"
       flat
       v-if="
-        formData.filterRadioEnum === 'Include rows by row number' ||
-        formData.filterRadioEnum === 'Exclude rows by row number'
+        formData.filterEnum === 'Include rows by row number' ||
+        formData.filterEnum === 'Exclude rows by row number'
       "
     >
       <v-row>
