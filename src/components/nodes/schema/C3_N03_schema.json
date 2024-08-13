@@ -1,8 +1,8 @@
 {
     "type": "object",
     "properties": {
-        "groupingColumnEnum": {
-            "type": "string",
+        "groupingColumnArray": {
+            "type": "array",
             "items": {
                 "type": "string"
             }
@@ -19,8 +19,8 @@
                 "type": "string"
             }
         },
-        "aggregationList": {
-            "type": "Array",
+        "aggregationArrayObject": {
+            "type": "array",
             "items": {
                 "type": "object",
                 "properties": {

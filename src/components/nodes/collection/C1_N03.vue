@@ -30,7 +30,7 @@
   </v-container>
 </template>
 <script>
-import CustomCard from '@/components/custom/customCard.vue'
+import CustomCard from '@/components/custom/CustomCard.vue'
 import formMixin from '@/components/mixins/formMixin'
 export default {
   name: 'C1_N03',

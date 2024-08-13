@@ -42,10 +42,41 @@ const actions = {
 
       const property = schema.properties
       const formData = Object.keys(property).reduce((acc, key) => {
-        acc[key] = property[key]?.default
+        const field = property[key]
+
+        // default 값이 있는 경우 해당 값을 사용
+        if ('default' in field) {
+          acc[key] = field.default
+        }
+        // type이 'array'이고 items.type이 'object'인 경우
+        else if (field.type === 'array' && field.items && field.items.type === 'object') {
+          const objectTemplate = Object.keys(field.items.properties).reduce((objAcc, objKey) => {
+            const objField = field.items.properties[objKey]
+            if (objField.type === 'string') {
+              objAcc[objKey] = ''
+            } else if (objField.type === 'number') {
+              objAcc[objKey] = 0
+            } else if (objField.type === 'boolean') {
+              objAcc[objKey] = false
+            } else {
+              objAcc[objKey] = null
+            }
+            return objAcc
+          }, {})
+
+          acc[key] = [objectTemplate]
+        }
+        // type이 'array'이고 default 값이 없는 경우 빈 배열 [] 할당
+        else if (field.type === 'array') {
+          acc[key] = []
+        }
+        // 그 외의 경우 null로 설정
+        else {
+          acc[key] = null
+        }
+
         return acc
       }, {})
-      //   console.log(formData)
 
       commit('UPDATE_NODE_SCHEMA_DEFAULT', { id: node.id, formData: formData })
     } catch (error) {
@@ -62,11 +93,6 @@ const actions = {
 }
 
 export default { namespaced: true, state, mutations, actions, getters }
-
-// 1. 노드 생성 시 스키마 파일 import 후 스키마 내용을 생성된 노드의 초기값으로 설정
-// 2. 초기값은 노드가 선택시 가져오도록 설정
-// 2-1. 노드는 id 기준으로 가져오도록 설정
-// 3.
 
 // nodeDetail store 는 노드의 세팅 관련 정보를 저장하는 store 입니다.
 // editor 내 node 생성 및 삭제 시 필요한 로직을 구현합니다.

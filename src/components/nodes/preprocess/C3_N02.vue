@@ -12,9 +12,9 @@
   </v-container>
 </template>
 <script>
-import CustomCard from '@/components/custom/customCard.vue'
+import CustomCard from '@/components/custom/CustomCard.vue'
 import formMixin from '@/components/mixins/formMixin'
-import CustomSelectList from '@/components/custom/customSelectList.vue'
+import CustomSelectList from '@/components/custom/CustomSelectList.vue'
 export default {
   name: 'C3_N02',
   components: {

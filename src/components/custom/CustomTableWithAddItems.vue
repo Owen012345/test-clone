@@ -1,17 +1,14 @@
 <template lang="">
-  {{ items }}
-  {{ headers }}
+  <v-btn @click="addItem">add</v-btn>
   <v-table>
     <thead>
       <tr>
-        <th class="text-left">Name</th>
-        <th class="text-left">Calories</th>
+        <th :id="item" class="text-left" v-for="(item, idx) in headers" :key="idx">{{ item }}</th>
       </tr>
     </thead>
     <tbody>
-      <tr v-for="item in desserts" :key="item.name">
-        <td>{{ item.name }}</td>
-        <td>{{ item.calories }}</td>
+      <tr>
+        <td></td>
       </tr>
     </tbody>
   </v-table>
@@ -25,7 +22,25 @@ export default {
       required: true
     },
     items: {
+      type: Array,
+      required: true
+    },
+    modelValue: {
       type: Array
+    }
+  },
+  computed: {
+    tableRowKey() {
+      return this.modelValue[0]
+    }
+  },
+  methods: {
+    addItem() {
+      this.$emit('update:modelValue', [...this.modelValue, { column: '', function: '' }])
+    },
+    removeItem(index) {
+      const updatedItems = this.modelValue.filter((_, i) => i !== index)
+      this.$emit('update:modelValue', updatedItems)
     }
   }
 }
