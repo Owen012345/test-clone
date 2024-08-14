@@ -1,5 +1,5 @@
 <template lang="">
-  <div>
+  <div class="nodedetails-container">
     <v-tabs v-model="selectedTabIdx">
       <v-tab v-for="(tab, idx) in tabs" :key="idx" :title="tab.title">
         {{ tab.title }}
@@ -8,17 +8,17 @@
     <v-tabs-window v-model="selectedTabIdx">
       <v-tabs-window-item v-for="(tab, idx) in tabs" :key="idx">
         <ComponentRender
-          v-if="selectedNode"
+          v-if="selectedNode && tab.title === 'Settings'"
           :selectedTab="selectedTabTitle"
           :selectedNode="selectedNode"
         />
       </v-tabs-window-item>
-      <div v-if="selectedNode" class="execution-footer">
-        <v-btn>OK</v-btn>
-        <v-btn>Cancel</v-btn>
-        <v-btn>Execute</v-btn>
-      </div>
     </v-tabs-window>
+    <div v-if="selectedNode" class="execution-footer">
+      <v-btn>OK</v-btn>
+      <v-btn>Cancel</v-btn>
+      <v-btn>Execute</v-btn>
+    </div>
   </div>
 </template>
 
@@ -54,17 +54,18 @@ export default {
 }
 </script>
 <style lang="scss">
-.execution-footer {
+.nodedetails-container {
   position: relative;
-  background-color: white;
-  border-top: 1px solid black;
-  height: 50px;
+  padding-bottom: 60px;
+}
+.execution-footer {
+  position: absolute;
   width: 100%;
+  height: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
-  > .v-btn {
-    margin: 10px 20px;
-  }
+  background-color: transparent;
+  padding: 10px;
 }
 </style>
