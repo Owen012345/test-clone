@@ -59,13 +59,16 @@ export default {
   padding-bottom: 60px;
 }
 .execution-footer {
-  position: absolute;
+  position: absolute; /* 또는 fixed로 설정 가능 */
   width: 100%;
-  height: 50px;
+  height: 40px; /* 고정 높이 */
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: transparent;
   padding: 10px;
+  > .v-btn {
+    margin: 0 10px;
+  }
 }
 </style>
