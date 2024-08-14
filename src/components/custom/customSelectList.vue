@@ -108,7 +108,6 @@ export default {
       }
     },
     toggleItemSelection(item, list) {
-      console.log(item, list)
       if (list === 'exclude' || list === 'include') {
         const index = this.selectedItems.indexOf(item)
         if (index > -1) {
