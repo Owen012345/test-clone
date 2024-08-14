@@ -2,9 +2,6 @@ import { mapGetters, mapActions } from 'vuex'
 
 export default {
   props: {
-    selectedTab: {
-      type: String
-    },
     selectedNodeId: {
       type: String
     }

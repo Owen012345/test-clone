@@ -1,10 +1,5 @@
 <template lang="">
-  <component
-    v-if="selectedTab && selectedNode"
-    :is="selectedNode.nodeId"
-    :selectedNodeId="selectedNode.id"
-    :selectedTab="selectedTab"
-  />
+  <component v-if="selectedNode" :is="selectedNode.nodeId" :selectedNodeId="selectedNode.id" />
 </template>
 <script>
 import C1_N01 from '@/components/nodes/collection/C1_N01.vue'
@@ -41,10 +36,6 @@ export default {
     C5_N01
   },
   props: {
-    selectedTab: {
-      type: String,
-      required: true
-    },
     selectedNode: {
       type: Object,
       required: true

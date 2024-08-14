@@ -9,7 +9,6 @@
       <v-tabs-window-item v-for="(tab, idx) in tabs" :key="idx">
         <ComponentRender
           v-if="selectedNode && tab.title === 'Settings'"
-          :selectedTab="selectedTabTitle"
           :selectedNode="selectedNode"
         />
       </v-tabs-window-item>
