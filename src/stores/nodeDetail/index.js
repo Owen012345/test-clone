@@ -22,7 +22,7 @@ const mutations = {
       delete state.defaultNodeSchema[id]
     }
   },
-  UPDATE_NODE_SCHEMA_DEFAULT(state, { id, formData }) {
+  UPDATE_NODE_SCHEMA_SETTING(state, { id, formData }) {
     if (state.defaultNodeSchema[id]) {
       if (state.defaultNodeSchema[id].settings) {
         state.defaultNodeSchema[id].settings = {
@@ -37,12 +37,27 @@ const mutations = {
         settings: formData
       }
     }
+  },
+  UPDATE_NODE_METADATA(state, { id, metadata }) {
+    if (state.defaultNodeSchema[id]) {
+      state.defaultNodeSchema[id].metadata = {
+        ...state.defaultNodeSchema[id].metadata,
+        ...metadata
+      }
+    } else {
+      state.defaultNodeSchema[id] = {
+        metadata: metadata
+      }
+    }
   }
 }
 
 const getters = {
   getDefaultSettingNodeSchema: (state) => (id) => {
     return state.defaultNodeSchema[id].settings
+  },
+  getDefaultMetadataNodeSchema: (state) => (id) => {
+    return state.defaultNodeSchema[id].metadata
   },
   getInitSettingNodeSchema: (state) => (id) => {
     return state.initialNodeSchema[id].settings
@@ -53,7 +68,10 @@ const actions = {
   async initNodeDataWithSchema({ commit }, node) {
     try {
       const schema = await import(`@/components/nodes/schema/${node.nodeId}_schema.json`)
-
+      const metadata = {
+        address: '',
+        version: ''
+      }
       commit('INIT_NODE_SCHEMA', { id: node.id, data: schema.default })
 
       const property = schema.properties
@@ -72,7 +90,8 @@ const actions = {
         return acc
       }, {})
 
-      commit('UPDATE_NODE_SCHEMA_DEFAULT', { id: node.id, formData: formData })
+      commit('UPDATE_NODE_SCHEMA_SETTING', { id: node.id, formData: formData })
+      commit('UPDATE_NODE_METADATA', { id: node.id, metadata: metadata })
     } catch (error) {
       console.error(error)
     }
@@ -81,7 +100,10 @@ const actions = {
     commit('REMOVE_NODE_SCHEMA', id)
   },
   updateFormData({ commit }, { nodeId, formData }) {
-    commit('UPDATE_NODE_SCHEMA_DEFAULT', { id: nodeId, formData: formData })
+    commit('UPDATE_NODE_SCHEMA_SETTING', { id: nodeId, formData: formData })
+  },
+  updateMetadaData({ commit }, { nodeId, metadata }) {
+    commit('UPDATE_NODE_METADATA', { id: nodeId, metadata: metadata })
   }
 }
 
