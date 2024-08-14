@@ -32,7 +32,7 @@ export default {
     return {
       selectedTabIdx: 1,
       selectedTabTitle: '',
-      tabs: [{ title: 'Metadata' }, { title: 'Settings' }, { title: 'Input' }, { title: 'Output' }]
+      tabs: [{ title: 'Metadata' }, { title: 'Settings' }, { title: 'Output' }, { title: 'Logs' }]
     }
   },
   computed: {

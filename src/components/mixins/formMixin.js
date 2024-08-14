@@ -39,14 +39,14 @@ export default {
   },
   computed: {
     ...mapGetters('nodeDetail', {
-      getInitNodeSchema: 'getInitNodeSchema',
-      getDefaultNodeSchema: 'getDefaultNodeSchema'
+      getInitSettingNodeSchema: 'getInitSettingNodeSchema',
+      getDefaultSettingNodeSchema: 'getDefaultSettingNodeSchema'
     }),
     initFormData() {
-      return this.getDefaultNodeSchema(this.selectedNodeId)
+      return this.getDefaultSettingNodeSchema(this.selectedNodeId)
     },
     schema() {
-      return this.getInitNodeSchema(this.selectedNodeId)
+      return this.getInitSettingNodeSchema(this.selectedNodeId)
     }
   }
 }
