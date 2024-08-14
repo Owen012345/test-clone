@@ -1,5 +1,6 @@
 const state = {
   editor: null,
+  area: null,
   selectedNode: null,
   nodes: [],
   connections: []
@@ -19,6 +20,9 @@ const mutations = {
   },
   SET_EDITOR(state, editor) {
     state.editor = editor
+  },
+  SET_AREA(state, area) {
+    state.area = area
   }
 }
 const actions = {
@@ -37,6 +41,7 @@ const actions = {
 }
 const getters = {
   getEditor: (state) => state.editor,
+  getArea: (state) => state.area,
   getSelectedNode: (state) => {
     return {
       id: state.selectedNode?.id,

@@ -16,13 +16,13 @@ export default {
     }
   },
   methods: {
-    ...mapMutations('workflow', ['SET_EDITOR']),
+    ...mapMutations('workflow', ['SET_EDITOR', 'SET_AREA']),
     async onDrop(event) {
       event.preventDefault()
       const node = JSON.parse(event.dataTransfer.getData('node'))
 
       if (node) {
-        await createNode(this.editor, this.area, node, event)
+        await createNode(node, event)
       }
     },
     onDragOver(event) {
@@ -45,6 +45,7 @@ export default {
     this.editor = editor
     this.area = area
 
+    this.SET_AREA(area)
     this.SET_EDITOR(editor)
   },
   beforeUnmount() {

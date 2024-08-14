@@ -42,7 +42,6 @@ export default {
   watch: {
     metadata: {
       handler(newVal) {
-        console.log(newVal)
         this.updateMetadaData({
           nodeId: this.selectedNode.id,
           metadata: newVal
