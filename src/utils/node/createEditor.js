@@ -76,6 +76,11 @@ export async function createEditor(container) {
   // Rete.js Event watcher
 
   area.addPipe((context) => {
+    if (context.type === 'nodedragged') {
+      const { x, y } = area.area.pointer
+      const { data } = context
+      data.position = { x: x, y: y }
+    }
     if (context.type === 'pointerdown') {
       store.dispatch('workflow/removeNode')
     }
@@ -95,6 +100,7 @@ export async function createEditor(container) {
   editor.addPipe((context) => {
     if (context.type === 'nodecreated') {
       const { data } = context
+      // console.log(data)
       const node = {
         id: data.id,
         nodeId: data.nodeId

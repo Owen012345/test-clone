@@ -1,5 +1,5 @@
 import { ClassicPreset } from 'rete'
-
+import store from '@/stores' // Vuex store import
 class Node extends ClassicPreset.Node {
   constructor(label, nodeId) {
     super(label)
@@ -9,7 +9,9 @@ class Node extends ClassicPreset.Node {
   }
 }
 
-export async function createNode(editor, area, selectedNode, event) {
+export async function createNode(selectedNode, event) {
+  const editor = store.getters['workflow/getEditor']
+  const area = store.getters['workflow/getArea']
   const socket = new ClassicPreset.Socket('socket')
 
   const node = new Node(selectedNode.label, selectedNode.id)
@@ -31,8 +33,9 @@ export async function createNode(editor, area, selectedNode, event) {
 
   area.area.setPointerFrom(event)
   const { x, y } = area.area.pointer
-  await editor.addNode(node)
+  node.position = { x: x, y: y }
 
+  await editor.addNode(node)
   await area.translate(node.id, { x: x, y: y })
 
   return {

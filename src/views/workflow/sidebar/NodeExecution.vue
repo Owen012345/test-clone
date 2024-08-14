@@ -2,12 +2,13 @@
   <div class="node-execution">
     <div>1</div>
     <div>2</div>
-    <div>3</div>
+    <div @click="dataStructure">test</div>
     <button @click="flowExecution">Execution</button>
   </div>
 </template>
 <script>
-// import { getDataStructure } from '@/utils/node/getDataStructure'
+import { getDataStructure } from '@/utils/node/getDataStructure'
+import { redrawGraph } from '@/utils/node/redrawNode'
 export default {
   name: 'NodeExecution',
   data() {
@@ -17,9 +18,11 @@ export default {
   },
 
   methods: {
+    dataStructure() {
+      getDataStructure()
+    },
     flowExecution() {
-      console.log('flowExecution')
-      // getDataStructure()
+      redrawGraph()
     }
   }
 }
