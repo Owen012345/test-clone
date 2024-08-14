@@ -6,9 +6,10 @@ export function getDataStructure() {
   console.log(editor.nodes)
   const nodes = editor.nodes.map((node) => ({
     id: node.id,
-    name: node.label,
-    data: node.data,
+    label: node.label,
+    nodeId: node.nodeId,
     position: node.position,
+    data: node.data,
     inputs: Object.keys(node.inputs).map((key) => ({
       key: key,
       connections: node.inputs[key].connections?.map((connection) => ({
@@ -43,34 +44,38 @@ export function getDataStructure() {
   console.log(dataStructure)
   const data = dataStructure
   const getOutgoingConnections = (nodeId) => {
-    return data.connections.filter(conn => conn.sourceNode === nodeId);
-  };
-  
-  const getIncomingConnections = (nodeId) => {
-    return data.connections.filter(conn => conn.targetNode === nodeId);
-  };
-  
-  // Identify nodes
-  const startNode = data.nodes.find(node => {
-    return getOutgoingConnections(node.id).length > 0 && getIncomingConnections(node.id).length === 0;
-  });
-  
-  const endNode = data.nodes.find(node => {
-    return getIncomingConnections(node.id).length > 0 && getOutgoingConnections(node.id).length === 0;
-  });
-  
-  const middleNodes = data.nodes.filter(node => {
-    return getIncomingConnections(node.id).length > 0 && getOutgoingConnections(node.id).length > 0;
-  });
-  
-  // Output the nodes in order
-  const orderedNodes = [];
-  
-  if (startNode) orderedNodes.push(startNode.name);
-  if (middleNodes.length > 0) {
-    middleNodes.forEach(node => orderedNodes.push(node.name));
+    return data.connections.filter((conn) => conn.sourceNode === nodeId)
   }
-  if (endNode) orderedNodes.push(endNode.name);
-  
-  console.log("Node order:", orderedNodes);
+
+  const getIncomingConnections = (nodeId) => {
+    return data.connections.filter((conn) => conn.targetNode === nodeId)
+  }
+
+  // Identify nodes
+  const startNode = data.nodes.find((node) => {
+    return (
+      getOutgoingConnections(node.id).length > 0 && getIncomingConnections(node.id).length === 0
+    )
+  })
+
+  const endNode = data.nodes.find((node) => {
+    return (
+      getIncomingConnections(node.id).length > 0 && getOutgoingConnections(node.id).length === 0
+    )
+  })
+
+  const middleNodes = data.nodes.filter((node) => {
+    return getIncomingConnections(node.id).length > 0 && getOutgoingConnections(node.id).length > 0
+  })
+
+  // Output the nodes in order
+  const orderedNodes = []
+
+  if (startNode) orderedNodes.push(startNode.name)
+  if (middleNodes.length > 0) {
+    middleNodes.forEach((node) => orderedNodes.push(node.name))
+  }
+  if (endNode) orderedNodes.push(endNode.name)
+
+  console.log('Node order:', orderedNodes)
 }

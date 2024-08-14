@@ -1,0 +1,136 @@
+{
+    "connections": [
+        {
+            "sourceNode": "89dd12e944ab5b71",
+            "targetNode": "3aea021d028c97e9",
+            "sourceOutput": "output-0",
+            "targetInput": "input-0"
+        },
+        {
+            "sourceNode": "3aea021d028c97e9",
+            "targetNode": "9b52a0e48e22bfde",
+            "sourceOutput": "output-0",
+            "targetInput": "input-0"
+        },
+        {
+            "sourceNode": "89dd12e944ab5b71",
+            "targetNode": "0ca697985276dd38",
+            "sourceOutput": "output-1",
+            "targetInput": "input-0"
+        },
+        {
+            "sourceNode": "0ca697985276dd38",
+            "targetNode": "9b52a0e48e22bfde",
+            "sourceOutput": "output-0",
+            "targetInput": "input-1"
+        },
+        {
+            "sourceNode": "9b52a0e48e22bfde",
+            "targetNode": "aabde5cfb9f296de",
+            "sourceOutput": "output-0",
+            "targetInput": "input-0"
+        }
+    ],
+    "nodes": [
+        {
+            "id": "89dd12e944ab5b71",
+            "label": "CSV Reader",
+            "nodeId": "C1_N01",
+            "position": {
+                "x": -337.6363830566406,
+                "y": -2.272735595703125
+            },
+            "inputs": [],
+            "outputs": [
+                {
+                    "key": "output-0"
+                },
+                {
+                    "key": "output-1"
+                }
+            ]
+        },
+        {
+            "id": "3aea021d028c97e9",
+            "label": "CSV Writer",
+            "nodeId": "C1_N02",
+            "position": {
+                "x": -74,
+                "y": -109
+            },
+            "inputs": [
+                {
+                    "key": "input-0"
+                },
+                {
+                    "key": "input-1"
+                }
+            ],
+            "outputs": [
+                {
+                    "key": "output-0"
+                }
+            ]
+        },
+        {
+            "id": "0ca697985276dd38",
+            "label": "File Reader",
+            "nodeId": "C1_N03",
+            "position": {
+                "x": -44,
+                "y": 105
+            },
+            "inputs": [
+                {
+                    "key": "input-0"
+                }
+            ],
+            "outputs": [
+                {
+                    "key": "output-0"
+                }
+            ]
+        },
+        {
+            "id": "9b52a0e48e22bfde",
+            "label": "CSV Writer",
+            "nodeId": "C1_N02",
+            "position": {
+                "x": 184,
+                "y": -4
+            },
+            "inputs": [
+                {
+                    "key": "input-0"
+                },
+                {
+                    "key": "input-1"
+                }
+            ],
+            "outputs": [
+                {
+                    "key": "output-0"
+                }
+            ]
+        },
+        {
+            "id": "aabde5cfb9f296de",
+            "label": "File Reader",
+            "nodeId": "C1_N03",
+            "position": {
+                "x": 599,
+                "y": 4
+            },
+            "inputs": [
+                {
+                    "key": "input-0"
+                }
+            ],
+            "outputs": [
+                {
+                    "key": "output-0"
+                }
+            ]
+        }
+    ]
+}
