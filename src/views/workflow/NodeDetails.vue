@@ -11,6 +11,10 @@
           v-if="selectedNode && tab.title === 'Settings'"
           :selectedNode="selectedNode"
         />
+        <MetadataItem
+          :selectedNode="selectedNode"
+          v-else-if="selectedNode && tab.title === 'Metadata'"
+        />
       </v-tabs-window-item>
     </v-tabs-window>
     <div v-if="selectedNode" class="execution-footer">
@@ -24,9 +28,10 @@
 <script>
 import { mapGetters } from 'vuex'
 import ComponentRender from '@/views/workflow/details/ComponentRender.vue'
+import MetadataItem from '@/components/nodes/metadata/Metadata.vue'
 export default {
   name: 'NodeDetails',
-  components: { ComponentRender },
+  components: { ComponentRender, MetadataItem },
   data() {
     return {
       selectedTabIdx: 1,
