@@ -16,15 +16,19 @@
         v-model="formData.aggregationColumnArray"
         placeholder="Column Selection"
         hide-details
+        @update:modelValue="addTableItems('column', $event)"
       ></v-select>
       <span>select aggregation functions</span>
       <v-select
-        :items="['func1', 'func2', 'func3']"
+        :items="schema.properties.aggregationFunctionEnum.enum"
         v-model="formData.aggregationFunctionArray"
         placeholder="Function Selection"
         hide-details
+        @update:modelValue="addTableItems('function', $event)"
       ></v-select>
       <v-btn @click="addItems">add</v-btn>
+      <v-btn @click="removeSelected">remove</v-btn>
+      <v-btn @click="removeAll">remove all</v-btn>
       <v-table>
         <thead>
           <tr>
@@ -34,16 +38,17 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td></td>
+          <tr
+            v-for="(item, index) in formData.aggregationArrayObject"
+            :key="index"
+            :class="{ 'selected-row': selectedRow === index }"
+            @click="selectRow(index)"
+          >
+            <td>{{ item.column }}</td>
+            <td>{{ item.function }}</td>
           </tr>
         </tbody>
       </v-table>
-      <!-- <CustomTableWithAddItems
-        :headers="['agg column', 'agg function']"
-        :items="[formData.aggregationColumnArray, formData.aggregationFunctionArray]"
-        v-model="formData.aggregationArrayObject"
-      ></CustomTableWithAddItems> -->
     </CustomCard>
   </v-container>
 </template>
@@ -51,26 +56,57 @@
 import CustomCard from '@/components/custom/CustomCard.vue'
 import formMixin from '@/components/mixins/formMixin'
 import CustomSelectList from '@/components/custom/CustomSelectList.vue'
-import CustomTableWithAddItems from '@/components/custom/CustomTableWithAddItems.vue'
 
 export default {
   name: 'C3_N03',
   components: {
     CustomCard,
-    CustomSelectList,
-    CustomTableWithAddItems
+    CustomSelectList
   },
   mixins: [formMixin],
+  data() {
+    return {
+      headers: ['column', 'function'],
+      items: [],
+      defaultItem: {
+        column: '',
+        function: ''
+      },
+      selectedRow: null
+    }
+  },
   methods: {
+    addTableItems(type, value) {
+      this.defaultItem[type] = value
+      // TODO : 컴포넌트 분리
+    },
     addItems() {
-      let obj = this.formData.aggregationArrayObject[0]
-      obj.column = this.formData.aggregationColumnArray
-      obj.function = this.formData.aggregationFunctionArray
-      console.log(obj)
-      console.log(this.formData.aggregationColumnArray)
-      console.log(this.formData.aggregationFunctionArray)
+      this.defaultItem.column = this.formData.aggregationColumnArray || ''
+      this.defaultItem.function = this.formData.aggregationFunctionArray || ''
+
+      this.formData.aggregationArrayObject.push({ ...this.defaultItem })
+    },
+    selectRow(index) {
+      if (this.selectedRow === index) {
+        this.selectedRow = null
+      } else {
+        this.selectedRow = index
+      }
+    },
+    removeSelected() {
+      if (this.selectedRow !== null) {
+        this.formData.aggregationArrayObject.splice(this.selectedRow, 1)
+        this.selectedRow = null
+      }
+    },
+    removeAll() {
+      this.formData.aggregationArrayObject = []
     }
   }
 }
 </script>
-<style lang=""></style>
+<style>
+.selected-row {
+  background-color: lightgray;
+}
+</style>

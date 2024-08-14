@@ -49,23 +49,23 @@ const actions = {
           acc[key] = field.default
         }
         // type이 'array'이고 items.type이 'object'인 경우
-        else if (field.type === 'array' && field.items && field.items.type === 'object') {
-          const objectTemplate = Object.keys(field.items.properties).reduce((objAcc, objKey) => {
-            const objField = field.items.properties[objKey]
-            if (objField.type === 'string') {
-              objAcc[objKey] = ''
-            } else if (objField.type === 'number') {
-              objAcc[objKey] = 0
-            } else if (objField.type === 'boolean') {
-              objAcc[objKey] = false
-            } else {
-              objAcc[objKey] = null
-            }
-            return objAcc
-          }, {})
+        // else if (field.type === 'array' && field.items && field.items.type === 'object') {
+        //   const objectTemplate = Object.keys(field.items.properties).reduce((objAcc, objKey) => {
+        //     const objField = field.items.properties[objKey]
+        //     if (objField.type === 'string') {
+        //       objAcc[objKey] = ''
+        //     } else if (objField.type === 'number') {
+        //       objAcc[objKey] = 0
+        //     } else if (objField.type === 'boolean') {
+        //       objAcc[objKey] = false
+        //     } else {
+        //       objAcc[objKey] = null
+        //     }
+        //     return objAcc
+        //   }, {})
 
-          acc[key] = [objectTemplate]
-        }
+        //   acc[key] = [objectTemplate]
+        // }
         // type이 'array'이고 default 값이 없는 경우 빈 배열 [] 할당
         else if (field.type === 'array') {
           acc[key] = []

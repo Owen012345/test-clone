@@ -13,11 +13,17 @@
                 "type": "string"
             }
         },
-        "aggregationFunctionArray": {
-            "type": "array",
-            "items": {
-                "type": "string"
-            }
+        "aggregationFunctionEnum": {
+            "type": "string",
+            "enum": [
+                "min",
+                "max",
+                "mean",
+                "median",
+                "first",
+                "last",
+                "count"
+            ]
         },
         "aggregationArrayObject": {
             "type": "array",
