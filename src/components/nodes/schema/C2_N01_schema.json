@@ -29,7 +29,7 @@
             "type": "string",
             "default": "body"
         },
-        "sslIngoreHostname": {
+        "sslIgnoreHostname": {
             "type": "boolean",
             "default": false
         },

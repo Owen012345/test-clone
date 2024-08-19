@@ -59,7 +59,11 @@
         <template v-for="(item, index) in schema.properties.authTypeEnum.enum" :key="index">
           <v-radio :label="item" :value="item"></v-radio>
           <CustomCard v-if="item === 'Basic'">
-            <v-radio-group v-model="formData.authBasicTypeEnum" hide-details>
+            <v-radio-group
+              :disabled="formData.authTypeEnum !== 'Basic'"
+              v-model="formData.authBasicTypeEnum"
+              hide-details
+            >
               <template
                 v-for="(item, index) in schema.properties.authBasicTypeEnum.enum"
                 :key="index"
@@ -68,6 +72,7 @@
                 <CustomCard v-if="item === 'Token'">
                   <span>Token</span>
                   <v-text-field
+                    :disabled="formData.authBasicTypeEnum !== 'Token'"
                     :type="schema.properties.authBasicToken.type"
                     v-model="formData.authBasicToken"
                     hide-details
@@ -76,12 +81,14 @@
                 <CustomCard v-if="item === 'Username/Password'">
                   <span>Username</span>
                   <v-text-field
+                    :disabled="formData.authBasicTypeEnum !== 'Username/Password'"
                     :type="schema.properties.authBasicUsername.type"
                     v-model="formData.authBasicUsername"
                     hide-details
                   ></v-text-field>
                   <span>Password</span>
                   <v-text-field
+                    :disabled="formData.authBasicTypeEnum !== 'Username/Password'"
                     :type="schema.properties.authBasicPassword.type"
                     v-model="formData.authBasicPassword"
                     hide-details
@@ -91,7 +98,11 @@
             </v-radio-group>
           </CustomCard>
           <CustomCard v-if="item === 'Digest'">
-            <v-radio-group v-model="formData.authDigestTypeEnum" hide-details>
+            <v-radio-group
+              v-model="formData.authDigestTypeEnum"
+              hide-details
+              :disabled="formData.authTypeEnum !== 'Digest'"
+            >
               <template
                 v-for="(item, index) in schema.properties.authDigestTypeEnum.enum"
                 :key="index"
@@ -100,6 +111,7 @@
                 <CustomCard v-if="item === 'Token'">
                   <span>Token</span>
                   <v-text-field
+                    :disabled="formData.authDigestTypeEnum !== 'Token'"
                     :type="schema.properties.authDigestToken.type"
                     v-model="formData.authDigestToken"
                     hide-details
@@ -108,12 +120,14 @@
                 <CustomCard v-if="item === 'Username/Password'">
                   <span>Username</span>
                   <v-text-field
+                    :disabled="formData.authDigestTypeEnum !== 'Username/Password'"
                     :type="schema.properties.authDigestUsername.type"
                     v-model="formData.authDigestUsername"
                     hide-details
                   ></v-text-field>
                   <span>Password</span>
                   <v-text-field
+                    :disabled="formData.authDigestTypeEnum !== 'Username/Password'"
                     :type="schema.properties.authDigestPassword.type"
                     v-model="formData.authDigestPassword"
                     hide-details
@@ -127,7 +141,7 @@
     </CustomCard>
     <CustomCard title="Proxy">
       <span>Proxy enabled status</span>
-      <v-radio-group v-model="formData.proxyStatusEnum" hide-details>
+      <v-radio-group v-model="formData.proxyStatusEnum" hide-details inline>
         <v-radio
           v-for="(item, index) in schema.properties.proxyStatusEnum.enum"
           :key="index"
@@ -135,9 +149,8 @@
           :value="item"
         ></v-radio>
       </v-radio-group>
-      <CustomCard>
-        <span>Proxy Protocol</span>
-        <v-radio-group v-model="formData.proxyProtocolEnum" hide-details>
+      <CustomCard title="Proxy Protocol" v-if="formData.proxyStatusEnum === 'Use Proxy'">
+        <v-radio-group v-model="formData.proxyProtocolEnum" hide-details inline>
           <v-radio
             v-for="(item, index) in schema.properties.proxyProtocolEnum.enum"
             :key="index"
@@ -145,26 +158,32 @@
             :value="item"
           ></v-radio>
         </v-radio-group>
-        <span>Proxy Host</span>
-        <v-text-field
-          :type="schema.properties.proxyHost.type"
-          v-model="formData.proxyHost"
-          hide-details
-        ></v-text-field>
-        <span>Proxy Port</span>
-        <v-text-field
-          :type="schema.properties.proxyPort.type"
-          v-model="formData.proxyPort"
-          hide-details
-        ></v-text-field>
-        <v-checkbox
-          v-model="formData.proxyAuthentication"
-          hide-details
-          label="Proxy host needs authentication"
-        >
-        </v-checkbox>
         <CustomCard>
-          <v-radio-group v-model="formData.proxyAuthTypeEnum" hide-details>
+          <span>Proxy Host</span>
+          <v-text-field
+            :type="schema.properties.proxyHost.type"
+            v-model="formData.proxyHost"
+            hide-details
+          ></v-text-field>
+          <span>Proxy Port</span>
+          <v-text-field
+            :type="schema.properties.proxyPort.type"
+            v-model="formData.proxyPort"
+            hide-details
+          ></v-text-field>
+          <v-checkbox
+            v-model="formData.proxyAuthentication"
+            hide-details
+            label="Proxy host needs authentication"
+          >
+          </v-checkbox>
+        </CustomCard>
+        <CustomCard>
+          <v-radio-group
+            v-model="formData.proxyAuthTypeEnum"
+            hide-details
+            :disabled="!formData.proxyAuthentication"
+          >
             <template
               v-for="(item, index) in schema.properties.proxyAuthTypeEnum.enum"
               :key="index"
@@ -173,6 +192,7 @@
               <CustomCard v-if="item === 'Token'">
                 <span>Token</span>
                 <v-text-field
+                  :disabled="formData.proxyAuthTypeEnum !== 'Token'"
                   :type="schema.properties.proxyAuthToken.type"
                   v-model="formData.proxyAuthToken"
                   hide-details
@@ -181,12 +201,14 @@
               <CustomCard v-if="item === 'Username/Password'">
                 <span>Username</span>
                 <v-text-field
+                  :disabled="formData.proxyAuthTypeEnum !== 'Username/Password'"
                   :type="schema.properties.proxyAuthUsername.type"
                   v-model="formData.proxyAuthUsername"
                   hide-details
                 ></v-text-field>
                 <span>Password</span>
                 <v-text-field
+                  :disabled="formData.proxyAuthTypeEnum !== 'Username/Password'"
                   :type="schema.properties.proxyAuthPassword.type"
                   v-model="formData.proxyAuthPassword"
                   hide-details
@@ -206,6 +228,7 @@
             :type="schema.properties.excludedHosts.type"
             v-model="formData.excludedHosts"
             hide-details
+            :disabled="!formData.excludeHostsFromProxy"
           ></v-text-field>
         </CustomCard>
       </CustomCard>
