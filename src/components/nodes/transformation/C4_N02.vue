@@ -1,7 +1,7 @@
 <template lang="">
   <v-container fluid>
     <CustomCard title="Column Value Matching" flat>
-      <v-radio-group v-model="formData.rowIdEnum" inline>
+      <v-radio-group v-model="formData.rowIdEnum" inline hide-details>
         <v-radio
           v-for="(item, index) in schema.properties.rowIdEnum.enum"
           :key="index"

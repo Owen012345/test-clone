@@ -15,10 +15,10 @@
       ></v-text-field>
     </CustomCard>
     <CustomCard title="Column Value Matching" flat>
-      <v-radio-group v-model="formData.numberOfRowsEnum">
+      <v-radio-group v-model="formData.numberOfRowsEnum" hide-details>
         <template v-for="(item, index) in schema.properties.numberOfRowsEnum.enum" :key="index">
           <v-radio :label="item" :value="item"></v-radio>
-          <div v-if="item === 'Fixed'">
+          <CustomCard v-if="item === 'Fixed'">
             <span>Fixed Row Lengths</span>
             <v-text-field
               hide-details
@@ -27,19 +27,19 @@
               :disabled="formData.numberOfRowsEnum !== 'Fixed'"
             >
             </v-text-field>
-          </div>
+          </CustomCard>
         </template>
       </v-radio-group>
     </CustomCard>
     <CustomCard title="Starting Point">
       <span>Type</span>
-      <v-radio-group v-model="formData.startingPointTypeEnum">
+      <v-radio-group v-model="formData.startingPointTypeEnum" hide-details>
         <template
           v-for="(item, index) in schema.properties.startingPointTypeEnum.enum"
           :key="index"
         >
           <v-radio :label="item" :value="item"></v-radio>
-          <div v-if="item === 'Start'">
+          <CustomCard v-if="item === 'Start'">
             <span>Starting Point Date</span>
             <v-text-field
               hide-details
@@ -64,16 +64,16 @@
               :disabled="formData.startingPointTypeEnum !== 'Start'"
             >
             </v-select>
-          </div>
+          </CustomCard>
         </template>
       </v-radio-group>
     </CustomCard>
     <CustomCard title="Ending Point">
       <span>Type</span>
-      <v-radio-group v-model="formData.endingPointTypeEnum">
+      <v-radio-group v-model="formData.endingPointTypeEnum" hide-details>
         <template v-for="(item, index) in schema.properties.endingPointTypeEnum.enum" :key="index">
           <v-radio :label="item" :value="item"></v-radio>
-          <div v-if="item === 'Interval'">
+          <CustomCard v-if="item === 'Interval'">
             <span>Starting Point Date</span>
             <v-text-field
               hide-details
@@ -82,8 +82,8 @@
               :disabled="formData.endingPointTypeEnum !== 'Interval'"
             >
             </v-text-field>
-          </div>
-          <div v-if="item === 'End'">
+          </CustomCard>
+          <CustomCard v-if="item === 'End'">
             <span>Ending Point Date</span>
             <v-text-field
               hide-details
@@ -99,7 +99,7 @@
               :type="schema.properties.endingPointTime.type"
               :disabled="formData.endingPointTypeEnum !== 'End'"
             ></v-text-field>
-          </div>
+          </CustomCard>
         </template>
       </v-radio-group>
     </CustomCard>

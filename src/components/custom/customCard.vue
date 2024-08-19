@@ -12,8 +12,7 @@ export default {
   name: 'CustomCard',
   props: {
     title: {
-      type: String,
-      required: true
+      type: String
     },
     flat: {
       type: Boolean,

@@ -1,7 +1,7 @@
 <template lang="">
   <v-container fluid>
     <CustomCard title="Filter" flat>
-      <v-radio-group v-model="formData.filterEnum" inline>
+      <v-radio-group v-model="formData.filterEnum" inline hide-details>
         <v-radio
           v-for="(item, index) in schema.properties.filterEnum.enum"
           :key="index"
@@ -20,10 +20,10 @@
       "
     >
       <v-select :items="[]" v-model="formData.columnValueMatchingArray"></v-select>
-      <v-radio-group v-model="formData.includeRowValueEnum">
+      <v-radio-group v-model="formData.includeRowValueEnum" hide-details>
         <template v-for="(item, index) in schema.properties.includeRowValueEnum.enum" :key="index">
           <v-radio :label="item" :value="item"></v-radio>
-          <div v-if="item === 'use pattern matching'">
+          <CustomCard v-if="item === 'use pattern matching'">
             <v-row>
               <v-col>
                 <v-text-field
@@ -50,8 +50,8 @@
                 </v-radio-group>
               </v-col>
             </v-row>
-          </div>
-          <div v-if="item === 'use range checking'">
+          </CustomCard>
+          <CustomCard v-if="item === 'use range checking'">
             <v-row>
               <v-col>
                 <v-text-field
@@ -70,7 +70,7 @@
                 </v-text-field>
               </v-col>
             </v-row>
-          </div>
+          </CustomCard>
         </template>
       </v-radio-group>
     </CustomCard>

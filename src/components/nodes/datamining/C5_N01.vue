@@ -1,10 +1,10 @@
 <template lang="">
   <v-container fluid>
     <CustomCard title="Choose size of first partition" flat>
-      <v-radio-group v-model="formData.partitionType">
+      <v-radio-group v-model="formData.partitionType" hide-details>
         <template v-for="(item, index) in schema.properties.partitionType.enum" :key="index">
           <v-radio :label="item" :value="item"></v-radio>
-          <div v-if="item === 'Absolute'">
+          <CustomCard v-if="item === 'Absolute'">
             <v-text-field
               hide-details
               v-model="formData.partitionAbsolute"
@@ -13,8 +13,8 @@
               placeholder="Number"
             >
             </v-text-field>
-          </div>
-          <div v-if="item === 'Relative[%]'">
+          </CustomCard>
+          <CustomCard v-if="item === 'Relative[%]'">
             <v-text-field
               hide-details
               v-model="formData.partitionRelative"
@@ -23,12 +23,12 @@
               placeholder="Number(%)"
             >
             </v-text-field>
-          </div>
+          </CustomCard>
         </template>
       </v-radio-group>
     </CustomCard>
     <CustomCard title="Partitioning options" flat>
-      <v-radio-group v-model="formData.partitioningOptions" inline>
+      <v-radio-group v-model="formData.partitioningOptions" inline hide-details>
         <v-radio
           v-for="(item, index) in schema.properties.partitioningOptions.enum"
           :key="index"
