@@ -16,7 +16,7 @@
         v-model="formData.aggregationColumnArray"
         placeholder="Column Selection"
         hide-details
-        @update:modelValue="addTableItems('column', $event)"
+        @update:modelValue="updateSelectedItem('aggregation', 'column', $event)"
       ></v-select>
       <span>select aggregation functions</span>
       <v-select
@@ -24,11 +24,11 @@
         v-model="formData.aggregationFunctionArray"
         placeholder="Function Selection"
         hide-details
-        @update:modelValue="addTableItems('function', $event)"
+        @update:modelValue="updateSelectedItem('aggregation', 'function', $event)"
       ></v-select>
       <CustomTableWithAddItems
         :headers="['agg column', 'agg function']"
-        :selectedItem="selectedItem"
+        :selectedItem="selectedItem.aggregation"
         v-model="formData.aggregationArrayObject"
       ></CustomTableWithAddItems>
     </CustomCard>
@@ -50,14 +50,11 @@ export default {
   data() {
     return {
       selectedItem: {
-        column: '',
-        function: ''
+        aggregation: {
+          column: '',
+          function: ''
+        }
       }
-    }
-  },
-  methods: {
-    addTableItems(type, value) {
-      this.selectedItem[type] = value
     }
   }
 }

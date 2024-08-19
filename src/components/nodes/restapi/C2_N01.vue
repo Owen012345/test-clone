@@ -233,33 +233,108 @@
         </CustomCard>
       </CustomCard>
     </CustomCard>
+    <CustomCard title="Error Handling">
+      <span>Retry on error</span>
+      <v-text-field
+        :type="schema.properties.retryOnError.type"
+        v-model="formData.retryOnError"
+        hide-details
+      ></v-text-field>
+      <span>Retry delay</span>
+      <v-text-field
+        :type="schema.properties.retryDelay.type"
+        v-model="formData.retryDelay"
+        hide-details
+      ></v-text-field>
+    </CustomCard>
+    <!-- Request Headers -->
+    <CustomCard title="Request Headers">
+      <span>header key</span>
+      <v-text-field
+        :type="schema.properties.requestHeaderKey.type"
+        v-model="formData.requestHeaderKey"
+        hide-details
+        @update:modelValue="updateSelectedItem('requestHeaders', 'key', $event)"
+      ></v-text-field>
+      <span>header value</span>
+      <v-text-field
+        :type="schema.properties.requestHeaderValue.type"
+        v-model="formData.requestHeaderValue"
+        hide-details
+        @update:modelValue="updateSelectedItem('requestHeaders', 'value', $event)"
+      ></v-text-field>
+      <CustomTableWithAddItems
+        :headers="['key', 'value']"
+        :selectedItem="selectedItems.requestHeaders"
+        v-model="formData.requestHeaderArrayObject"
+      ></CustomTableWithAddItems>
+    </CustomCard>
+
+    <!-- Response Headers -->
+    <CustomCard title="Response Headers">
+      <span>header key</span>
+      <v-text-field
+        :type="schema.properties.responseHeaderKey.type"
+        v-model="formData.responseHeaderKey"
+        hide-details
+        @update:modelValue="updateSelectedItem('responseHeaders', 'key', $event)"
+      ></v-text-field>
+      <span>header value</span>
+      <v-text-field
+        :type="schema.properties.responseHeaderValue.type"
+        v-model="formData.responseHeaderValue"
+        hide-details
+        @update:modelValue="updateSelectedItem('responseHeaders', 'value', $event)"
+      ></v-text-field>
+      <CustomTableWithAddItems
+        :headers="['key', 'value']"
+        :selectedItem="selectedItems.responseHeaders"
+        v-model="formData.responseHeaderArrayObject"
+      ></CustomTableWithAddItems>
+    </CustomCard>
+
+    <!-- Content Body -->
+    <CustomCard title="Content Body">
+      <span>body key</span>
+      <v-text-field
+        :type="schema.properties.contentBodyKey.type"
+        v-model="formData.contentBodyKey"
+        hide-details
+        @update:modelValue="updateSelectedItem('contentBody', 'key', $event)"
+      ></v-text-field>
+      <span>body value</span>
+      <v-text-field
+        :type="schema.properties.contentBodyValue.type"
+        v-model="formData.contentBodyValue"
+        hide-details
+        @update:modelValue="updateSelectedItem('contentBody', 'value', $event)"
+      ></v-text-field>
+      <CustomTableWithAddItems
+        :headers="['key', 'value']"
+        :selectedItem="selectedItems.contentBody"
+        v-model="formData.contentBodyArrayObject"
+      ></CustomTableWithAddItems>
+    </CustomCard>
   </v-container>
 </template>
 <script>
-// todo: layout 및 text field label 추가
 import CustomCard from '@/components/custom/CustomCard.vue'
 import formMixin from '@/components/mixins/formMixin'
-import CustomSelectList from '@/components/custom/CustomSelectList.vue'
 import CustomTableWithAddItems from '@/components/custom/CustomTableWithAddItems.vue'
 export default {
   name: 'C2_N01',
   components: {
     CustomCard,
-    CustomSelectList,
     CustomTableWithAddItems
   },
   mixins: [formMixin],
   data() {
     return {
-      selectedItem: {
-        column: '',
-        function: ''
+      selectedItems: {
+        requestHeaders: { key: '', value: '' },
+        responseHeaders: { key: '', value: '' },
+        contentBody: { key: '', value: '' }
       }
-    }
-  },
-  methods: {
-    addTableItems(type, value) {
-      this.selectedItem[type] = value
     }
   }
 }

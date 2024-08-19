@@ -14,7 +14,10 @@ export default {
   methods: {
     ...mapActions('nodeDetail', {
       updateFormData: 'updateFormData'
-    })
+    }),
+    updateSelectedItem(section, type, value) {
+      this.selectedItems[section][type] = value
+    }
   },
   watch: {
     formData: {
