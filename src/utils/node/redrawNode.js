@@ -1,7 +1,6 @@
 import workflow from '@/assets/workflow.json'
 import { ClassicPreset } from 'rete'
 import store from '@/stores' // Vuex store import
-import { getSourceTarget } from 'rete-connection-plugin'
 
 class Node extends ClassicPreset.Node {
   constructor(label, nodeId) {
@@ -18,13 +17,13 @@ export async function redrawGraph() {
   const area = store.getters['workflow/getArea']
   const { nodes, connections } = workflow
 
-  // 기존 노드와 연결 삭제
-  editor.clear()
+  // 1. 기존 노드와 연결 삭제
+  await editor.clear()
 
-  // 노드 생성
+  // 2. 노드 생성
+  // 2. 노드 mapping
   const nodeMap = new Map()
   for (const nodeData of nodes) {
-    console.log(nodeData)
     const socket = new ClassicPreset.Socket('socket')
     const node = new Node(nodeData.label, nodeData.nodeId)
 
@@ -51,32 +50,47 @@ export async function redrawGraph() {
 
     nodeMap.set(nodeData.id, node)
   }
-  console.log(nodeMap)
-  //   // 연결 생성
-  //   for (const conn of connections) {
-  //     const sourceNode = nodeMap.get(conn.sourceNode)
-  //     const targetNode = nodeMap.get(conn.targetNode)
+  // console.log(nodeMap)
+  // 3. 연결 생성
+  for (const conn of connections) {
+    const sourceNode = nodeMap.get(conn.sourceNode)
+    const targetNode = nodeMap.get(conn.targetNode)
+    // console.log(sourceNode, targetNode)
 
-  //     if (sourceNode && targetNode) {
-  //       const sourceOutput = sourceNode.outputs[conn.sourceOutput]
-  //       const targetInput = targetNode.inputs[conn.targetInput]
+    if (sourceNode && targetNode) {
+      const sourceOutput = sourceNode.outputs ? sourceNode.outputs[conn.sourceOutput] : null
+      const targetInput = targetNode.inputs ? targetNode.inputs[conn.targetInput] : null
 
-  //       if (sourceOutput && targetInput) {
-  //         try {
-  //           const [source, target] = getSourceTarget(sourceOutput, targetInput)
-  //           if (source && target) {
-  //             editor.addConnection(
-  //               new ClassicPreset.Connection(source.node, source.key, target.node, target.key)
-  //             )
-  //           }
-  //         } catch (error) {
-  //           // 오류 발생 시 무시하고 계속 진행
-  //           console.error(
-  //             `Failed to connect ${conn.sourceNode}'s output ${conn.sourceOutput} to ${conn.targetNode}'s input ${conn.targetInput}`,
-  //             error
-  //           )
-  //         }
-  //       }
-  //     }
-  //   }
+      // console.log('Source Output:', sourceOutput)
+      // console.log('Target Input:', targetInput)
+
+      if (!sourceOutput) {
+        console.error(
+          `Source output not found for key ${conn.sourceOutput} in node ${conn.sourceNode}`
+        )
+        continue
+      }
+      if (!targetInput) {
+        console.error(
+          `Target input not found for key ${conn.targetInput} in node ${conn.targetNode}`
+        )
+        continue
+      }
+
+      try {
+        const connection = new ClassicPreset.Connection(
+          sourceNode,
+          conn.sourceOutput,
+          targetNode,
+          conn.targetInput
+        )
+        editor.addConnection(connection)
+      } catch (error) {
+        console.error(
+          `Failed to connect ${conn.sourceNode}'s output ${conn.sourceOutput} to ${conn.targetNode}'s input ${conn.targetInput}`,
+          error
+        )
+      }
+    }
+  }
 }

@@ -1,44 +1,50 @@
 {
     "connections": [
         {
-            "sourceNode": "89dd12e944ab5b71",
-            "targetNode": "3aea021d028c97e9",
+            "sourceNode": "66d15114d0327ec2",
+            "targetNode": "8f2049db9a1b919f",
             "sourceOutput": "output-0",
             "targetInput": "input-0"
         },
         {
-            "sourceNode": "3aea021d028c97e9",
-            "targetNode": "9b52a0e48e22bfde",
-            "sourceOutput": "output-0",
-            "targetInput": "input-0"
-        },
-        {
-            "sourceNode": "89dd12e944ab5b71",
-            "targetNode": "0ca697985276dd38",
+            "sourceNode": "66d15114d0327ec2",
+            "targetNode": "8f2049db9a1b919f",
             "sourceOutput": "output-1",
-            "targetInput": "input-0"
-        },
-        {
-            "sourceNode": "0ca697985276dd38",
-            "targetNode": "9b52a0e48e22bfde",
-            "sourceOutput": "output-0",
             "targetInput": "input-1"
         },
         {
-            "sourceNode": "9b52a0e48e22bfde",
-            "targetNode": "aabde5cfb9f296de",
+            "sourceNode": "8f2049db9a1b919f",
+            "targetNode": "76e14aa71c82172a",
+            "sourceOutput": "output-0",
+            "targetInput": "input-0"
+        },
+        {
+            "sourceNode": "76e14aa71c82172a",
+            "targetNode": "6c091782f403269b",
+            "sourceOutput": "output-0",
+            "targetInput": "input-0"
+        },
+        {
+            "sourceNode": "6c091782f403269b",
+            "targetNode": "5a2e2bd6444cf31a",
+            "sourceOutput": "output-0",
+            "targetInput": "input-0"
+        },
+        {
+            "sourceNode": "5a2e2bd6444cf31a",
+            "targetNode": "c44edc6fe647c431",
             "sourceOutput": "output-0",
             "targetInput": "input-0"
         }
     ],
     "nodes": [
         {
-            "id": "89dd12e944ab5b71",
+            "id": "66d15114d0327ec2",
             "label": "CSV Reader",
             "nodeId": "C1_N01",
             "position": {
-                "x": -337.6363830566406,
-                "y": -2.272735595703125
+                "x": -207.5,
+                "y": -87
             },
             "inputs": [],
             "outputs": [
@@ -51,12 +57,12 @@
             ]
         },
         {
-            "id": "3aea021d028c97e9",
+            "id": "8f2049db9a1b919f",
             "label": "CSV Writer",
             "nodeId": "C1_N02",
             "position": {
-                "x": -74,
-                "y": -109
+                "x": 195.8916944495609,
+                "y": -75.79955971361743
             },
             "inputs": [
                 {
@@ -73,12 +79,12 @@
             ]
         },
         {
-            "id": "0ca697985276dd38",
-            "label": "File Reader",
-            "nodeId": "C1_N03",
+            "id": "76e14aa71c82172a",
+            "label": "Path to URI",
+            "nodeId": "C1_N04",
             "position": {
-                "x": -44,
-                "y": 105
+                "x": 561.2452965699852,
+                "y": -151.35752814652855
             },
             "inputs": [
                 {
@@ -92,12 +98,31 @@
             ]
         },
         {
-            "id": "9b52a0e48e22bfde",
+            "id": "6c091782f403269b",
+            "label": "File Reader",
+            "nodeId": "C1_N03",
+            "position": {
+                "x": 966.4897388689569,
+                "y": -197.81867439736607
+            },
+            "inputs": [
+                {
+                    "key": "input-0"
+                }
+            ],
+            "outputs": [
+                {
+                    "key": "output-0"
+                }
+            ]
+        },
+        {
+            "id": "5a2e2bd6444cf31a",
             "label": "CSV Writer",
             "nodeId": "C1_N02",
             "position": {
-                "x": 184,
-                "y": -4
+                "x": 1000.0450111612286,
+                "y": 65.46115435737994
             },
             "inputs": [
                 {
@@ -114,12 +139,12 @@
             ]
         },
         {
-            "id": "aabde5cfb9f296de",
-            "label": "File Reader",
-            "nodeId": "C1_N03",
+            "id": "c44edc6fe647c431",
+            "label": "URI to String",
+            "nodeId": "C1_N07",
             "position": {
-                "x": 599,
-                "y": 4
+                "x": 754.8334059484748,
+                "y": 251.30573936073006
             },
             "inputs": [
                 {
