@@ -1,0 +1,221 @@
+{
+    "type": "object",
+    "properties": {
+        "connectionURL": {
+            "type": "string",
+            "default": "http://"
+        },
+        "connectionDelay": {
+            "type": "number",
+            "default": null
+        },
+        "connectionTimeout": {
+            "type": "number",
+            "default": null
+        },
+        "connectionConcurrency": {
+            "type": "number",
+            "default": null
+        },
+        "connectionRedirections": {
+            "type": "boolean",
+            "default": false
+        },
+        "connectionSendChunks": {
+            "type": "boolean",
+            "default": false
+        },
+        "connectionBodyColumn": {
+            "type": "string",
+            "default": "body"
+        },
+        "sslIngoreHostname": {
+            "type": "boolean",
+            "default": false
+        },
+        "sslTrustAll": {
+            "type": "boolean",
+            "default": false
+        },
+        "authTypeEnum": {
+            "type": "string",
+            "enum": [
+                "none",
+                "Basic",
+                "Digest"
+            ],
+            "default": "none"
+        },
+        "authBasicTypeEnum": {
+            "type": "string",
+            "enum": [
+                "Token",
+                "Username/Password"
+            ],
+            "default": "Token"
+        },
+        "authBasicToken": {
+            "type": "string",
+            "default": ""
+        },
+        "authBasicUsername": {
+            "type": "string",
+            "default": ""
+        },
+        "authBasicPassword": {
+            "type": "password",
+            "default": ""
+        },
+        "authDigestTypeEnum": {
+            "type": "string",
+            "enum": [
+                "Token",
+                "Username/Password"
+            ],
+            "default": "Token"
+        },
+        "authDigestToken": {
+            "type": "string",
+            "default": ""
+        },
+        "authDigestUsername": {
+            "type": "string",
+            "default": ""
+        },
+        "authDigestPassword": {
+            "type": "password",
+            "default": ""
+        },
+        "proxyStatusEnum": {
+            "type": "string",
+            "enum": [
+                "Use Proxy",
+                "Direct connection(no proxy)"
+            ],
+            "default": "Use Proxy"
+        },
+        "proxyProtocolEnum": {
+            "type": "string",
+            "enum": [
+                "http",
+                "https",
+                "socks"
+            ],
+            "default": "http"
+        },
+        "proxyHost": {
+            "type": "string",
+            "default": ""
+        },
+        "proxyPort": {
+            "type": "number",
+            "default": null
+        },
+        "proxyAuthentication": {
+            "type": "boolean",
+            "default": false
+        },
+        "proxyAuthTypeEnum": {
+            "type": "string",
+            "enum": [
+                "Token",
+                "Username/Password"
+            ],
+            "default": "Token"
+        },
+        "proxyAuthToken": {
+            "type": "string",
+            "default": ""
+        },
+        "proxyAuthUsername": {
+            "type": "string",
+            "default": ""
+        },
+        "proxyAuthPassword": {
+            "type": "password",
+            "default": ""
+        },
+        "excludeHostsFromProxy": {
+            "type": "boolean",
+            "default": false
+        },
+        "excludedHosts": {
+            "type": "string",
+            "default": ""
+        },
+        "retryCount": {
+            "type": "number",
+            "default": null
+        },
+        "retryDelay": {
+            "type": "number",
+            "default": null
+        },
+        "requestHeaderKey": {
+            "type": "string",
+            "default": ""
+        },
+        "requestHeaderValue": {
+            "type": "string",
+            "default": ""
+        },
+        "requestHeaderArrayObject": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "key": {
+                        "type": "string"
+                    },
+                    "value": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "responseHeaderKey": {
+            "type": "string",
+            "default": ""
+        },
+        "responseHeaderValue": {
+            "type": "string",
+            "default": ""
+        },
+        "responseHeaderArrayObject": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "key": {
+                        "type": "string"
+                    },
+                    "value": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "contentBodyKey": {
+            "type": "string",
+            "default": ""
+        },
+        "contentBodyValue": {
+            "type": "string",
+            "default": ""
+        },
+        "contentBodyArrayObject": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "key": {
+                        "type": "string"
+                    },
+                    "value": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}

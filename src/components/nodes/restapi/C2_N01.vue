@@ -1,0 +1,248 @@
+<template lang="">
+  <v-container fluid>
+    <CustomCard title="Connection">
+      <span>url</span>
+      <v-text-field
+        :type="schema.properties.connectionURL.type"
+        v-model="formData.connectionURL"
+        hide-details
+      ></v-text-field>
+      <span>Delay(ms)</span>
+      <v-text-field
+        :type="schema.properties.connectionDelay.type"
+        v-model="formData.connectionDelay"
+        hide-details
+      ></v-text-field>
+      <span>Timout</span>
+      <v-text-field
+        :type="schema.properties.connectionTimeout.type"
+        v-model="formData.connectionTimeout"
+        hide-details
+      ></v-text-field>
+      <span>Concurrency</span>
+      <v-text-field
+        :type="schema.properties.connectionConcurrency.type"
+        v-model="formData.connectionConcurrency"
+        hide-details
+      ></v-text-field>
+      <v-checkbox
+        v-model="formData.connectionRedirections"
+        hide-details
+        label="Follow redirections"
+      ></v-checkbox>
+      <v-checkbox
+        v-model="formData.connectionSendChunks"
+        hide-details
+        label="Send large data in chunks"
+      ></v-checkbox>
+      <span>Body Column</span>
+      <v-text-field
+        :type="schema.properties.connectionBodyColumn.type"
+        v-model="formData.connectionBodyColumn"
+        hide-details
+      ></v-text-field>
+      <span>SSL</span>
+      <v-checkbox
+        v-model="formData.sslIgnoreHostname"
+        hide-details
+        label="Ignore hostname mismatches"
+      ></v-checkbox>
+      <v-checkbox
+        v-model="formData.sslTrustAll"
+        hide-details
+        label="Trust all certificates"
+      ></v-checkbox>
+    </CustomCard>
+    <CustomCard title="Authentication">
+      <span>Authentication Type</span>
+      <v-radio-group v-model="formData.authTypeEnum" hide-details>
+        <template v-for="(item, index) in schema.properties.authTypeEnum.enum" :key="index">
+          <v-radio :label="item" :value="item"></v-radio>
+          <CustomCard v-if="item === 'Basic'">
+            <v-radio-group v-model="formData.authBasicTypeEnum" hide-details>
+              <template
+                v-for="(item, index) in schema.properties.authBasicTypeEnum.enum"
+                :key="index"
+              >
+                <v-radio :label="item" :value="item"></v-radio>
+                <CustomCard v-if="item === 'Token'">
+                  <span>Token</span>
+                  <v-text-field
+                    :type="schema.properties.authBasicToken.type"
+                    v-model="formData.authBasicToken"
+                    hide-details
+                  ></v-text-field>
+                </CustomCard>
+                <CustomCard v-if="item === 'Username/Password'">
+                  <span>Username</span>
+                  <v-text-field
+                    :type="schema.properties.authBasicUsername.type"
+                    v-model="formData.authBasicUsername"
+                    hide-details
+                  ></v-text-field>
+                  <span>Password</span>
+                  <v-text-field
+                    :type="schema.properties.authBasicPassword.type"
+                    v-model="formData.authBasicPassword"
+                    hide-details
+                  ></v-text-field>
+                </CustomCard>
+              </template>
+            </v-radio-group>
+          </CustomCard>
+          <CustomCard v-if="item === 'Digest'">
+            <v-radio-group v-model="formData.authDigestTypeEnum" hide-details>
+              <template
+                v-for="(item, index) in schema.properties.authDigestTypeEnum.enum"
+                :key="index"
+              >
+                <v-radio :label="item" :value="item"></v-radio>
+                <CustomCard v-if="item === 'Token'">
+                  <span>Token</span>
+                  <v-text-field
+                    :type="schema.properties.authDigestToken.type"
+                    v-model="formData.authDigestToken"
+                    hide-details
+                  ></v-text-field>
+                </CustomCard>
+                <CustomCard v-if="item === 'Username/Password'">
+                  <span>Username</span>
+                  <v-text-field
+                    :type="schema.properties.authDigestUsername.type"
+                    v-model="formData.authDigestUsername"
+                    hide-details
+                  ></v-text-field>
+                  <span>Password</span>
+                  <v-text-field
+                    :type="schema.properties.authDigestPassword.type"
+                    v-model="formData.authDigestPassword"
+                    hide-details
+                  ></v-text-field>
+                </CustomCard>
+              </template>
+            </v-radio-group>
+          </CustomCard>
+        </template>
+      </v-radio-group>
+    </CustomCard>
+    <CustomCard title="Proxy">
+      <span>Proxy enabled status</span>
+      <v-radio-group v-model="formData.proxyStatusEnum" hide-details>
+        <v-radio
+          v-for="(item, index) in schema.properties.proxyStatusEnum.enum"
+          :key="index"
+          :label="item"
+          :value="item"
+        ></v-radio>
+      </v-radio-group>
+      <CustomCard>
+        <span>Proxy Protocol</span>
+        <v-radio-group v-model="formData.proxyProtocolEnum" hide-details>
+          <v-radio
+            v-for="(item, index) in schema.properties.proxyProtocolEnum.enum"
+            :key="index"
+            :label="item"
+            :value="item"
+          ></v-radio>
+        </v-radio-group>
+        <span>Proxy Host</span>
+        <v-text-field
+          :type="schema.properties.proxyHost.type"
+          v-model="formData.proxyHost"
+          hide-details
+        ></v-text-field>
+        <span>Proxy Port</span>
+        <v-text-field
+          :type="schema.properties.proxyPort.type"
+          v-model="formData.proxyPort"
+          hide-details
+        ></v-text-field>
+        <v-checkbox
+          v-model="formData.proxyAuthentication"
+          hide-details
+          label="Proxy host needs authentication"
+        >
+        </v-checkbox>
+        <CustomCard>
+          <v-radio-group v-model="formData.proxyAuthTypeEnum" hide-details>
+            <template
+              v-for="(item, index) in schema.properties.proxyAuthTypeEnum.enum"
+              :key="index"
+            >
+              <v-radio :label="item" :value="item"></v-radio>
+              <CustomCard v-if="item === 'Token'">
+                <span>Token</span>
+                <v-text-field
+                  :type="schema.properties.proxyAuthToken.type"
+                  v-model="formData.proxyAuthToken"
+                  hide-details
+                ></v-text-field>
+              </CustomCard>
+              <CustomCard v-if="item === 'Username/Password'">
+                <span>Username</span>
+                <v-text-field
+                  :type="schema.properties.proxyAuthUsername.type"
+                  v-model="formData.proxyAuthUsername"
+                  hide-details
+                ></v-text-field>
+                <span>Password</span>
+                <v-text-field
+                  :type="schema.properties.proxyAuthPassword.type"
+                  v-model="formData.proxyAuthPassword"
+                  hide-details
+                ></v-text-field>
+              </CustomCard>
+            </template>
+          </v-radio-group>
+        </CustomCard>
+        <v-checkbox
+          v-model="formData.excludeHostsFromProxy"
+          hide-details
+          label="Exclude hosts from proxy"
+        ></v-checkbox>
+        <CustomCard>
+          <span>Exclude hosts</span>
+          <v-text-field
+            :type="schema.properties.excludedHosts.type"
+            v-model="formData.excludedHosts"
+            hide-details
+          ></v-text-field>
+        </CustomCard>
+      </CustomCard>
+    </CustomCard>
+  </v-container>
+</template>
+<script>
+// todo: layout 및 text field label 추가
+import CustomCard from '@/components/custom/CustomCard.vue'
+import formMixin from '@/components/mixins/formMixin'
+import CustomSelectList from '@/components/custom/CustomSelectList.vue'
+import CustomTableWithAddItems from '@/components/custom/CustomTableWithAddItems.vue'
+export default {
+  name: 'C2_N01',
+  components: {
+    CustomCard,
+    CustomSelectList,
+    CustomTableWithAddItems
+  },
+  mixins: [formMixin],
+  data() {
+    return {
+      selectedItem: {
+        column: '',
+        function: ''
+      }
+    }
+  },
+  methods: {
+    addTableItems(type, value) {
+      this.selectedItem[type] = value
+    }
+  }
+}
+</script>
+<style>
+.selected-row {
+  background-color: lightgray;
+}
+</style>
