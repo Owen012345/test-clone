@@ -17,8 +17,7 @@
         :class="{ 'selected-row': selectedRow === index }"
         @click="selectRow(index)"
       >
-        <td>{{ item.column }}</td>
-        <td>{{ item.function }}</td>
+        <td v-for="key in Object.keys(selectedItem)" :key="key">{{ item[key] }}</td>
       </tr>
     </tbody>
   </v-table>
@@ -47,7 +46,7 @@ export default {
   computed: {},
   methods: {
     addItems() {
-      const item = this.selectedItem
+      const item = { ...this.selectedItem }
       this.localSelected = [...this.localSelected, item]
     },
     selectRow(index) {
