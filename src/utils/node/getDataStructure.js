@@ -12,17 +12,11 @@ export function getDataStructure() {
     data: node.data,
     inputs: Object.keys(node.inputs).map((key) => ({
       key: key,
-      connections: node.inputs[key].connections?.map((connection) => ({
-        node: connection.node,
-        output: connection.output
-      }))
+      multipleConnections: node.inputs[key].multipleConnections
     })),
     outputs: Object.keys(node.outputs).map((key) => ({
       key: key,
-      connections: node.outputs[key].connections?.map((connection) => ({
-        node: connection.node,
-        input: connection.input
-      }))
+      multipleConnections: node.outputs[key].multipleConnections
     }))
   }))
 
@@ -71,9 +65,9 @@ export function getDataStructure() {
   // Output the nodes in order
   const orderedNodes = []
 
-  if (startNode) orderedNodes.push(startNode.name)
+  if (startNode) orderedNodes.push(startNode)
   if (middleNodes.length > 0) {
-    middleNodes.forEach((node) => orderedNodes.push(node.name))
+    middleNodes.forEach((node) => orderedNodes.push(node))
   }
   if (endNode) orderedNodes.push(endNode.name)
 

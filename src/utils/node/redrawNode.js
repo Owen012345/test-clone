@@ -30,14 +30,18 @@ export async function redrawGraph() {
     // 노드의 입력과 출력 추가
     if (nodeData.inputs) {
       for (const input of nodeData.inputs) {
+        // console.log(input)
         const inputSocket = new ClassicPreset.Input(socket)
+        inputSocket.multipleConnections = input.multipleConnections
         node.addInput(input.key, inputSocket)
       }
     }
 
     if (nodeData.outputs) {
       for (const output of nodeData.outputs) {
+        // console.log(output)
         const outputSocket = new ClassicPreset.Output(socket)
+        outputSocket.multipleConnections = output.multipleConnections
         node.addOutput(output.key, outputSocket)
       }
     }
