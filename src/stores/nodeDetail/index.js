@@ -61,6 +61,15 @@ const getters = {
   },
   getInitSettingNodeSchema: (state) => (id) => {
     return state.initialNodeSchema[id].settings
+  },
+
+  // Argo workflow docker container image templates
+  getAllMetdata: (state) => {
+    return Object.keys(state.defaultNodeSchema).reduce((acc, key) => {
+      const metadata = state.defaultNodeSchema[key].metadata
+      acc[key] = metadata
+      return acc
+    }, {})
   }
 }
 

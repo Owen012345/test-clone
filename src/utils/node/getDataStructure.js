@@ -2,7 +2,9 @@ import store from '@/stores'
 
 export function getDataStructure() {
   const editor = store.getters['workflow/getEditor']
+  const getAllMetdata = store.getters['nodeDetail/getAllMetdata']
 
+  console.log(getAllMetdata)
   const nodes = editor.nodes
   const connections = editor.connections
 
