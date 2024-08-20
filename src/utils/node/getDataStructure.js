@@ -1,75 +1,85 @@
 import store from '@/stores'
-import { structures } from 'rete-structures'
 
 export function getDataStructure() {
   const editor = store.getters['workflow/getEditor']
-  console.log(editor.nodes)
-  const nodes = editor.nodes.map((node) => ({
-    id: node.id,
-    label: node.label,
-    nodeId: node.nodeId,
-    position: node.position,
-    data: node.data,
-    inputs: Object.keys(node.inputs).map((key) => ({
-      key: key,
-      multipleConnections: node.inputs[key].multipleConnections
-    })),
-    outputs: Object.keys(node.outputs).map((key) => ({
-      key: key,
-      multipleConnections: node.outputs[key].multipleConnections
-    }))
-  }))
 
-  // 모든 연결 정보를 수집
-  const connections = editor.connections?.map((connection) => ({
-    sourceNode: connection.source,
-    targetNode: connection.target,
-    sourceOutput: connection.sourceOutput,
-    targetInput: connection.targetInput
-  }))
+  const nodes = editor.nodes
+  const connections = editor.connections
 
-  // JSON 구조 생성
-  const dataStructure = {
-    nodes: nodes,
-    connections: connections
-  }
+  // 노드 정보를 맵으로 변환
+  const nodeMap = new Map(nodes.map((node) => [node.id, node]))
 
-  // 콘솔에 출력
-  console.log(dataStructure)
-  const data = dataStructure
-  const getOutgoingConnections = (nodeId) => {
-    return data.connections.filter((conn) => conn.sourceNode === nodeId)
-  }
+  console.log(nodeMap)
+  // 각 노드에 대한 dependencies 설정
+  const nodeDependencies = new Map()
 
-  const getIncomingConnections = (nodeId) => {
-    return data.connections.filter((conn) => conn.targetNode === nodeId)
-  }
-
-  // Identify nodes
-  const startNode = data.nodes.find((node) => {
-    return (
-      getOutgoingConnections(node.id).length > 0 && getIncomingConnections(node.id).length === 0
-    )
+  nodes.forEach((node) => {
+    nodeDependencies.set(node.id, {
+      id: node.id,
+      dependencies: []
+    })
   })
 
-  const endNode = data.nodes.find((node) => {
-    return (
-      getIncomingConnections(node.id).length > 0 && getOutgoingConnections(node.id).length === 0
-    )
+  console.log(nodeDependencies)
+  console.log(connections)
+  connections.forEach((conn) => {
+    const sourceNode = nodeMap.get(conn.source)
+    const targetNode = nodeMap.get(conn.target)
+
+    if (sourceNode && targetNode) {
+      nodeDependencies.get(conn.target).dependencies.push(sourceNode.id)
+    }
   })
 
-  const middleNodes = data.nodes.filter((node) => {
-    return getIncomingConnections(node.id).length > 0 && getOutgoingConnections(node.id).length > 0
+  // Argo Workflow의 DAG tasks 생성
+  const tasks = []
+
+  nodeDependencies.forEach((value, nodeId) => {
+    const task = {
+      name: value.id,
+      template: 'echo', // 예시로 'echo' 템플릿 사용
+      arguments: {
+        parameters: [{ name: 'message', value: value.id }]
+      }
+    }
+
+    if (value.dependencies.length > 0) {
+      task.dependencies = value.dependencies
+    }
+
+    tasks.push(task)
   })
 
-  // Output the nodes in order
-  const orderedNodes = []
-
-  if (startNode) orderedNodes.push(startNode)
-  if (middleNodes.length > 0) {
-    middleNodes.forEach((node) => orderedNodes.push(node))
+  // Argo Workflow YAML 템플릿 생성
+  const argoWorkflowTemplate = {
+    apiVersion: 'argoproj.io/v1alpha1',
+    kind: 'Workflow',
+    metadata: {
+      generateName: 'dag-generated-'
+    },
+    spec: {
+      entrypoint: 'main',
+      templates: [
+        {
+          name: 'echo',
+          inputs: {
+            parameters: [{ name: 'message' }]
+          },
+          container: {
+            image: 'alpine:3.7',
+            command: ['echo', '{{inputs.parameters.message}}']
+          }
+        },
+        {
+          name: 'main',
+          dag: {
+            tasks: tasks
+          }
+        }
+      ]
+    }
   }
-  if (endNode) orderedNodes.push(endNode.name)
 
-  console.log('Node order:', orderedNodes)
+  console.log(JSON.stringify(argoWorkflowTemplate, null, 2))
+  return argoWorkflowTemplate
 }
