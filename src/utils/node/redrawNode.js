@@ -20,8 +20,7 @@ export async function redrawGraph() {
   // 1. 기존 노드와 연결 삭제
   await editor.clear()
 
-  // 2. 노드 생성
-  // 2. 노드 mapping
+  // 2. 노드 생성 및 매핑
   const nodeMap = new Map()
   for (const nodeData of nodes) {
     const socket = new ClassicPreset.Socket('socket')
@@ -29,24 +28,21 @@ export async function redrawGraph() {
 
     // 노드의 입력과 출력 추가
     if (nodeData.inputs) {
-      for (const input of nodeData.inputs) {
-        // console.log(input)
+      for (const [key, input] of Object.entries(nodeData.inputs)) {
         const inputSocket = new ClassicPreset.Input(socket)
         inputSocket.multipleConnections = input.multipleConnections
-        node.addInput(input.key, inputSocket)
+        node.addInput(key, inputSocket)
       }
     }
 
     if (nodeData.outputs) {
-      for (const output of nodeData.outputs) {
-        // console.log(output)
+      for (const [key, output] of Object.entries(nodeData.outputs)) {
         const outputSocket = new ClassicPreset.Output(socket)
         outputSocket.multipleConnections = output.multipleConnections
-        node.addOutput(output.key, outputSocket)
+        node.addOutput(key, outputSocket)
       }
     }
 
-    // console.log(node, area)
     // 노드 위치 설정
     node.position = { x: nodeData.position.x, y: nodeData.position.y }
     await editor.addNode(node)
@@ -54,30 +50,22 @@ export async function redrawGraph() {
 
     nodeMap.set(nodeData.id, node)
   }
-  // console.log(nodeMap)
+
   // 3. 연결 생성
   for (const conn of connections) {
-    const sourceNode = nodeMap.get(conn.sourceNode)
-    const targetNode = nodeMap.get(conn.targetNode)
-    // console.log(sourceNode, targetNode)
+    const sourceNode = nodeMap.get(conn.source)
+    const targetNode = nodeMap.get(conn.target)
 
     if (sourceNode && targetNode) {
       const sourceOutput = sourceNode.outputs ? sourceNode.outputs[conn.sourceOutput] : null
       const targetInput = targetNode.inputs ? targetNode.inputs[conn.targetInput] : null
 
-      // console.log('Source Output:', sourceOutput)
-      // console.log('Target Input:', targetInput)
-
       if (!sourceOutput) {
-        console.error(
-          `Source output not found for key ${conn.sourceOutput} in node ${conn.sourceNode}`
-        )
+        console.error(`Source output not found for key ${conn.sourceOutput} in node ${conn.source}`)
         continue
       }
       if (!targetInput) {
-        console.error(
-          `Target input not found for key ${conn.targetInput} in node ${conn.targetNode}`
-        )
+        console.error(`Target input not found for key ${conn.targetInput} in node ${conn.target}`)
         continue
       }
 
@@ -91,7 +79,7 @@ export async function redrawGraph() {
         editor.addConnection(connection)
       } catch (error) {
         console.error(
-          `Failed to connect ${conn.sourceNode}'s output ${conn.sourceOutput} to ${conn.targetNode}'s input ${conn.targetInput}`,
+          `Failed to connect ${conn.source}'s output ${conn.sourceOutput} to ${conn.target}'s input ${conn.targetInput}`,
           error
         )
       }
