@@ -1,3 +1,16 @@
+// argo workflow 내 template 안 도커 컨테이너 이미지 리스트는 노드 그룹별로 존재하며,
+// input parameter 안에 container cmd 에 전달하기 위한 노드의 레이블(ex, csv reader, csv writer) 정보를 가지고 있어야된다.
+
+// - name: collection
+//   inputs:
+//   parameters:
+//   - function : csvreader
+//   - settings : {{ csvreader settings 값 }}
+//   - metadata : {{ csvreader metadata 값 }}
+// container:
+//   image: alpine:3.7
+//   command: [echo, "{{inputs.parameters.function}}"]
+
 const state = {
   initialNodeSchema: {},
   defaultNodeSchema: {}
@@ -14,6 +27,13 @@ const mutations = {
       state.initialNodeSchema[id] = {
         settings: data
       }
+    }
+  },
+  INIT_NODE_DEFAULT(state, { id, group, label }) {
+    state.defaultNodeSchema[id] = {
+      ...state.defaultNodeSchema[id],
+      group: group,
+      label: label
     }
   },
   REMOVE_NODE_SCHEMA(state, id) {
@@ -99,8 +119,11 @@ const actions = {
         return acc
       }, {})
 
-      commit('UPDATE_NODE_SCHEMA_SETTING', { id: node.id, formData: formData })
-      commit('UPDATE_NODE_METADATA', { id: node.id, metadata: metadata })
+      commit('UPDATE_NODE_SCHEMA_SETTING', { id: node.id, formData: formData }) // settings
+      commit('UPDATE_NODE_METADATA', { id: node.id, metadata: metadata }) // metadata
+      commit('INIT_NODE_DEFAULT', { id: node.id, group: node.group, label: node.label }) // group, label
+
+      commit('argo/INIT_CONTAINER_TEMPLATE', { name: node.id, group: node.group }, { root: true })
     } catch (error) {
       console.error(error)
     }

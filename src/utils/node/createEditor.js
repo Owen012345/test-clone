@@ -100,12 +100,14 @@ export async function createEditor(container) {
   editor.addPipe((context) => {
     if (context.type === 'nodecreated') {
       const { data } = context
-      // console.log(data)
-      const node = {
+      const initData = {
         id: data.id,
-        nodeId: data.nodeId
+        nodeId: data.nodeId,
+        group: data.group,
+        label: data.label
       }
-      store.dispatch('nodeDetail/initNodeDataWithSchema', node)
+
+      store.dispatch('nodeDetail/initNodeDataWithSchema', initData)
     }
     if (context.type === 'noderemoved') {
       const { data } = context

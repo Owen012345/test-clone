@@ -4,26 +4,24 @@ export function getDataStructure() {
   const editor = store.getters['workflow/getEditor']
   const getAllMetdata = store.getters['nodeDetail/getAllMetdata']
 
-  console.log(getAllMetdata)
   const nodes = editor.nodes
   const connections = editor.connections
 
   // 노드 정보를 맵으로 변환
   const nodeMap = new Map(nodes.map((node) => [node.id, node]))
 
-  console.log(nodeMap)
+  // console.log(nodeMap)
   // 각 노드에 대한 dependencies 설정
   const nodeDependencies = new Map()
 
+  // TODO : source node 에
   nodes.forEach((node) => {
     nodeDependencies.set(node.id, {
-      id: node.id,
+      ...node,
       dependencies: []
     })
   })
 
-  console.log(nodeDependencies)
-  console.log(connections)
   connections.forEach((conn) => {
     const sourceNode = nodeMap.get(conn.source)
     const targetNode = nodeMap.get(conn.target)
@@ -37,9 +35,10 @@ export function getDataStructure() {
   const tasks = []
 
   nodeDependencies.forEach((value, nodeId) => {
+    console.log(value)
     const task = {
       name: value.id,
-      template: 'echo', // 예시로 'echo' 템플릿 사용
+      template: value.group,
       arguments: {
         parameters: [{ name: 'message', value: value.id }]
       }
@@ -52,6 +51,7 @@ export function getDataStructure() {
     tasks.push(task)
   })
 
+  console.log(store.getters['argo/getContainerTemplates'])
   // Argo Workflow YAML 템플릿 생성
   const argoWorkflowTemplate = {
     apiVersion: 'argoproj.io/v1alpha1',
@@ -62,16 +62,7 @@ export function getDataStructure() {
     spec: {
       entrypoint: 'main',
       templates: [
-        {
-          name: 'echo',
-          inputs: {
-            parameters: [{ name: 'message' }]
-          },
-          container: {
-            image: 'alpine:3.7',
-            command: ['echo', '{{inputs.parameters.message}}']
-          }
-        },
+        ...store.getters['argo/getContainerTemplates'],
         {
           name: 'main',
           dag: {

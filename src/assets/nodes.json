@@ -1,5 +1,5 @@
 {
-  "Collection": [
+  "collection": [
     {
       "id": "C1_N01",
       "label": "CSV Reader",
@@ -90,7 +90,7 @@
       }
     }
   ],
-  "RestAPI": [
+  "restAPI": [
     {
       "id": "C2_N01",
       "label": "GET Request",
@@ -140,7 +140,7 @@
       }
     }
   ],
-  "Preprocess": [
+  "preprocess": [
     {
       "id": "C3_N01",
       "label": "Row Filter",
@@ -214,7 +214,7 @@
       }
     }
   ],
-  "Transformation": [
+  "transformation": [
     {
       "id": "C4_N01",
       "label": "Create Data&Time Range",
@@ -288,7 +288,7 @@
       }
     }
   ],
-  "Visualization": [
+  "visualization": [
     {
       "id": "C6_N01",
       "label": "Bar Chart",
@@ -580,7 +580,7 @@
       }
     }
   ],
-  "DataMining": [
+  "dataMining": [
     {
       "id": "C5_N01",
       "label": "Partitioning",

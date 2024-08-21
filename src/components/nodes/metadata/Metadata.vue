@@ -11,21 +11,30 @@
 </template>
 <script>
 import CustomCard from '@/components/custom/CustomCard.vue'
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 export default {
   name: 'MetadataItem',
   components: {
     CustomCard
   },
+  props: {
+    selectedNode: {
+      type: Object,
+      required: true
+    }
+  },
   data() {
     return {
       metadata: {},
-      dockerImageVersionList: []
+      dockerImageVersionList: ['latest', '1.0.1', '1.0.0']
     }
   },
   methods: {
     ...mapActions('nodeDetail', {
       updateMetadaData: 'updateMetadaData'
+    }),
+    ...mapMutations('argo', {
+      updateContainerTemplate: 'UPDATE_CONTAINER_TEMPLATE'
     })
   },
   computed: {
@@ -42,6 +51,10 @@ export default {
   watch: {
     metadata: {
       handler(newVal) {
+        this.updateContainerTemplate({
+          name: this.selectedNode.id,
+          metadata: newVal
+        })
         this.updateMetadaData({
           nodeId: this.selectedNode.id,
           metadata: newVal
@@ -55,12 +68,6 @@ export default {
           this.metadata = { ...this.initMetadata }
         }
       }
-    }
-  },
-  props: {
-    selectedNode: {
-      type: Object,
-      required: true
     }
   }
 }

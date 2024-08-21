@@ -1,11 +1,13 @@
-import { ClassicPreset } from 'rete'
+import { ClassicPreset, getUID } from 'rete'
 import store from '@/stores' // Vuex store import
 class Node extends ClassicPreset.Node {
-  constructor(label, nodeId) {
+  constructor(label, nodeId, group) {
     super(label)
     this.width = 120
     this.height = 80
     this.nodeId = nodeId
+    this.id = 'n' + getUID()
+    this.group = group
   }
 }
 
@@ -14,7 +16,7 @@ export async function createNode(selectedNode, event) {
   const area = store.getters['workflow/getArea']
   const socket = new ClassicPreset.Socket('socket')
 
-  const node = new Node(selectedNode.label, selectedNode.id)
+  const node = new Node(selectedNode.label, selectedNode.id, selectedNode.group)
 
   if (selectedNode.options.input) {
     for (let i = 0; i < selectedNode.options.input.cnt; i++) {
