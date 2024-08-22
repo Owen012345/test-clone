@@ -2,16 +2,12 @@ import store from '@/stores'
 
 export function getDataStructure() {
   const editor = store.getters['workflow/getEditor']
-  const getAllMetdata = store.getters['nodeDetail/getAllMetdata']
 
   const nodes = editor.nodes
   const connections = editor.connections
 
-  // 노드 정보를 맵으로 변환
   const nodeMap = new Map(nodes.map((node) => [node.id, node]))
 
-  // console.log(nodeMap)
-  // 각 노드에 대한 dependencies 설정
   const nodeDependencies = new Map()
 
   // TODO : source node 에
@@ -34,11 +30,10 @@ export function getDataStructure() {
   // Argo Workflow의 DAG tasks 생성
   const tasks = []
 
-  nodeDependencies.forEach((value, nodeId) => {
-    console.log(value)
+  nodeDependencies.forEach((value) => {
     const task = {
       name: value.id,
-      template: value.group,
+      template: value.id,
       arguments: {
         parameters: [{ name: 'message', value: value.id }]
       }
@@ -51,13 +46,13 @@ export function getDataStructure() {
     tasks.push(task)
   })
 
-  console.log(store.getters['argo/getContainerTemplates'])
-  // Argo Workflow YAML 템플릿 생성
+  // Argo Workflow 템플릿 생성
   const argoWorkflowTemplate = {
     apiVersion: 'argoproj.io/v1alpha1',
     kind: 'Workflow',
     metadata: {
-      generateName: 'dag-generated-'
+      generateName: 'dag-generated-',
+      namespace: 'argo'
     },
     spec: {
       entrypoint: 'main',
