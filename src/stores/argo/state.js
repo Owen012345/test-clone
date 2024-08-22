@@ -5,13 +5,13 @@ const state = {
       inputs: {
         parameters: [
           {
-            name: 'message'
+            name: 'function'
           }
         ]
       },
       container: {
         image: 'alpine:3.7', // test
-        command: ['echo', '{{inputs.parameters.message}}']
+        command: ['echo', '{{inputs.parameters.function}}']
       }
     },
     preprocess: {
@@ -19,13 +19,13 @@ const state = {
       inputs: {
         parameters: [
           {
-            name: 'message'
+            name: 'function'
           }
         ]
       },
       container: {
         image: '',
-        command: ['echo', '{{inputs.parameters.message}}']
+        command: ['echo', '{{inputs.parameters.function}}']
       }
     },
     transformation: {
@@ -33,13 +33,13 @@ const state = {
       inputs: {
         parameters: [
           {
-            name: 'message'
+            name: 'function'
           }
         ]
       },
       container: {
         image: '',
-        command: ['echo', '{{inputs.parameters.message}}']
+        command: ['echo', '{{inputs.parameters.function}}']
       }
     },
     visualization: {
@@ -47,13 +47,13 @@ const state = {
       inputs: {
         parameters: [
           {
-            name: 'message'
+            name: 'function'
           }
         ]
       },
       container: {
         image: '',
-        command: ['echo', '{{inputs.parameters.message}}']
+        command: ['echo', '{{inputs.parameters.function}}']
       }
     },
     SQL: {
@@ -61,13 +61,13 @@ const state = {
       inputs: {
         parameters: [
           {
-            name: 'message'
+            name: 'function'
           }
         ]
       },
       container: {
         image: '',
-        command: ['echo', '{{inputs.parameters.message}}']
+        command: ['echo', '{{inputs.parameters.function}}']
       }
     },
     dataMining: {
@@ -75,13 +75,13 @@ const state = {
       inputs: {
         parameters: [
           {
-            name: 'message'
+            name: 'function'
           }
         ]
       },
       container: {
         image: '',
-        command: ['echo', '{{inputs.parameters.message}}']
+        command: ['echo', '{{inputs.parameters.function}}']
       }
     }
   },

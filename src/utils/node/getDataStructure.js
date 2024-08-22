@@ -30,11 +30,12 @@ export function getDataStructure() {
   const tasks = []
 
   nodeDependencies.forEach((value) => {
+    console.log(value)
     const task = {
       name: value.id,
       template: value.id,
       arguments: {
-        parameters: [{ name: 'message', value: value.id }]
+        parameters: [{ name: 'function', value: value.label }]
       }
     }
 
