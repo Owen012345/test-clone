@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@mdi/font": "7.0.96",
+    "axios": "^1.7.4",
     "dayjs": "^1.11.12",
     "rete": "^2.0.3",
     "rete-area-plugin": "^2.0.4",
