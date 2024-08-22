@@ -10,7 +10,6 @@ export function getDataStructure() {
 
   const nodeDependencies = new Map()
 
-  // TODO : source node 에
   nodes.forEach((node) => {
     nodeDependencies.set(node.id, {
       ...node,
