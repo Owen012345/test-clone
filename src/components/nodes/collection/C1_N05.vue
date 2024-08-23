@@ -7,7 +7,15 @@
         v-model="formData.readFromEnum"
       ></v-select>
       <span>Mode</span>
-      <v-select :items="schema.properties.modeEnum.enum" v-model="formData.modeEnum"></v-select>
+      <v-radio-group v-model="formData.modeEnum" inline hide-details>
+        <v-radio
+          v-for="(item, index) in schema.properties.modeEnum.enum"
+          :key="index"
+          :label="item"
+          :value="item"
+        >
+        </v-radio>
+      </v-radio-group>
       <v-checkbox
         hide-details
         v-model="formData.includeParentFolder"

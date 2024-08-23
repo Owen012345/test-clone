@@ -84,7 +84,12 @@
     >
       <v-row>
         <v-col>
-          <v-text-field hide-details v-model="formData.rowNumberRangeMin"> </v-text-field>
+          <v-text-field
+            placeholder="First row number"
+            hide-details
+            v-model="formData.rowNumberRangeMin"
+          >
+          </v-text-field>
         </v-col>
         <v-col>
           <v-text-field
@@ -92,6 +97,7 @@
             :disabled="formData.endOfTheTable"
             hide-details
             v-model="formData.rowNumberRangeMax"
+            placeholder="Last row number"
           >
           </v-text-field>
         </v-col>

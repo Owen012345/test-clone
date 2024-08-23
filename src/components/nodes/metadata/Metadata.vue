@@ -1,10 +1,12 @@
 <template lang="">
   <v-container fluid>
     <CustomCard title="docker repo address">
-      <v-text-field hide-details v-model="metadata.address"> </v-text-field>
+      <v-text-field placeholder="Insert address" hide-details v-model="metadata.address">
+      </v-text-field>
     </CustomCard>
     <CustomCard title="version settings">
-      <v-select :items="dockerImageVersionList" v-model="metadata.version"> </v-select>
+      <v-select single-line label="docker image versions" :items="dockerImageVersionList">
+      </v-select>
     </CustomCard>
     <CustomCard title="information"> </CustomCard>
   </v-container>

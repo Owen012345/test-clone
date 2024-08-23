@@ -13,7 +13,7 @@
         v-model="formData.connectionDelay"
         hide-details
       ></v-text-field>
-      <span>Timout</span>
+      <span>Timeout</span>
       <v-text-field
         :type="schema.properties.connectionTimeout.type"
         v-model="formData.connectionTimeout"
