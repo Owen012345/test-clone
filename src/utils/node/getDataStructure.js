@@ -35,7 +35,18 @@ export function getDataStructure() {
       name: value.id,
       template: value.id,
       arguments: {
-        parameters: [{ name: 'function', value: value.label }]
+        parameters: [
+          { name: 'function', value: value.label }
+          // docker image parameter 예시
+          // {
+          //   name: 'metadata',
+          //   value: store.getters['nodeDetail/getDockerImageUrl'](value.id)
+          // },
+          // {
+          //   name: 'settings',
+          //   value: store.getters['nodeDetail/getDefaultSettingNodeSchema'](value.id)
+          // }
+        ]
       }
     }
 
