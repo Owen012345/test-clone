@@ -14,6 +14,20 @@ const state = {
         command: ['echo', '{{inputs.parameters.function}}']
       }
     },
+    restAPI: {
+      name: '',
+      inputs: {
+        parameters: [
+          {
+            name: 'function'
+          }
+        ]
+      },
+      container: {
+        image: '',
+        command: ['echo', '{{inputs.parameters.function}}']
+      }
+    },
     preprocess: {
       name: '',
       inputs: {
