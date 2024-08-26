@@ -42,8 +42,18 @@ export default {
   computed: {
     ...mapGetters('workflow', ['getSelectedNode']),
     selectedNode() {
-      if (!this.getSelectedNode.id && !this.getSelectedNode.nodeId) return null
-      else return this.getSelectedNode
+      const selectedNode = this.getSelectedNode
+
+      if (!selectedNode.id && !selectedNode.nodeId) return null
+      if (
+        selectedNode.nodeId === 'C2_N02' ||
+        selectedNode.nodeId === 'C2_N03' ||
+        selectedNode.nodeId === 'C2_N04'
+      ) {
+        return { ...selectedNode, nodeId: 'C2_N01' }
+      }
+
+      return selectedNode
     }
   },
   watch: {

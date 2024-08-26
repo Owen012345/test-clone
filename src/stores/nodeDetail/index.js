@@ -95,7 +95,13 @@ const getters = {
 const actions = {
   async initNodeDataWithSchema({ commit }, node) {
     try {
-      const schema = await import(`@/components/nodes/schema/${node.nodeId}_schema.json`)
+      // TODO : C2_N01 부터 C2_N04 는 C2_N01 의 스키마를 사용하도록
+      const schemaNodeId =
+        node.nodeId === 'C2_N02' || node.nodeId === 'C2_N03' || node.nodeId === 'C2_N04'
+          ? 'C2_N01'
+          : node.nodeId
+
+      const schema = await import(`@/components/nodes/schema/${schemaNodeId}_schema.json`)
       const metadata = {
         address: '',
         version: ''
