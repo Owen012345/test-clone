@@ -1,0 +1,76 @@
+{
+    "type": "object",
+    "properties": {
+        "methodEnum": {
+            "type": "string",
+            "enum": [
+                "data type(Number/String)",
+                "columns"
+            ],
+            "default": "data type(Number/String)"
+        },
+        "methodTypeNumberEnum": {
+            "type": "string",
+            "enum": [
+                "do nothing",
+                "dropna",
+                "Fix value",
+                "next value",
+                "previous value",
+                "min",
+                "max",
+                "mean",
+                "median"
+            ],
+            "default": "do nothing"
+        },
+        "fixValue": {
+            "type": "number",
+            "default": null
+        },
+        "methodTypeStringEnum": {
+            "type": "string",
+            "enum": [
+                "do nothing",
+                "dropna",
+                "Fix value",
+                "next value",
+                "previous value"
+            ]
+        },
+        "methodColumnArray": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "methodColumnEnum": {
+            "type": "string",
+            "enum": [
+                "do nothing",
+                "dropna",
+                "Fix value",
+                "next value",
+                "previous value",
+                "min",
+                "max",
+                "mean",
+                "median"
+            ]
+        },
+        "methodColumnArrayObject": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "column": {
+                        "type": "string"
+                    },
+                    "method": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}

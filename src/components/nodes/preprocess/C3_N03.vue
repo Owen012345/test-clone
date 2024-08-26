@@ -6,7 +6,7 @@
         :leftHeader="'available columns'"
         :rightHeader="'group columns'"
         v-model="formData.groupingColumnArray"
-        :items="['a', 'b', 'c']"
+        :items="[]"
       >
       </CustomSelectList>
 
@@ -28,7 +28,7 @@
       ></v-select>
       <CustomTableWithAddItems
         :headers="['agg column', 'agg function']"
-        :selectedItem="selectedItem.aggregation"
+        :selectedItem="selectedItems.aggregation"
         v-model="formData.aggregationArrayObject"
       ></CustomTableWithAddItems>
     </CustomCard>
@@ -49,7 +49,7 @@ export default {
   mixins: [formMixin],
   data() {
     return {
-      selectedItem: {
+      selectedItems: {
         aggregation: {
           column: '',
           function: ''
