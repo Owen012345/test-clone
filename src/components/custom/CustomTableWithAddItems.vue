@@ -43,7 +43,6 @@ export default {
       localSelected: []
     }
   },
-  computed: {},
   methods: {
     addItems() {
       const item = { ...this.selectedItem }
@@ -73,4 +72,8 @@ export default {
   }
 }
 </script>
-<style lang=""></style>
+<style scoped>
+.selected-row {
+  background-color: lightgray;
+}
+</style>

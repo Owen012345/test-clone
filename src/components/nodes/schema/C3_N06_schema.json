@@ -1,0 +1,44 @@
+{
+    "type": "object",
+    "properties": {
+        "columnArray": {
+            "string": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "normalizerMethodEnum": {
+            "type": "string",
+            "enum": [
+                "min-max",
+                "z-score"
+            ],
+            "default": "min-max"
+        },
+        "minValue": {
+            "type": "number",
+            "default": 0.0
+        },
+        "maxValue": {
+            "type": "number",
+            "default": 1.0
+        },
+        "normalizerArrayObject": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "column": {
+                        "type": "string"
+                    },
+                    "method": {
+                        "type": "string"
+                    },
+                    "option": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}

@@ -66,20 +66,15 @@ export default {
     CustomTableWithAddItems
   },
   mixins: [formMixin],
-  data() {
-    return {
-      selectedItems: {
+  computed: {
+    selectedItems() {
+      return {
         method: {
-          column: '',
-          method: ''
+          column: this.formData.methodColumnArray,
+          method: this.formData.methodColumnEnum
         }
       }
     }
   }
 }
 </script>
-<style scoped>
-.selected-row {
-  background-color: lightgray;
-}
-</style>

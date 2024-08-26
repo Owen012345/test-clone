@@ -328,19 +328,23 @@ export default {
     CustomTableWithAddItems
   },
   mixins: [formMixin],
-  data() {
-    return {
-      selectedItems: {
-        requestHeaders: { key: '', value: '' },
-        responseHeaders: { key: '', value: '' },
-        contentBody: { key: '', value: '' }
+  computed: {
+    selectedItems() {
+      return {
+        requestHeaders: {
+          key: this.formData.requestHeaderKey,
+          value: this.formData.requestHeaderValue
+        },
+        responseHeaders: {
+          key: this.formData.responseHeaderKey,
+          value: this.formData.responseHeaderValue
+        },
+        contentBody: {
+          key: this.formData.contentBodyKey,
+          value: this.formData.contentBodyValue
+        }
       }
     }
   }
 }
 </script>
-<style scoped>
-.selected-row {
-  background-color: lightgray;
-}
-</style>

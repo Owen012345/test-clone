@@ -12,7 +12,7 @@
 
       <span>select aggregation columns</span>
       <v-select
-        :items="['column1', 'column2', 'column3']"
+        :items="[]"
         v-model="formData.aggregationColumnArray"
         placeholder="Column Selection"
         hide-details
@@ -47,20 +47,15 @@ export default {
     CustomTableWithAddItems
   },
   mixins: [formMixin],
-  data() {
-    return {
-      selectedItems: {
+  computed: {
+    selectedItems() {
+      return {
         aggregation: {
-          column: '',
-          function: ''
+          column: this.formData.aggregationColumnArray,
+          function: this.formData.aggregationFunctionArray
         }
       }
     }
   }
 }
 </script>
-<style scoped>
-.selected-row {
-  background-color: lightgray;
-}
-</style>
