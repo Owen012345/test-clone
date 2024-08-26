@@ -16,6 +16,7 @@ import C3_N01 from '@/components/nodes/preprocess/C3_N01.vue'
 import C3_N02 from '@/components/nodes/preprocess/C3_N02.vue'
 import C3_N03 from '@/components/nodes/preprocess/C3_N03.vue'
 import C3_N04 from '@/components/nodes/preprocess/C3_N04.vue'
+import C3_N05 from '@/components/nodes/preprocess/C3_N05.vue'
 
 import C4_N01 from '@/components/nodes/transformation/C4_N01.vue'
 import C4_N02 from '@/components/nodes/transformation/C4_N02.vue'
@@ -36,6 +37,7 @@ export default {
     C3_N02,
     C3_N03,
     C3_N04,
+    C3_N05,
     C4_N01,
     C4_N02,
     C5_N01

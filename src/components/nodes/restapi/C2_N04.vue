@@ -339,7 +339,7 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
 .selected-row {
   background-color: lightgray;
 }

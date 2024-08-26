@@ -1,0 +1,33 @@
+{
+    "type": "object",
+    "properties": {
+        "columnArray": {
+            "string": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "sortByEnum": {
+            "type": "string",
+            "enum": [
+                "ascending",
+                "descending"
+            ],
+            "default": "ascending"
+        },
+        "sortByArrayObject": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "column": {
+                        "type": "string"
+                    },
+                    "sortingType": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}

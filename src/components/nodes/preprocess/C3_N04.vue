@@ -34,7 +34,7 @@
     </CustomCard>
     <CustomCard v-if="formData.methodEnum === 'columns'" title="Method(Columns)">
       <v-select
-        :items="['column1', 'column2', 'column3']"
+        :items="[]"
         v-model="formData.methodColumnArray"
         hide-details
         @update:modelValue="updateSelectedItem('method', 'column', $event)"
@@ -78,7 +78,7 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
 .selected-row {
   background-color: lightgray;
 }
