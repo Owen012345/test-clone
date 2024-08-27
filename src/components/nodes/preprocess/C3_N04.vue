@@ -22,8 +22,8 @@
       <v-text-field
         :disabled="formData.methodTypeNumberEnum !== 'Fix value'"
         hide-details
-        v-model="formData.fixValue"
-        :type="schema.properties.fixValue.type"
+        v-model="formData.numberFixValue"
+        :type="schema.properties.numberFixValue.type"
       ></v-text-field>
       <span>String</span>
       <v-select
@@ -31,6 +31,13 @@
         v-model="formData.methodTypeStringEnum"
         hide-details
       ></v-select>
+      <span>Fix value</span>
+      <v-text-field
+        :disabled="formData.methodTypeStringEnum !== 'Fix value'"
+        hide-details
+        v-model="formData.stringFixValue"
+        :type="schema.properties.stringFixValue.type"
+      ></v-text-field>
     </CustomCard>
     <CustomCard v-if="formData.methodEnum === 'columns'" title="Method(Columns)">
       <v-select
