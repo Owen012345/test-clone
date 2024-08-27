@@ -1,0 +1,49 @@
+{
+    "type": "object",
+    "properties": {
+        "baseColumnArray": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "calculateDifferenceToEnum": {
+            "type": "string",
+            "enum": [
+                "second column",
+                "fixed date&time",
+                "current execution date&time"
+            ],
+            "default": "second column"
+        },
+        "secondColumn": {
+            "type": "string",
+            "default": ""
+        },
+        "fixedDate": {
+            "type": "date",
+            "default": null
+        },
+        "fixedTime": {
+            "type": "time",
+            "default": null
+        },
+        "outputOptionsEnum": {
+            "type": "string",
+            "enum": [
+                "Granularity",
+                "Duration"
+            ],
+            "default": "Granularity"
+        },
+        "granularityEnum": {
+            "type": "string",
+            "enum": [
+                "Years",
+                "Months",
+                "Days"
+            ],
+            "default": "Years"
+        }
+    }
+}

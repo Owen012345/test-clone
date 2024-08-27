@@ -24,6 +24,7 @@ import C4_N02 from '@/components/nodes/transformation/C4_N02.vue'
 import C4_N03 from '@/components/nodes/transformation/C4_N03.vue'
 import C4_N04 from '@/components/nodes/transformation/C4_N04.vue'
 import C4_N05 from '@/components/nodes/transformation/C4_N05.vue'
+import C4_N06 from '@/components/nodes/transformation/C4_N06.vue'
 
 import C5_N01 from '@/components/nodes/datamining/C5_N01.vue'
 export default {
@@ -48,6 +49,7 @@ export default {
     C4_N03,
     C4_N04,
     C4_N05,
+    C4_N06,
     C5_N01
   },
   props: {
