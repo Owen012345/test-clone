@@ -1,0 +1,43 @@
+{
+    "type": "object",
+    "properties": {
+        "columnSelectionArray": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "startTimeSettingEnum": {
+            "type": "string",
+            "enum": [
+                "Custom",
+                "Now"
+            ],
+            "default": "Custom"
+        },
+        "startTimeCustomDate": {
+            "type": "date",
+            "default": null
+        },
+        "startTimeCustomTime": {
+            "type": "time",
+            "default": null
+        },
+        "endTimeSettingEnum": {
+            "type": "string",
+            "enum": [
+                "Custom",
+                "Now"
+            ],
+            "default": "Custom"
+        },
+        "endTimeCustomDate": {
+            "type": "date",
+            "default": null
+        },
+        "endTimeCustomTime": {
+            "type": "tune",
+            "default": null
+        }
+    }
+}
