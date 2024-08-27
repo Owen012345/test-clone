@@ -100,14 +100,8 @@ export async function createEditor(container) {
   editor.addPipe((context) => {
     if (context.type === 'nodecreated') {
       const { data } = context
-      const initData = {
-        id: data.id,
-        nodeId: data.nodeId,
-        group: data.group,
-        label: data.label
-      }
 
-      store.dispatch('nodeDetail/initNodeDataWithSchema', initData)
+      store.dispatch('nodeDetail/initNodeDataWithSchema', data)
     }
     if (context.type === 'noderemoved') {
       const { data } = context
@@ -129,6 +123,40 @@ export async function createEditor(container) {
       const connectionId = data.id
 
       checkMultiplePort(editor, connectionId, targetNode, targetInput, sourceNode, sourceOutput)
+
+      // console.log(editor.getNodes(), editor.getConnections())
+      // ///////
+      // // 1. targetNode 연결되면 targetInput에 연결된 sourceNode 및 sourceOutput 정보 표시
+      // const nodes = editor.getNodes()
+      // const connections = editor.getConnections()
+
+      // console.log(nodes)
+      // // 타겟 노드의 입력 포트에 연결된 모든 소스 노드 및 출력 포트 찾기
+      // const incomingConnections = connections.filter(
+      //   (conn) => conn.target === targetNode.id && conn.targetInput === targetInput
+      // )
+
+      // // 소스 노드와 그 출력 포트를 저장할 Map 객체 생성
+      // const sourceNodeMap = new Map()
+
+      // incomingConnections.forEach((conn) => {
+      //   const sourceNode = nodes.find((node) => node.id === conn.source)
+      //   const outputPortKey = conn.sourceOutput // 소스 노드의 출력 포트 키
+
+      //   if (!sourceNodeMap.has(sourceNode.id)) {
+      //     sourceNodeMap.set(sourceNode.id, new Map())
+      //   }
+      //   sourceNodeMap.get(sourceNode.id).set(outputPortKey, conn.sourceOutput)
+      // })
+
+      // // 결과 출력
+      // sourceNodeMap.forEach((outputs, sourceNodeId) => {
+      //   console.log(`Source Node ID: ${sourceNodeId}`)
+      //   console.log(`  Target Node ID: ${targetNode.id}`)
+      //   outputs.forEach((outputPortKey, outputPortId) => {
+      //     console.log(`  Output Port Key: ${outputPortKey} -> Output Port ID: ${outputPortId}`)
+      //   })
+      // })
     }
 
     return context
