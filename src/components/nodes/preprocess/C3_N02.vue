@@ -4,7 +4,7 @@
       <CustomSelectList
         :leftHeader="'Exclude'"
         :rightHeader="'Include'"
-        v-model="formData.ColumnSelectionEnum"
+        v-model="formData.ColumnSelectionArray"
         :items="[]"
       >
       </CustomSelectList>

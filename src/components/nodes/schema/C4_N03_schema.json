@@ -1,0 +1,46 @@
+{
+    "type": "object",
+    "properties": {
+        "columnSelectionArray": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "replaceAppendSelectionEnum": {
+            "type": "string",
+            "enum": [
+                "Append selected columns",
+                "Replace selected columns"
+            ],
+            "default": "Append selected columns"
+        },
+        "newTypeEnum": {
+            "type": "string",
+            "enum": [
+                "Date",
+                "Time",
+                "Date&Time",
+                "Date&Time with zone"
+            ],
+            "default": "Date&Time"
+        },
+        "dateFormatEnum": {
+            "type": "string",
+            "enum": [
+                "yyyy-MM-dd",
+                "yyyy-MM-dd HH:mm:ss",
+                "yyyy-MM-dd HH:mm:ss.SSS"
+            ],
+            "default": "yyyy-MM-dd HH:mm:ss"
+        },
+        "localeEnum": {
+            "type": "string",
+            "enum": [
+                "UTC",
+                "ko-KR"
+            ],
+            "default": "ko-KR"
+        }
+    }
+}

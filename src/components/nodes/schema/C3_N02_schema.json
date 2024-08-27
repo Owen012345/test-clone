@@ -1,7 +1,7 @@
 {
     "type": "object",
     "properties": {
-        "ColumnSelectionEnum": {
+        "ColumnSelectionArray": {
             "type": "array",
             "items": {
                 "type": "string"
