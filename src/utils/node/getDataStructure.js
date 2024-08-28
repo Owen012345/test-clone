@@ -57,6 +57,7 @@ export function getDataStructure() {
     tasks.push(task)
   })
 
+  // console.log(nodes)
   // Argo Workflow 템플릿 생성
   const argoWorkflowTemplate = {
     apiVersion: 'argoproj.io/v1alpha1',
@@ -79,6 +80,6 @@ export function getDataStructure() {
     }
   }
 
-  console.log(JSON.stringify(argoWorkflowTemplate, null, 2))
+  // console.log(JSON.stringify(argoWorkflowTemplate, null, 2))
   return argoWorkflowTemplate
 }

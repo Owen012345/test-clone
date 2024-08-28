@@ -9,6 +9,8 @@
 <script>
 import { getDataStructure } from '@/utils/node/getDataStructure'
 import { redrawGraph } from '@/utils/node/redrawNode'
+
+import api from '@/api'
 export default {
   name: 'NodeExecution',
   data() {
@@ -19,10 +21,12 @@ export default {
 
   methods: {
     dataStructure() {
-      getDataStructure()
-    },
-    flowExecution() {
       redrawGraph()
+    },
+    async flowExecution() {
+      const workflow = getDataStructure()
+      const result = await api.argo.submit(workflow)
+      console.log(result)
     }
   }
 }

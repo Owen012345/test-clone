@@ -10,7 +10,7 @@ const state = {
         ]
       },
       container: {
-        image: '', // test
+        image: 'alpine:3.7', // test
         command: ['echo', '{{inputs.parameters.function}}']
       }
     },

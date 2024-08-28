@@ -1,33 +1,30 @@
 import axios from 'axios'
-import argo from './argo'
-
+import Argo from './modules/argo'
 class Api {
   constructor(url = import.meta.env.VITE_API_URL) {
-    // 기본 axios 인스턴스
     this.instance = axios.create({
       baseURL: url,
       timeout: 30000
     })
-
-    // 각 모듈을 초기화
-    this.argo = this.#initializeModule(argo, {
-      baseURL: import.meta.env.VITE_ARGO_URL,
-      timeout: 30000
-    })
   }
 
-  #initializeModule(modules, config) {
-    const moduleInstance = {}
-    Object.keys(modules).forEach((key) => {
-      const axiosInstance = config
-        ? axios.create({
-            ...config
-          })
-        : this.instance
+  #getInstance(_class, customConfig = {}) {
+    const className = _class.name
 
-      moduleInstance[key] = new modules[key](axiosInstance)
+    if (!this[className]) {
+      const instance = customConfig.baseURL ? axios.create({ ...customConfig }) : this.instance
+
+      this[className] = new _class(instance)
+    }
+
+    return this[className]
+  }
+
+  get argo() {
+    return this.#getInstance(Argo, {
+      baseURL: import.meta.env.VITE_API_URL + '/argo',
+      timeout: 30000
     })
-    return moduleInstance
   }
 }
 
