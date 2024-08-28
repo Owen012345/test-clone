@@ -10,7 +10,6 @@
               v-model="formData.partitionAbsolute"
               :type="schema.properties.partitionAbsolute.type"
               :disabled="formData.partitionType !== 'Absolute'"
-              placeholder="Number"
             >
             </v-text-field>
           </CustomCard>
@@ -20,7 +19,6 @@
               v-model="formData.partitionRelative"
               :type="schema.properties.partitionRelative.type"
               :disabled="formData.partitionType !== 'Relative[%]'"
-              placeholder="Number(%)"
             >
             </v-text-field>
           </CustomCard>
@@ -45,7 +43,7 @@ import CustomCard from '@/components/custom/CustomCard.vue'
 import formMixin from '@/components/mixins/formMixin'
 
 export default {
-  name: 'C1_N05',
+  name: 'C5_N01',
   components: {
     CustomCard
   },
