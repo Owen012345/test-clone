@@ -1,0 +1,23 @@
+{
+    "type": "object",
+    "properties": {
+        "classColumnSelectionArray": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "numberOfNeighbors": {
+            "type": "number",
+            "defaut": null
+        },
+        "weightNeighbours": {
+            "type": "boolean",
+            "default": false
+        },
+        "outputClassProbabilities": {
+            "type": "boolean",
+            "default": false
+        }
+    }
+}

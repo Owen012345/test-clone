@@ -1,7 +1,7 @@
 <template lang="">
   <v-container fluid>
     <CustomCard title="Standard settings">
-      <span>prediction column name settubg</span>
+      <span>prediction column name settings</span>
       <v-checkbox
         v-model="formData.predictionColumnName"
         label="Change prediction column name"
