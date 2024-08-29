@@ -1,0 +1,13 @@
+{
+    "type": "object",
+    "properties": {
+        "epsilon": {
+            "type": "number",
+            "default": null
+        },
+        "minimumPoints": {
+            "type": "number",
+            "default": null
+        }
+    }
+}
