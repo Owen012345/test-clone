@@ -1,0 +1,15 @@
+{
+    "type": "object",
+    "properties": {
+        "columnSelectionArray": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "enableHiliting": {
+            "type": "boolean",
+            "default": false
+        }
+    }
+}

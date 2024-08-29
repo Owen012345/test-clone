@@ -44,7 +44,7 @@ import CustomSelectList from '@/components/custom/CustomSelectList.vue'
 import formMixin from '@/components/mixins/formMixin'
 
 export default {
-  name: 'C5_N06',
+  name: 'C5_N07',
   components: {
     CustomCard,
     CustomSelectList
