@@ -1,0 +1,33 @@
+{
+    "type": "object",
+    "properties": {
+        "targetColumnArray": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "trainingColumnArray": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "predefinedOffsetValue": {
+            "type": "boolean",
+            "default": false
+        },
+        "offsetValue": {
+            "type": "number",
+            "default": null
+        },
+        "missingValueEnum": {
+            "type": "string",
+            "enum": [
+                "Ignore",
+                "Fail"
+            ],
+            "default": "Ignore"
+        }
+    }
+}
