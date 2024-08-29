@@ -1,0 +1,25 @@
+{
+    "type": "object",
+    "properties": {
+        "HiLitePatternsNumber": {
+            "type": "number",
+            "default": null
+        },
+        "changeColumnName": {
+            "type": "boolean",
+            "default": false
+        },
+        "columnName": {
+            "type": "string",
+            "default": ""
+        },
+        "normalizedClassDistribution": {
+            "type": "boolean",
+            "default": false
+        },
+        "prefixColumnName": {
+            "type": "string",
+            "default": ""
+        }
+    }
+}

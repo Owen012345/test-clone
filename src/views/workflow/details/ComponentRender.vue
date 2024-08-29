@@ -28,6 +28,7 @@ import C4_N06 from '@/components/nodes/transformation/C4_N06.vue'
 
 import C5_N01 from '@/components/nodes/datamining/C5_N01.vue'
 import C5_N02 from '@/components/nodes/datamining/C5_N02.vue'
+import C5_N03 from '@/components/nodes/datamining/C5_N03.vue'
 export default {
   name: 'ComponentRender',
   components: {
@@ -52,7 +53,8 @@ export default {
     C4_N05,
     C4_N06,
     C5_N01,
-    C5_N02
+    C5_N02,
+    C5_N03
   },
   props: {
     selectedNode: {
