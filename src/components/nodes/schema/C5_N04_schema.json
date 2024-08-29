@@ -1,0 +1,42 @@
+{
+    "type": "object",
+    "properties": {
+        "firstColumnArray": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "secondColumnArray": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "sortingStrategyEnum": {
+            "type": "string",
+            "enum": [
+                "Insertion order",
+                "Lexical",
+                "Reverse order"
+            ],
+            "default": "Insertion order"
+        },
+        "useNamePrefix": {
+            "type": "boolean",
+            "default": false
+        },
+        "namePrefix": {
+            "type": "string",
+            "default": ""
+        },
+        "missingValueEnum": {
+            "type": "string",
+            "enum": [
+                "Ignore",
+                "Fail"
+            ],
+            "default": "Ignore"
+        }
+    }
+}
