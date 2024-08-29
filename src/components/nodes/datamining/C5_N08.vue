@@ -18,14 +18,12 @@
 </template>
 <script>
 import CustomCard from '@/components/custom/CustomCard.vue'
-import CustomSelectList from '@/components/custom/CustomSelectList.vue'
 import formMixin from '@/components/mixins/formMixin'
 
 export default {
   name: 'C5_N08',
   components: {
-    CustomCard,
-    CustomSelectList
+    CustomCard
   },
   mixins: [formMixin]
 }

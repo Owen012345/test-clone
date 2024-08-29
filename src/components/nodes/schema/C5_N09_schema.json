@@ -1,0 +1,48 @@
+{
+    "type": "object",
+    "properties": {
+        "columnSelectionArray": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "overlappingPenalty": {
+            "type": "number",
+            "default": 1
+        },
+        "kernelEnum": {
+            "type": "string",
+            "enum": [
+                "Polynomial",
+                "HyperTangent",
+                "RBF"
+            ],
+            "default": "Polynomial"
+        },
+        "polynomialBias": {
+            "type": "number",
+            "default": 1
+        },
+        "polynomialPower": {
+            "type": "number",
+            "default": 1
+        },
+        "polynomialGamma": {
+            "type": "number",
+            "default": 1
+        },
+        "hyperTangentKappa": {
+            "type": "number",
+            "default": 0.1
+        },
+        "hyperTangentDelta": {
+            "type": "number",
+            "default": 0.1
+        },
+        "rbfSigma": {
+            "type": "number",
+            "default": 0.1
+        }
+    }
+}
