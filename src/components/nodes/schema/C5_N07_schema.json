@@ -1,0 +1,27 @@
+{
+    "type": "object",
+    "properties": {
+        "numberOfClusters": {
+            "type": "number",
+            "default": null
+        },
+        "centroidInitializationEnum": {
+            "type": "string",
+            "enum": [
+                "Random initialization",
+                "First k rows"
+            ],
+            "default": "Random initialization"
+        },
+        "numberOfIterations": {
+            "type": "number",
+            "default": null
+        },
+        "columnSelectionArray": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        }
+    }
+}
