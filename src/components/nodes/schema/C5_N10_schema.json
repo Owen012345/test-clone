@@ -1,0 +1,21 @@
+{
+    "type": "object",
+    "properties": {
+        "predictionColumnName": {
+            "type": "boolean",
+            "default": false
+        },
+        "predictionName": {
+            "type": "string",
+            "defaut": ""
+        },
+        "suffixColumnName": {
+            "type": "boolean",
+            "default": false
+        },
+        "suffixName": {
+            "type": "string",
+            "default": ""
+        }
+    }
+}
