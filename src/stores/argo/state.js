@@ -20,12 +20,15 @@ const state = {
         parameters: [
           {
             name: 'function'
+          },
+          {
+            name: 'url'
           }
         ]
       },
       container: {
         image: '',
-        command: ['echo', '{{inputs.parameters.function}}']
+        command: ['curl', '-X', 'GET', '{{inputs.parameters.url}}']
       }
     },
     preprocess: {

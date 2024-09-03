@@ -124,37 +124,58 @@ export async function createEditor(container) {
 
       checkMultiplePort(editor, connectionId, targetNode, targetInput, sourceNode, sourceOutput)
 
-      // console.log(editor.getNodes(), editor.getConnections())
-      // ///////
-      // // 1. targetNode 연결되면 targetInput에 연결된 sourceNode 및 sourceOutput 정보 표시
-      // const nodes = editor.getNodes()
-      // const connections = editor.getConnections()
+      // console.log('Editor Nodes:', editor.getNodes())
+      // console.log('Editor Connections:', editor.getConnections())
 
-      // console.log(nodes)
-      // // 타겟 노드의 입력 포트에 연결된 모든 소스 노드 및 출력 포트 찾기
-      // const incomingConnections = connections.filter(
-      //   (conn) => conn.target === targetNode.id && conn.targetInput === targetInput
-      // )
+      // IO Storage 정보 가져오는 시퀀스
+      // 1. 노드가 생성되면 vuex 에서 I/O storage 정보를 nodeId 별로 생성한다.
+      // 2. 생성된 I/O storage 정보는 settings 탭에서 form 을 핸들링 해 vuex 에 업데이트 한다.
+      // 2-1. I/O storage 는 ouput 의 키 갯수 및 id 별로 각각 form 을 핸들링 해야 한다.
 
-      // // 소스 노드와 그 출력 포트를 저장할 Map 객체 생성
-      // const sourceNodeMap = new Map()
+      // 3. connection 이 연결되면 targetNode 즉 해당 노드의 input 에 sourceNode 의 output 정보를 저장한다.
+      // 3-1. sourceNode 의 Id 및 output 키 정보를 가지고 있는다.
 
-      // incomingConnections.forEach((conn) => {
-      //   const sourceNode = nodes.find((node) => node.id === conn.source)
-      //   const outputPortKey = conn.sourceOutput // 소스 노드의 출력 포트 키
+      // 4. 이 후 workflow 를 구성할때 sourceNode 의 ouput 정보를 맵핑하여 targetNode 의 input 에 저장한다.
 
-      //   if (!sourceNodeMap.has(sourceNode.id)) {
-      //     sourceNodeMap.set(sourceNode.id, new Map())
-      //   }
-      //   sourceNodeMap.get(sourceNode.id).set(outputPortKey, conn.sourceOutput)
-      // })
+      // 타겟 노드의 입력 포트에 연결된 모든 소스 노드 및 출력 포트 찾기
+      const incomingConnections = editor
+        .getConnections()
+        .filter((conn) => conn.target === targetNode.id && conn.targetInput === targetInput)
 
-      // // 결과 출력
+      // 소스 노드와 그 출력 포트를 저장할 Map 객체 생성
+      const sourceNodeMap = new Map()
+
+      incomingConnections.forEach((conn) => {
+        const sourceNode = editor.getNode(conn.source)
+        const outputPortKey = conn.sourceOutput // 소스 노드의 출력 포트 키
+
+        if (!sourceNodeMap.has(sourceNode.id)) {
+          sourceNodeMap.set(sourceNode.id, new Map())
+        }
+        sourceNodeMap.get(sourceNode.id).set(outputPortKey, conn.sourceOutput)
+
+        console.log(targetNode)
+        // targetNode의 input 키값 정보에 sourceNodeId 및 output 정보 추가
+        // 현재는 targetNode에 inputs 에 connections 키값을 추가 해 sourceNode의 id 및 ouput 키값을 저장
+        // 없으면 connections 키값을 생성하지 않음. -> 수정 필요 할 수도 있음
+
+        if (!targetNode.inputs[targetInput].connections) {
+          targetNode.inputs[targetInput].connections = {}
+        }
+
+        targetNode.inputs[targetInput].connections[connectionId] = {
+          sourceNodeId: sourceNode.id,
+          sourceOutputKey: outputPortKey
+        }
+      })
+
+      console.log(editor.getNodes())
+      // 결과 출력 용 로그
+      // console.log(`Updated Target Node (ID: ${targetNode.id}) Inputs:`, targetNode.inputs)
       // sourceNodeMap.forEach((outputs, sourceNodeId) => {
-      //   console.log(`Source Node ID: ${sourceNodeId}`)
-      //   console.log(`  Target Node ID: ${targetNode.id}`)
+      //   console.log(editor.getNode(sourceNodeId))
       //   outputs.forEach((outputPortKey, outputPortId) => {
-      //     console.log(`  Output Port Key: ${outputPortKey} -> Output Port ID: ${outputPortId}`)
+      //     console.log(`Output Port Key: ${outputPortKey} -> Output Port ID: ${outputPortId}`)
       //   })
       // })
     }

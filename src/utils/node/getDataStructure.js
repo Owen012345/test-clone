@@ -1,5 +1,45 @@
 import store from '@/stores'
 
+function createTask(value) {
+  // console.log(value)
+
+  const task = {
+    name: value.id,
+    inline: {},
+    arguments: {
+      parameters: []
+    }
+  }
+
+  // 파라미터 값 결정
+  if (value.group === 'restAPI') {
+    const data = store.getters['nodeDetail/getDefaultSettingNodeSchema'](value.id)
+
+    task.arguments.parameters.push(
+      { name: 'function', value: value.id },
+      { name: 'url', value: data.connectionURL }
+    )
+  } else {
+    task.arguments.parameters.push({ name: 'function', value: value.label })
+    // Uncomment and use these if needed
+    // task.arguments.parameters.push({
+    //   name: 'metadata',
+    //   value: store.getters['nodeDetail/getDockerImageUrl'](value.id)
+    // });
+    // task.arguments.parameters.push({
+    //   name: 'settings',
+    //   value: store.getters['nodeDetail/getDefaultSettingNodeSchema'](value.id)
+    // });
+  }
+
+  // 종속성이 있는 경우 추가
+  if (value.dependencies.length > 0) {
+    task.dependencies = value.dependencies
+  }
+
+  return task
+}
+
 export function getDataStructure() {
   const editor = store.getters['workflow/getEditor']
 
@@ -26,38 +66,24 @@ export function getDataStructure() {
     }
   })
 
-  // Argo Workflow의 DAG tasks 생성
+  // 빈 배열로 초기화
   const tasks = []
 
+  // 각 노드에 대해 createTask 함수를 호출하여 tasks 배열에 추가
   nodeDependencies.forEach((value) => {
-    console.log(value)
-    const task = {
-      name: value.id,
-      template: value.id,
-      arguments: {
-        parameters: [
-          { name: 'function', value: value.label }
-          // docker image parameter 예시
-          // {
-          //   name: 'metadata',
-          //   value: store.getters['nodeDetail/getDockerImageUrl'](value.id)
-          // },
-          // {
-          //   name: 'settings',
-          //   value: store.getters['nodeDetail/getDefaultSettingNodeSchema'](value.id)
-          // }
-        ]
-      }
-    }
-
-    if (value.dependencies.length > 0) {
-      task.dependencies = value.dependencies
-    }
-
-    tasks.push(task)
+    tasks.push(createTask(value))
   })
 
-  // console.log(nodes)
+  const inlineTemplates = store.getters['argo/getContainerTemplates']
+
+  console.log(inlineTemplates)
+  tasks.forEach((item) => {
+    const template = inlineTemplates.find((t) => t.name === item.name)
+    if (template && (template.container || template.inputs)) {
+      item.inline = { container: template.container, inputs: template.inputs }
+    }
+  })
+
   // Argo Workflow 템플릿 생성
   const argoWorkflowTemplate = {
     apiVersion: 'argoproj.io/v1alpha1',
@@ -69,7 +95,6 @@ export function getDataStructure() {
     spec: {
       entrypoint: 'main',
       templates: [
-        ...store.getters['argo/getContainerTemplates'],
         {
           name: 'main',
           dag: {

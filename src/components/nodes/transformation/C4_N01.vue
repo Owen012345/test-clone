@@ -116,7 +116,7 @@ export default {
   },
   mixins: [formMixin],
   created() {
-    console.log(this.$guessTimezone())
+    // console.log(this.$guessTimezone())
   }
 }
 </script>

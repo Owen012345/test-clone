@@ -25,6 +25,7 @@ export default {
     },
     async flowExecution() {
       const workflow = getDataStructure()
+      console.log(workflow)
       const result = await api.argo.submit(workflow)
       console.log(result)
     }

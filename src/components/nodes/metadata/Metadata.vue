@@ -5,7 +5,12 @@
       </v-text-field>
     </CustomCard>
     <CustomCard title="version settings">
-      <v-select single-line label="docker image versions" :items="dockerImageVersionList">
+      <v-select
+        single-line
+        label="docker image versions"
+        :items="dockerImageVersionList"
+        v-model="metadata.version"
+      >
       </v-select>
     </CustomCard>
     <CustomCard title="information"> </CustomCard>
