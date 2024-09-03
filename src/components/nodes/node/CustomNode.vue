@@ -8,7 +8,7 @@
         class="output"
         v-for="[key, output] in outputs()"
         :key="key + seed"
-        :data-testid="'output-' + key"
+        :data-testid="'OUTPUT' + key"
       >
         <div class="output-title" data-testid="output-title">{{ output.label }}</div>
         <Ref
@@ -40,7 +40,7 @@
         class="input"
         v-for="[key, input] in inputs()"
         :key="key + seed"
-        :data-testid="'input-' + key"
+        :data-testid="'INPUT' + key"
       >
         <Ref
           class="input-socket"

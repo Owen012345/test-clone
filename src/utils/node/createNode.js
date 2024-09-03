@@ -22,14 +22,14 @@ export async function createNode(selectedNode, event) {
     for (let i = 0; i < selectedNode.options.input.cnt; i++) {
       const input = new ClassicPreset.Input(socket)
       input.multipleConnections = selectedNode.options.input.multiple
-      node.addInput(`input-${i}`, input)
+      node.addInput(`INPUT${i}`, input)
     }
   }
   if (selectedNode.options.output) {
     for (let i = 0; i < selectedNode.options.output.cnt; i++) {
       const output = new ClassicPreset.Output(socket)
       output.multipleConnections = selectedNode.options.output.multiple
-      node.addOutput(`output-${i}`, output)
+      node.addOutput(`OUTPUT${i}`, output)
     }
   }
 

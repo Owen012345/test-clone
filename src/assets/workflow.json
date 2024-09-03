@@ -1,221 +1,257 @@
 {
     "connections": [
         {
-            "id": "4f1109d7e5e0857e",
-            "source": "n1f182bbf2cf3f16b",
-            "sourceOutput": "output-0",
-            "target": "n1068cfc5c240079b",
-            "targetInput": "input-0"
+            "id": "c411b426c770788d",
+            "source": "nd7e486a653072cb1",
+            "sourceOutput": "OUTPUT0",
+            "target": "n6decb91781e8162a",
+            "targetInput": "INPUT0"
         },
         {
-            "id": "5367660dcc3c4826",
-            "source": "n1f182bbf2cf3f16b",
-            "sourceOutput": "output-1",
-            "target": "ndbaf7d80084d968e",
-            "targetInput": "input-0"
+            "id": "70daa926cfd70ae3",
+            "source": "nd7e486a653072cb1",
+            "sourceOutput": "OUTPUT1",
+            "target": "n5e34feac20738ab5",
+            "targetInput": "INPUT0"
         },
         {
-            "id": "3e502465e1918261",
-            "source": "n1068cfc5c240079b",
-            "sourceOutput": "output-0",
-            "target": "na21034cb4d811ac2",
-            "targetInput": "input-0"
+            "id": "7b6a620c22a1dce9",
+            "source": "n6decb91781e8162a",
+            "sourceOutput": "OUTPUT0",
+            "target": "n1d6a464d2205db47",
+            "targetInput": "INPUT0"
         },
         {
-            "id": "d7016df54807865f",
-            "source": "ndbaf7d80084d968e",
-            "sourceOutput": "output-0",
-            "target": "na21034cb4d811ac2",
-            "targetInput": "input-1"
+            "id": "fe09e9a854491791",
+            "source": "n1d6a464d2205db47",
+            "sourceOutput": "OUTPUT0",
+            "target": "n8aae5f708047b484",
+            "targetInput": "INPUT0"
         },
         {
-            "id": "da52ffca48336b11",
-            "source": "na21034cb4d811ac2",
-            "sourceOutput": "output-0",
-            "target": "n5e33d1d6d76f9139",
-            "targetInput": "input-0"
+            "id": "33672fda6a114496",
+            "source": "n5e34feac20738ab5",
+            "sourceOutput": "OUTPUT0",
+            "target": "n8aae5f708047b484",
+            "targetInput": "INPUT1"
         }
     ],
     "nodes": [
         {
             "inputs": {},
             "outputs": {
-                "output-0": {
+                "OUTPUT0": {
                     "socket": {
                         "name": "socket"
                     },
                     "multipleConnections": false,
-                    "id": "b2a5d42314e155b5"
+                    "id": "8c516998637b9f18"
                 },
-                "output-1": {
+                "OUTPUT1": {
                     "socket": {
                         "name": "socket"
                     },
                     "multipleConnections": false,
-                    "id": "cef1d91ff8b268d3"
+                    "id": "2deadac3bcf6d527"
                 }
             },
             "controls": {},
             "label": "CSV Reader",
-            "id": "n1f182bbf2cf3f16b",
+            "id": "nd7e486a653072cb1",
             "width": 120,
             "height": 80,
             "nodeId": "C1_N01",
-            "group": "Collection",
+            "group": "collection",
             "position": {
-                "x": -171.5,
-                "y": -64
+                "x": -190,
+                "y": -45.5
             }
         },
         {
             "inputs": {
-                "input-0": {
+                "INPUT0": {
                     "socket": {
                         "name": "socket"
                     },
                     "multipleConnections": true,
-                    "id": "1cfe8795be1ac15f",
+                    "id": "4c2f1e09e0fb4dd1",
                     "control": null,
-                    "showControl": true
+                    "showControl": true,
+                    "connections": {
+                        "70daa926cfd70ae3": {
+                            "sourceNodeId": "nd7e486a653072cb1",
+                            "sourceOutputKey": "OUTPUT1"
+                        }
+                    }
                 },
-                "input-1": {
+                "INPUT1": {
                     "socket": {
                         "name": "socket"
                     },
                     "multipleConnections": true,
-                    "id": "eb2df749d9963f8b",
+                    "id": "6bd5ec8aef626f1c",
                     "control": null,
                     "showControl": true
                 }
             },
             "outputs": {
-                "output-0": {
+                "OUTPUT0": {
                     "socket": {
                         "name": "socket"
                     },
                     "multipleConnections": true,
-                    "id": "124b17730b8be366"
+                    "id": "593b701aa8eb4292"
                 }
             },
             "controls": {},
             "label": "CSV Writer",
-            "id": "n1068cfc5c240079b",
+            "id": "n5e34feac20738ab5",
             "width": 120,
             "height": 80,
             "nodeId": "C1_N02",
-            "group": "Collection",
+            "group": "collection",
             "position": {
-                "x": 187.59088134765625,
-                "y": -105.90910339355469
-            },
-            "selected": false
-        },
-        {
-            "inputs": {
-                "input-0": {
-                    "socket": {
-                        "name": "socket"
-                    },
-                    "multipleConnections": false,
-                    "id": "0c4420d7e5637f49",
-                    "control": null,
-                    "showControl": true
-                }
-            },
-            "outputs": {
-                "output-0": {
-                    "socket": {
-                        "name": "socket"
-                    },
-                    "multipleConnections": false,
-                    "id": "d65f08abcbd2b4d3"
-                }
-            },
-            "controls": {},
-            "label": "File Reader",
-            "id": "ndbaf7d80084d968e",
-            "width": 120,
-            "height": 80,
-            "nodeId": "C1_N03",
-            "group": "Collection",
-            "position": {
-                "x": 156.5,
-                "y": 85
+                "x": 22,
+                "y": 69.5
             }
         },
         {
             "inputs": {
-                "input-0": {
+                "INPUT0": {
                     "socket": {
                         "name": "socket"
                     },
                     "multipleConnections": true,
-                    "id": "19b81fc17d19b19a",
+                    "id": "d71236987dd3d6e8",
                     "control": null,
-                    "showControl": true
+                    "showControl": true,
+                    "connections": {
+                        "c411b426c770788d": {
+                            "sourceNodeId": "nd7e486a653072cb1",
+                            "sourceOutputKey": "OUTPUT0"
+                        }
+                    }
                 },
-                "input-1": {
+                "INPUT1": {
                     "socket": {
                         "name": "socket"
                     },
                     "multipleConnections": true,
-                    "id": "7b2caefb9ffc8d16",
+                    "id": "7cb74267777981ff",
                     "control": null,
                     "showControl": true
                 }
             },
             "outputs": {
-                "output-0": {
+                "OUTPUT0": {
                     "socket": {
                         "name": "socket"
                     },
                     "multipleConnections": true,
-                    "id": "9f66a39d90ab144d"
+                    "id": "2dad8719bdcb3a68"
                 }
             },
             "controls": {},
             "label": "CSV Writer",
-            "id": "na21034cb4d811ac2",
+            "id": "n6decb91781e8162a",
             "width": 120,
             "height": 80,
             "nodeId": "C1_N02",
-            "group": "Collection",
+            "group": "collection",
             "position": {
-                "x": 614.5,
-                "y": -14
+                "x": 51,
+                "y": -60.5
             }
         },
         {
             "inputs": {
-                "input-0": {
+                "INPUT0": {
                     "socket": {
                         "name": "socket"
                     },
-                    "multipleConnections": false,
-                    "id": "75089d09a4b59d09",
+                    "id": "8efb906bbeebf267",
                     "control": null,
-                    "showControl": true
+                    "showControl": true,
+                    "connections": {
+                        "7b6a620c22a1dce9": {
+                            "sourceNodeId": "n6decb91781e8162a",
+                            "sourceOutputKey": "OUTPUT0"
+                        }
+                    }
                 }
             },
             "outputs": {
-                "output-0": {
+                "OUTPUT0": {
                     "socket": {
                         "name": "socket"
                     },
-                    "multipleConnections": false,
-                    "id": "332870fc26d09834"
+                    "id": "37ab2e2954a032c0"
                 }
             },
             "controls": {},
-            "label": "File Reader",
-            "id": "n5e33d1d6d76f9139",
+            "label": "List Files/Folders",
+            "id": "n1d6a464d2205db47",
             "width": 120,
             "height": 80,
-            "nodeId": "C1_N03",
-            "group": "Collection",
+            "nodeId": "C1_N05",
+            "group": "collection",
             "position": {
-                "x": 908.5,
-                "y": 9
+                "x": 302,
+                "y": -24.5
+            }
+        },
+        {
+            "inputs": {
+                "INPUT0": {
+                    "socket": {
+                        "name": "socket"
+                    },
+                    "multipleConnections": true,
+                    "id": "8142ecadf29589b7",
+                    "control": null,
+                    "showControl": true,
+                    "connections": {
+                        "fe09e9a854491791": {
+                            "sourceNodeId": "n1d6a464d2205db47",
+                            "sourceOutputKey": "OUTPUT0"
+                        }
+                    }
+                },
+                "INPUT1": {
+                    "socket": {
+                        "name": "socket"
+                    },
+                    "multipleConnections": true,
+                    "id": "04c6fb870eb5d695",
+                    "control": null,
+                    "showControl": true,
+                    "connections": {
+                        "33672fda6a114496": {
+                            "sourceNodeId": "n5e34feac20738ab5",
+                            "sourceOutputKey": "OUTPUT0"
+                        }
+                    }
+                }
+            },
+            "outputs": {
+                "OUTPUT0": {
+                    "socket": {
+                        "name": "socket"
+                    },
+                    "multipleConnections": true,
+                    "id": "13417e9326241d93"
+                }
+            },
+            "controls": {},
+            "label": "CSV Writer",
+            "id": "n8aae5f708047b484",
+            "width": 120,
+            "height": 80,
+            "nodeId": "C1_N02",
+            "group": "collection",
+            "position": {
+                "x": 470,
+                "y": 100.5
             }
         }
     ]

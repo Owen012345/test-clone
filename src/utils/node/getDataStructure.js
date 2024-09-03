@@ -46,6 +46,7 @@ export function getDataStructure() {
   const nodes = editor.nodes
   const connections = editor.connections
 
+  console.log(nodes, connections)
   const nodeMap = new Map(nodes.map((node) => [node.id, node]))
 
   const nodeDependencies = new Map()
