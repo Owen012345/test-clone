@@ -7,7 +7,11 @@
     </v-tabs>
     <v-tabs-window v-model="selectedTabIdx">
       <v-tabs-window-item v-for="(tab, idx) in tabs" :key="idx">
-        <ComponentRender
+        <StorageItems
+          v-if="selectedNode && tab.title === 'Settings'"
+          :selectedNode="selectedNode"
+        />
+        <SettingItems
           v-if="selectedNode && tab.title === 'Settings'"
           :selectedNode="selectedNode"
         />
@@ -27,11 +31,12 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import ComponentRender from '@/views/workflow/details/ComponentRender.vue'
+import StorageItems from '@/components/nodes/settings/Storage.vue'
+import SettingItems from '@/views/workflow/details/ComponentRender.vue'
 import MetadataItem from '@/components/nodes/metadata/Metadata.vue'
 export default {
   name: 'NodeDetails',
-  components: { ComponentRender, MetadataItem },
+  components: { StorageItems, SettingItems, MetadataItem },
   data() {
     return {
       selectedTabIdx: 1,

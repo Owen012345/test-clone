@@ -36,6 +36,16 @@ const mutations = {
       label: label
     }
   },
+  INIT_NODE_STORAGE(state, { id, storage }) {
+    if (!state.defaultNodeSchema[id]) {
+      state.defaultNodeSchema[id] = {};
+    }
+
+    state.defaultNodeSchema[id].storage = storage.reduce((acc, key) => {
+      acc[key] = null; 
+      return acc;
+    }, {});
+  },
   REMOVE_NODE_SCHEMA(state, id) {
     if (state.initialNodeSchema[id] && state.defaultNodeSchema[id]) {
       delete state.initialNodeSchema[id]
@@ -89,6 +99,9 @@ const getters = {
           ':' +
           state.defaultNodeSchema[id].metadata.version
       : ''
+  },
+  getNodeOutputStorage: (state) => (id) => {
+    return Object.keys(state.defaultNodeSchema[id].storage)
   }
 }
 
@@ -127,6 +140,7 @@ const actions = {
       commit('UPDATE_NODE_SCHEMA_SETTING', { id: node.id, formData: formData }) // settings
       commit('UPDATE_NODE_METADATA', { id: node.id, metadata: metadata }) // metadata
       commit('INIT_NODE_DEFAULT', { id: node.id, group: node.group, label: node.label }) // group, label
+      commit('INIT_NODE_STORAGE', { id: node.id, storage: Object.keys(node.outputs) }) // storage
 
       commit('argo/INIT_CONTAINER_TEMPLATE', { name: node.id, group: node.group }, { root: true })
     } catch (error) {

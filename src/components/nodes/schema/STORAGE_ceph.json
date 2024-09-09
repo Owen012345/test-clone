@@ -1,0 +1,37 @@
+{
+    "type": "object",
+    "properties": {
+        "storage_type": {
+            "type": "string",
+            "default": "ceph"
+        },
+        "end_point": {
+            "type": "string",
+            "default": "{{system.datalake.object_storage.end_point}}"
+        },
+        "access_key": {
+            "type": "string"
+        },
+        "secret_key": {
+            "type": "string"
+        },
+        "bucket_name": {
+            "type": "string",
+            "default": "fs_test"
+        },
+        "object_path": {
+            "type": "string",
+            "description": "txt, csv, tar, parquet, orc, pickle, docx, xlsx, images, audios, videos, etc.",
+            "pattern": "^(\\/([^\\/\\0]+\\/)*[^\\/\\0]+(\\.[^\\/\\0]+)?)$",
+            "examples": ["file01.txt", "/dir01/file02.csv"]
+        }
+    },
+    "required": [
+        "storage_type",
+        "end_point",
+        "access_key",
+        "secret_key",
+        "bucket_name",
+        "object_path"
+    ]   
+    }
