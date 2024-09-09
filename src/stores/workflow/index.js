@@ -49,7 +49,52 @@ const getters = {
     }
   },
   getNodes: (state) => state.nodes,
-  getConnections: (state) => state.connections
+  getConnections: (state) => state.connections,
+
+  getTargetNodeInputInfo: (state) => (nodeId) => {
+    const targetNode = state.editor.getNode(nodeId)
+    const inputs = targetNode.inputs
+
+    const result = Object.keys(inputs).reduce((acc, inputName) => {
+      const input = inputs[inputName]
+      const connections = input.connections
+
+      // connections 객체가 존재할 경우에만 처리
+      if (connections) {
+        Object.keys(connections).forEach((connectionKey) => {
+          const connection = connections[connectionKey]
+          acc.push({
+            nodeId: connection.sourceNodeId, // sourceNodeId
+            nodeLabel: connection.sourceNodeLabel,
+            outputKey: connection.sourceOutputKey // sourceOutputKey
+          })
+        })
+      }
+
+      return acc
+    }, [])
+
+    return result
+  },
+
+  getTargetNodeInputConnections: (state) => {
+    const selectedNode = { ...state.selectedNode }
+    if (!selectedNode || !selectedNode.inputs) {
+      return {}
+    }
+
+    const allConnections = {}
+
+    Object.keys(selectedNode.inputs).forEach((inputKey) => {
+      const input = selectedNode.inputs[inputKey]
+      if (input.connections) {
+        Object.assign(allConnections, input.connections)
+      }
+    })
+
+    console.log(allConnections)
+    return allConnections
+  }
 }
 
 export default { namespaced: true, state, mutations, actions, getters }

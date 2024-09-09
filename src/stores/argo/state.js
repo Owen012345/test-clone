@@ -10,7 +10,7 @@ const state = {
         ]
       },
       container: {
-        image: 'alpine:3.7', // test
+        image: '199377707058.dkr.ecr.ap-northeast-2.amazonaws.com/argo/alpine:3.7', // test
         command: ['echo', '{{inputs.parameters.function}}']
       }
     },

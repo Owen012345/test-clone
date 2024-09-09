@@ -91,7 +91,10 @@ export function getDataStructure() {
     kind: 'Workflow',
     metadata: {
       generateName: 'dag-generated-',
-      namespace: 'argo'
+      namespace: 'argo',
+      annotations: {
+        'workflows.argoproj.io/version': '>= 3.2.0'
+      }
     },
     spec: {
       entrypoint: 'main',

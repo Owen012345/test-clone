@@ -1,5 +1,8 @@
 <template lang="">
   <v-container fluid>
+    <CustomCard title="Input Node(s)">
+      <InputTable :inputNodes="inputNodes"></InputTable>
+    </CustomCard>
     <CustomCard title="docker repo address">
       <v-text-field placeholder="Insert address" hide-details v-model="metadata.address">
       </v-text-field>
@@ -18,11 +21,13 @@
 </template>
 <script>
 import CustomCard from '@/components/custom/CustomCard.vue'
+import InputTable from './InputTable.vue'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 export default {
   name: 'MetadataItem',
   components: {
-    CustomCard
+    CustomCard,
+    InputTable
   },
   props: {
     selectedNode: {
@@ -33,6 +38,7 @@ export default {
   data() {
     return {
       metadata: {},
+      inputNodes: {},
       dockerImageVersionList: ['latest', '1.0.1', '1.0.0']
     }
   },
@@ -48,12 +54,23 @@ export default {
     ...mapGetters('nodeDetail', {
       getDefaultMetadataNodeSchema: 'getDefaultMetadataNodeSchema'
     }),
+    ...mapGetters('workflow', {
+      getTargetNodeInputInfo: 'getTargetNodeInputInfo',
+      getTargetNodeInputConnections: 'getTargetNodeInputConnections'
+    }),
+    getInputConnections() {
+      return this.getTargetNodeInputConnections
+    },
+    getInputNodes() {
+      return this.getTargetNodeInputInfo(this.selectedNode.id)
+    },
     initMetadata() {
       return this.getDefaultMetadataNodeSchema(this.selectedNode.id)
     }
   },
   mounted() {
     this.metadata = { ...this.initMetadata }
+    this.inputNodes = { ...this.getInputNodes }
   },
   watch: {
     metadata: {
@@ -73,8 +90,16 @@ export default {
       handler(newVal, oldVal) {
         if (newVal !== oldVal) {
           this.metadata = { ...this.initMetadata }
+          this.inputNodes = { ...this.getInputNodes }
         }
       }
+    },
+    getTargetNodeInputConnections: {
+      handler(newVal, oldVal) {
+        console.log(newVal, oldVal)
+      },
+      deep: true,
+      immediate: true
     }
   }
 }

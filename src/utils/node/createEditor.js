@@ -165,11 +165,17 @@ export async function createEditor(container) {
 
         targetNode.inputs[targetInput].connections[connectionId] = {
           sourceNodeId: sourceNode.id,
+          sourceNodeLabel: sourceNode.label,
           sourceOutputKey: outputPortKey
         }
       })
 
       console.log(editor.getNodes())
+
+      // TODO : update selected node
+      // console.log(targetNode)
+      // store.dispatch('workflow/updateSelectedNode', targetNode)
+
       // 결과 출력 용 로그
       // console.log(`Updated Target Node (ID: ${targetNode.id}) Inputs:`, targetNode.inputs)
       // sourceNodeMap.forEach((outputs, sourceNodeId) => {
