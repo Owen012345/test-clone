@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <CustomCard title="Output Storage Settings">
+    <CustomCard title="Output Storage Settings" v-if="Object.keys(formData).length > 0">
       <CustomCard v-for="(item, key) in Object.keys(formData)" :key="key">
         <span>{{ item }} Storage</span>
         <v-radio-group
@@ -76,7 +76,6 @@ export default {
   watch: {
     formData: {
       handler(newVal) {
-        console.log(newVal)
         this.updateNodeStorageOuputForm({
           id: this.selectedNode.id,
           formData: newVal

@@ -1,15 +1,3 @@
-// argo workflow 내 template 안 도커 컨테이너 이미지 리스트는 노드 그룹별로 존재하며,
-// input parameter 안에 container cmd 에 전달하기 위한 노드의 레이블(ex, csv reader, csv writer) 정보를 가지고 있어야된다.
-
-// - name: collection
-//   inputs:
-//   parameters:
-//   - function : csvreader
-//   - settings : {{ csvreader settings 값 }}
-//   - metadata : {{ csvreader metadata 값 }}
-// container:
-//   image: alpine:3.7
-//   command: [echo, "{{inputs.parameters.function}}"]
 function getSchemaPropertySet(property) {
   // const property = schema.properties
   const formData = Object.keys(property).reduce((acc, key) => {
@@ -28,6 +16,7 @@ function getSchemaPropertySet(property) {
   }, {})
   return formData
 }
+
 const state = {
   initialNodeSchema: {},
   defaultNodeSchema: {}
@@ -121,6 +110,15 @@ const getters = {
   },
   getNodeOuputs: (state) => (id) => {
     return Object.keys(state.defaultNodeSchema[id].storage)
+  },
+  getNodeOuputStorageEnv: (state) => (id) => {
+    const result = Object.keys(state.defaultNodeSchema[id].storage).map((key) => {
+      return {
+        name: key,
+        value: JSON.stringify(state.defaultNodeSchema[id].storage[key])
+      }
+    })
+    return result
   }
 }
 
@@ -141,22 +139,6 @@ const actions = {
       commit('INIT_NODE_SCHEMA', { id: node.id, data: schema.default })
 
       const formData = getSchemaPropertySet(schema.properties)
-
-      // const property = schema.properties
-      // const formData = Object.keys(property).reduce((acc, key) => {
-      //   const field = property[key]
-
-      //   // default 값이 있는 경우 해당 값을 사용
-      //   if ('default' in field) {
-      //     acc[key] = field.default
-      //   } else if (field.type === 'array') {
-      //     acc[key] = []
-      //   } else {
-      //     acc[key] = null // 그 외의 경우 null로 설정
-      //   }
-
-      //   return acc
-      // }, {})
 
       commit('UPDATE_NODE_SCHEMA_SETTING', { id: node.id, formData: formData }) // settings
       commit('UPDATE_NODE_METADATA', { id: node.id, metadata: metadata }) // metadata

@@ -77,11 +77,15 @@ export function getDataStructure() {
 
   const inlineTemplates = store.getters['argo/getContainerTemplates']
 
-  console.log(inlineTemplates)
   tasks.forEach((item) => {
+    console.log(item)
     const template = inlineTemplates.find((t) => t.name === item.name)
     if (template && (template.container || template.inputs)) {
-      item.inline = { container: template.container, inputs: template.inputs }
+      item.inline = {
+        container: template.container,
+        inputs: template.inputs,
+        env: store.getters['nodeDetail/getNodeOuputStorageEnv'](item.name)
+      }
     }
   })
 
