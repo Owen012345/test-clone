@@ -5,13 +5,14 @@ const state = {
       inputs: {
         parameters: [
           {
-            name: 'function'
+            name: 'settings'
           }
         ]
       },
       container: {
-        image: '199377707058.dkr.ecr.ap-northeast-2.amazonaws.com/argo/alpine:3.7', // test
-        command: ['echo', '{{inputs.parameters.function}}']
+        // image: 'nexus.dtonic.io:5001/repository/test/alpine:3.7',
+        image: '199377707058.dkr.ecr.ap-northeast-2.amazonaws.com/argo/alpine:3.7', // ecr test
+        command: ['echo', '{{inputs.parameters.settings}}']
       }
     },
     restAPI: {

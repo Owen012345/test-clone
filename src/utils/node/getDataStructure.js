@@ -20,16 +20,16 @@ function createTask(value) {
       { name: 'url', value: data.connectionURL }
     )
   } else {
-    task.arguments.parameters.push({ name: 'function', value: value.label })
+    // task.arguments.parameters.push({ name: 'settings', value: value.label })
     // Uncomment and use these if needed
     // task.arguments.parameters.push({
     //   name: 'metadata',
     //   value: store.getters['nodeDetail/getDockerImageUrl'](value.id)
-    // });
-    // task.arguments.parameters.push({
-    //   name: 'settings',
-    //   value: store.getters['nodeDetail/getDefaultSettingNodeSchema'](value.id)
-    // });
+    // })
+    task.arguments.parameters.push({
+      name: 'settings',
+      value: JSON.stringify(store.getters['nodeDetail/getDefaultSettingNodeSchema'](value.id))
+    })
   }
 
   // 종속성이 있는 경우 추가
