@@ -88,6 +88,34 @@
           "cnt": 1
         }
       }
+    },
+    {
+      "id": "C1_N10",
+      "label": "JSON Reader",
+      "options": {
+        "input": {
+          "cnt": 0,
+          "multiple": false
+        },
+        "output": {
+          "cnt": 1,
+          "multiple": false
+        }
+      }
+    },
+    {
+      "id": "C1_N11",
+      "label": "DF Writer",
+      "options": {
+        "input": {
+          "cnt": 1,
+          "multiple": false
+        },
+        "output": {
+          "cnt": 0,
+          "multiple": false
+        }
+      }
     }
   ],
   "restAPI": [

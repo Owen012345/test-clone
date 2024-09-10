@@ -10,6 +10,10 @@ import C1_N05 from '@/components/nodes/collection/C1_N05.vue'
 import C1_N06 from '@/components/nodes/collection/C1_N06.vue'
 import C1_N07 from '@/components/nodes/collection/C1_N07.vue'
 
+// Test
+import C1_N10 from '@/components/nodes/collection/C1_N10.vue'
+import C1_N11 from '@/components/nodes/collection/C1_N11.vue'
+
 import C2_N01 from '@/components/nodes/restapi/C2_N01.vue'
 
 import C3_N01 from '@/components/nodes/preprocess/C3_N01.vue'
@@ -49,6 +53,8 @@ export default {
     C1_N05,
     C1_N06,
     C1_N07,
+    C1_N10,
+    C1_N11,
     C2_N01,
     C3_N01,
     C3_N02,

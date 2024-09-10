@@ -1,0 +1,39 @@
+{
+    "type": "object",
+    "properties": {
+        "columnSelectionArray": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "hostname": {
+            "type": "string",
+            "default": ""
+        },
+        "port": {
+            "type": "string",
+            "default": null
+        },
+        "databaseName": {
+            "type": "string",
+            "default": ""
+        },
+        "authUsername": {
+            "type": "string",
+            "default": ""
+        },
+        "authPassword": {
+            "type": "string",
+            "default": ""
+        },
+        "existedTableEnum": {
+            "type": "string",
+            "enum": [
+                "overwrite",
+                "error"
+            ],
+            "default": "overwrite"
+        }
+    }
+}

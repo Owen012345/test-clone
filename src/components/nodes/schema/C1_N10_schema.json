@@ -1,0 +1,20 @@
+{
+    "type": "object",
+    "properties": {
+        "filePath": {
+            "type": "string",
+            "default": ""
+        },
+        "orientEnum": {
+            "type": "string",
+            "enum": [
+                "column",
+                "index",
+                "records",
+                "values",
+                "table"
+            ],
+            "default": "column"
+        }
+    }
+}
