@@ -1,0 +1,31 @@
+{
+    "type": "object",
+    "properties": {
+        "storage_type": {
+            "type": "string",
+            "default": "s3"
+        },
+        "aws_access_key_id": {
+            "type": "string",
+            "default": ""
+        },
+        "aws_secret_access_key": {
+            "type": "string",
+            "default": ""
+        },
+        "bucket_name": {
+            "type": "string",
+            "default": ""
+        },
+        "prefix": {
+            "type": "string",
+            "default": ""
+        }
+    },
+    "required": [
+        "aws_access_key_id",
+        "aws_secret_access_key",
+        "bucket_name",
+        "prefix"
+    ]
+}

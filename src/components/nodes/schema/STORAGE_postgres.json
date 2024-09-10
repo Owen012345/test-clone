@@ -1,42 +1,48 @@
 {
-    "type": "object",
-    "description": "relational database conenction information",
-    "properties": {
-      "storage_type": {
-        "type": "string",
-        "default": "postgres"
-      },
-      "host": {
-        "type": "string",
-        "pattern": "^(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,}$",
-        "default": "{{system.datalake.rdbms.end_point}}"
-      },
-      "port": {
-        "type": "integer",
-        "minimum": 1,
-        "maximum": 65535,
-        "examples": [5432]
-      },
-      "database": {
-        "type": "string",
-        "examples": ["db_01"]
-      },
-      "user": {
-        "type": "string"
-      },
-      "password": {
-        "type": "string"
-      },
-      "table": {
-        "type": "string",
-        "examples": ["table_01"]
-      }
+  "type": "object",
+  "description": "relational database conenction information",
+  "properties": {
+    "storage_type": {
+      "type": "string",
+      "default": "postgres"
     },
-    "required": [
-      "storage_type",
-      "host",
-      "database",
-      "user",
-      "password"
-    ]
-  }
+    "host": {
+      "type": "string",
+      "pattern": "^(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,}$",
+      "default": "{{system.datalake.rdbms.end_point}}"
+    },
+    "port": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 65535,
+      "examples": [
+        5432
+      ]
+    },
+    "database": {
+      "type": "string",
+      "examples": [
+        "db_01"
+      ]
+    },
+    "user": {
+      "type": "string"
+    },
+    "password": {
+      "type": "string"
+    },
+    "table": {
+      "type": "string",
+      "examples": [
+        "table_01"
+      ]
+    }
+  },
+  "required": [
+    "storage_type",
+    "host",
+    "database",
+    "user",
+    "password"
+  ]
+}

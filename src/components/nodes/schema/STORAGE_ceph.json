@@ -23,7 +23,10 @@
             "type": "string",
             "description": "txt, csv, tar, parquet, orc, pickle, docx, xlsx, images, audios, videos, etc.",
             "pattern": "^(\\/([^\\/\\0]+\\/)*[^\\/\\0]+(\\.[^\\/\\0]+)?)$",
-            "examples": ["file01.txt", "/dir01/file02.csv"]
+            "examples": [
+                "file01.txt",
+                "/dir01/file02.csv"
+            ]
         }
     },
     "required": [
@@ -33,5 +36,5 @@
         "secret_key",
         "bucket_name",
         "object_path"
-    ]   
-    }
+    ]
+}

@@ -1,12 +1,30 @@
 <template>
   <v-container fluid>
     <CustomCard title="Output Storage Settings">
-      <CustomCard v-for="(item, key) in initNodeOutputStorage" :key="key">
+      <CustomCard v-for="(item, key) in Object.keys(formData)" :key="key">
         <span>{{ item }} Storage</span>
-        <v-radio-group v-model="selectedStorageType" inline hide-details>
+        <v-radio-group
+          v-model="formData[item]['storage_type']"
+          inline
+          hide-details
+          @update:modelValue="(value) => handleStorageTypeChange(value, item)"
+        >
           <v-radio v-for="(item, index) in storageType" :key="index" :label="item" :value="item">
           </v-radio>
         </v-radio-group>
+        <CustomCard v-if="formData[item]['storage_type'] === 's3'">
+          <span>aws_access_key_id</span>
+          <v-text-field hide-details v-model="formData[item]['aws_access_key_id']"></v-text-field>
+          <span>aws_secret_access_key</span>
+          <v-text-field
+            hide-details
+            v-model="formData[item]['aws_secret_access_key']"
+          ></v-text-field>
+          <span>bucket_name</span>
+          <v-text-field hide-details v-model="formData[item]['bucket_name']"></v-text-field>
+          <span>prefix</span>
+          <v-text-field hide-details v-model="formData[item]['prefix']"></v-text-field>
+        </CustomCard>
       </CustomCard>
     </CustomCard>
   </v-container>
@@ -14,7 +32,7 @@
 
 <script>
 import CustomCard from '@/components/custom/CustomCard.vue'
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'StorageItems',
   components: {
@@ -28,7 +46,8 @@ export default {
   },
   computed: {
     ...mapGetters('nodeDetail', {
-      getNodeOutputStorage: 'getNodeOutputStorage'
+      getNodeOutputStorage: 'getNodeOutputStorage',
+      getNodeOuputs: 'getNodeOuputs'
     }),
     initNodeOutputStorage() {
       return this.getNodeOutputStorage(this.selectedNode.id)
@@ -36,13 +55,47 @@ export default {
   },
   data() {
     return {
-      outputKeys: null,
-      storageType: ['ceph', 'postgres']
+      formData: {},
+      storageType: ['ceph', 'postgres', 's3'],
+      selectedStorageType: 'ceph'
+    }
+  },
+  methods: {
+    ...mapActions('nodeDetail', {
+      updateNodeStorageOutputType: 'updateNodeStorageOutputType',
+      updateNodeStorageOuputForm: 'updateNodeStorageOuputForm'
+    }),
+    handleStorageTypeChange(type, outputKey) {
+      this.updateNodeStorageOutputType({
+        id: this.selectedNode.id,
+        outputKey: outputKey,
+        type: type
+      })
+    }
+  },
+  watch: {
+    formData: {
+      handler(newVal) {
+        console.log(newVal)
+        this.updateNodeStorageOuputForm({
+          id: this.selectedNode.id,
+          formData: newVal
+        })
+      },
+      deep: true
+    },
+    'selectedNode.id': {
+      handler(newVal, oldVal) {
+        if (newVal !== oldVal) {
+          this.formData = { ...this.initNodeOutputStorage }
+        }
+      },
+      immediate: true
     }
   },
 
   mounted() {
-    this.outputKeys = this.initNodeOutputStorage
+    this.formData = { ...this.initNodeOutputStorage }
   }
 }
 </script>

@@ -74,6 +74,7 @@ const getters = {
       return acc
     }, [])
 
+    // console.log(result)
     return result
   },
 
