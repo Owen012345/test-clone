@@ -1,12 +1,6 @@
 {
     "type": "object",
     "properties": {
-        "columnSelectionArray": {
-            "type": "array",
-            "items": {
-                "type": "string"
-            }
-        },
         "hostname": {
             "type": "string",
             "default": ""
@@ -27,13 +21,9 @@
             "type": "string",
             "default": ""
         },
-        "existedTableEnum": {
+        "tableName": {
             "type": "string",
-            "enum": [
-                "overwrite",
-                "error"
-            ],
-            "default": "overwrite"
+            "default": ""
         }
     }
 }

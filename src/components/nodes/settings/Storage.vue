@@ -9,7 +9,13 @@
           hide-details
           @update:modelValue="(value) => handleStorageTypeChange(value, item)"
         >
-          <v-radio v-for="(item, index) in storageType" :key="index" :label="item" :value="item">
+          <v-radio
+            v-for="(item, index) in storageType"
+            :key="index"
+            :label="item"
+            :value="item"
+            hide-details
+          >
           </v-radio>
         </v-radio-group>
         <CustomCard v-if="formData[item]['type'] === 's3'">

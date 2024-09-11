@@ -1,20 +1,21 @@
 {
     "type": "object",
     "properties": {
-        "filePath": {
+        "aws_access_key_id": {
             "type": "string",
             "default": ""
         },
-        "orientEnum": {
+        "aws_secret_access_key": {
             "type": "string",
-            "enum": [
-                "column",
-                "index",
-                "records",
-                "values",
-                "table"
-            ],
-            "default": "column"
+            "default": ""
+        },
+        "bucket_name": {
+            "type": "string",
+            "default": ""
+        },
+        "prefix": {
+            "type": "string",
+            "default": ""
         }
     }
 }
