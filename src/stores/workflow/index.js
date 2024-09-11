@@ -64,6 +64,7 @@ const getters = {
         Object.keys(connections).forEach((connectionKey) => {
           const connection = connections[connectionKey]
           acc.push({
+            inputKey: inputName,
             nodeId: connection.sourceNodeId, // sourceNodeId
             nodeLabel: connection.sourceNodeLabel,
             outputKey: connection.sourceOutputKey // sourceOutputKey
@@ -74,7 +75,7 @@ const getters = {
       return acc
     }, [])
 
-    // console.log(result)
+    console.log(result)
     return result
   },
 

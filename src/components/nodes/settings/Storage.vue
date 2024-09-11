@@ -4,7 +4,7 @@
       <CustomCard v-for="(item, key) in Object.keys(formData)" :key="key">
         <span>{{ item }} Storage</span>
         <v-radio-group
-          v-model="formData[item]['storage_type']"
+          v-model="formData[item]['type']"
           inline
           hide-details
           @update:modelValue="(value) => handleStorageTypeChange(value, item)"
@@ -12,7 +12,7 @@
           <v-radio v-for="(item, index) in storageType" :key="index" :label="item" :value="item">
           </v-radio>
         </v-radio-group>
-        <CustomCard v-if="formData[item]['storage_type'] === 's3'">
+        <CustomCard v-if="formData[item]['type'] === 's3'">
           <span>aws_access_key_id</span>
           <v-text-field hide-details v-model="formData[item]['aws_access_key_id']"></v-text-field>
           <span>aws_secret_access_key</span>

@@ -1,7 +1,7 @@
 {
     "type": "object",
     "properties": {
-        "storage_type": {
+        "type": {
             "type": "string",
             "default": "ceph"
         },

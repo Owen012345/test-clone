@@ -84,7 +84,7 @@ export function getDataStructure() {
       item.inline = {
         container: template.container,
         inputs: template.inputs,
-        env: store.getters['nodeDetail/getNodeOuputStorageEnv'](item.name)
+        env: store.getters['nodeDetail/getNodeOutputStorageEnv'](item.name)
       }
     }
   })

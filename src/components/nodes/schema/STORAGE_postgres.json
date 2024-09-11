@@ -2,7 +2,7 @@
   "type": "object",
   "description": "relational database conenction information",
   "properties": {
-    "storage_type": {
+    "type": {
       "type": "string",
       "default": "postgres"
     },

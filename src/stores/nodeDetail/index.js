@@ -111,13 +111,49 @@ const getters = {
   getNodeOuputs: (state) => (id) => {
     return Object.keys(state.defaultNodeSchema[id].storage)
   },
-  getNodeOuputStorageEnv: (state) => (id) => {
+  getNodeOutputStorageEnv: (state, getters, rootState, rootGetters) => (id) => {
+    // workflow 네임스페이스의 getEditor getter 호출
+    const editor = rootGetters['workflow/getEditor']
+    const node = editor.getNode(id)
+
+    // 기본적으로 node의 storage 정보 가져오기
     const result = Object.keys(state.defaultNodeSchema[id].storage).map((key) => {
       return {
         name: key,
         value: JSON.stringify(state.defaultNodeSchema[id].storage[key])
       }
     })
+
+    // 추가로 connections 정보를 활용한 데이터 추가
+    if (node.inputs) {
+      Object.keys(node.inputs).forEach((inputKey) => {
+        const input = node.inputs[inputKey]
+
+        if (input.connections) {
+          Object.keys(input.connections).forEach((connectionId) => {
+            const connection = input.connections[connectionId]
+
+            // connection 정보에서 sourceNodeId, sourceOutputKey 추출
+            const sourceNodeId = connection.sourceNodeId
+            const sourceOutputKey = connection.sourceOutputKey
+
+            // sourceNodeId 및 sourceOutputKey로 storage 값을 찾아 result에 추가
+            if (
+              state.defaultNodeSchema[sourceNodeId] &&
+              state.defaultNodeSchema[sourceNodeId].storage[sourceOutputKey]
+            ) {
+              result.push({
+                name: inputKey, // ex: INPUT0
+                value: JSON.stringify(
+                  state.defaultNodeSchema[sourceNodeId].storage[sourceOutputKey]
+                )
+              })
+            }
+          })
+        }
+      })
+    }
+
     return result
   }
 }
