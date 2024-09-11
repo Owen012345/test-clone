@@ -5,32 +5,33 @@ function createTask(value) {
 
   const task = {
     name: value.id,
-    inline: {},
-    arguments: {
-      parameters: []
-    }
+    inline: {}
+    // arguments: {
+    //   parameters: []
+    // }
   }
 
+  // console.log(value)
+  // if (
+  //   value.group === 'collection' &&
+  //   (value.label === 'JSON Reader' || value.label === 'DF Writer')
+  // ) {
+  //   return { name: task.name, inline: task.inline }
+  // }
   // 파라미터 값 결정
-  if (value.group === 'restAPI') {
-    const data = store.getters['nodeDetail/getDefaultSettingNodeSchema'](value.id)
+  // if (value.group === 'restAPI') {
+  //   const data = store.getters['nodeDetail/getDefaultSettingNodeSchema'](value.id)
 
-    task.arguments.parameters.push(
-      { name: 'function', value: value.id },
-      { name: 'url', value: data.connectionURL }
-    )
-  } else {
-    // task.arguments.parameters.push({ name: 'settings', value: value.label })
-    // Uncomment and use these if needed
-    // task.arguments.parameters.push({
-    //   name: 'metadata',
-    //   value: store.getters['nodeDetail/getDockerImageUrl'](value.id)
-    // })
-    task.arguments.parameters.push({
-      name: 'settings',
-      value: JSON.stringify(store.getters['nodeDetail/getDefaultSettingNodeSchema'](value.id))
-    })
-  }
+  //   task.arguments.parameters.push(
+  //     { name: 'function', value: value.id },
+  //     { name: 'url', value: data.connectionURL }
+  //   )
+  // } else {
+  //   task.arguments.parameters.push({
+  //     name: 'settings',
+  //     value: JSON.stringify(store.getters['nodeDetail/getDefaultSettingNodeSchema'](value.id))
+  //   })
+  // }
 
   // 종속성이 있는 경우 추가
   if (value.dependencies.length > 0) {
@@ -46,7 +47,6 @@ export function getDataStructure() {
   const nodes = editor.nodes
   const connections = editor.connections
 
-  console.log(nodes, connections)
   const nodeMap = new Map(nodes.map((node) => [node.id, node]))
 
   const nodeDependencies = new Map()
@@ -67,24 +67,33 @@ export function getDataStructure() {
     }
   })
 
-  // 빈 배열로 초기화
   const tasks = []
 
   // 각 노드에 대해 createTask 함수를 호출하여 tasks 배열에 추가
   nodeDependencies.forEach((value) => {
     tasks.push(createTask(value))
   })
-
   const inlineTemplates = store.getters['argo/getContainerTemplates']
 
   tasks.forEach((item) => {
-    console.log(item)
     const template = inlineTemplates.find((t) => t.name === item.name)
     if (template && (template.container || template.inputs)) {
+      const env = store.getters['nodeDetail/getNodeOutputStorageEnv'](item.name)
+      // console.log(env)
+
+      const container = {
+        ...template.container
+      }
+
+      // env 값을 container의 프로퍼티로 추가
+
+      // item.inline 설정
       item.inline = {
-        container: template.container,
-        inputs: template.inputs,
-        env: store.getters['nodeDetail/getNodeOutputStorageEnv'](item.name)
+        container: {
+          ...container,
+          env
+        },
+        inputs: template.inputs
       }
     }
   })

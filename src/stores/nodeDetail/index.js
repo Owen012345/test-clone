@@ -124,6 +124,11 @@ const getters = {
       }
     })
 
+    result.push({
+      name: 'settings',
+      value: JSON.stringify(getters.getDefaultSettingNodeSchema(id))
+    })
+
     // 추가로 connections 정보를 활용한 데이터 추가
     if (node.inputs) {
       Object.keys(node.inputs).forEach((inputKey) => {

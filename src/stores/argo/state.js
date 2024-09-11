@@ -3,16 +3,11 @@ const state = {
     collection: {
       name: '',
       inputs: {
-        parameters: [
-          {
-            name: 'settings'
-          }
-        ]
+        parameters: []
       },
       container: {
         // image: 'nexus.dtonic.io:5001/repository/test/alpine:3.7',
-        image: '', // ecr test
-        command: ['echo', '{{inputs.parameters.settings}}']
+        image: '' // ecr test
       }
     },
     restAPI: {
