@@ -1,7 +1,7 @@
 <template lang="">
   <div class="node-execution">
-    <div>1</div>
-    <div>2</div>
+    <div>a</div>
+    <div>b</div>
     <div @click="dataStructure">test</div>
     <button @click="flowExecution">Execution</button>
   </div>
