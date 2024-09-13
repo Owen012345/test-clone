@@ -22,7 +22,7 @@ class Api {
 
   get argo() {
     return this.#getInstance(Argo, {
-      baseURL: import.meta.env.VITE_API_URL + '/argo',
+      baseURL: '/argo',
       timeout: 30000
     })
   }
