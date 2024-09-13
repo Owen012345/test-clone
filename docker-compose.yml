@@ -5,6 +5,6 @@ services:
     container_name: etri-dips-workflow
     build: .
     ports:
-      - '8087:5173'
+      - '8080:5173'
     environment:
       - HOST=0.0.0.0
