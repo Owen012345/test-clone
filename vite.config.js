@@ -36,6 +36,7 @@ export default defineConfig(({ mode }) => {
       }
     },
     server: {
+      host: true,
       proxy: {
         // '/argo' 경로에 대한 프록시 설정
         '/argo': {
