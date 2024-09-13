@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  app:
+    image: etri-dips-workflow:latest
+    container_name: etri-dips-workflow
+    build: .
+    ports:
+      - '8087:5173'
+    environment:
+      - HOST=0.0.0.0
