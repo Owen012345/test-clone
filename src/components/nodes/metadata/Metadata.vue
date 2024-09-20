@@ -1,6 +1,6 @@
 <template lang="">
   <v-container fluid>
-    <CustomCard title="Input Node(s)">
+    <CustomCard title="Input Node(s)" v-if="Object.keys(inputNodes).length > 0">
       <InputTable :inputNodes="inputNodes"></InputTable>
     </CustomCard>
     <CustomCard title="docker repo address">

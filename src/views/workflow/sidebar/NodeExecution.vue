@@ -2,8 +2,15 @@
   <div class="node-execution">
     <div>a</div>
     <div>b</div>
-    <div @click="dataStructure">test</div>
+    <!-- <div @click="dataStructure">test</div> -->
     <button @click="flowExecution">Execution</button>
+    <v-dialog v-model="dialog" width="auto">
+      <v-card min-width="400" :text="dialogText" title="Submit">
+        <template v-slot:actions>
+          <v-btn class="ms-auto" text="Ok" @click="dialog = false"></v-btn>
+        </template>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 <script>
@@ -15,7 +22,9 @@ export default {
   name: 'NodeExecution',
   data() {
     return {
-      test: 'test'
+      test: 'test',
+      dialog: false,
+      dialogText: ''
     }
   },
 
@@ -24,10 +33,21 @@ export default {
       redrawGraph()
     },
     async flowExecution() {
-      const workflow = getDataStructure()
-      console.log(JSON.stringify(workflow, null, 2))
-      const result = await api.argo.submit(workflow)
-      console.log(result)
+      try {
+        const workflow = getDataStructure()
+        console.log(JSON.stringify(workflow, null, 2))
+
+        const result = await api.argo.submit(workflow)
+        console.log(result)
+
+        this.dialogText = 'Success'
+      } catch (err) {
+        this.dialogText = 'Fail'
+        console.log(err)
+      } finally {
+        // 항상 다이얼로그를 보여줌
+        this.dialog = true
+      }
     }
   }
 }

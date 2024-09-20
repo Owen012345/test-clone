@@ -91,7 +91,8 @@ export function getDataStructure() {
       item.inline = {
         container: {
           ...container,
-          env
+          env,
+          resources: {}
         },
         inputs: template.inputs
       }

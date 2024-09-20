@@ -7,11 +7,11 @@
     </v-tabs>
     <v-tabs-window v-model="selectedTabIdx">
       <v-tabs-window-item v-for="(tab, idx) in tabs" :key="idx">
-        <StorageItems
+        <SettingItems
           v-if="selectedNode && tab.title === 'Settings'"
           :selectedNode="selectedNode"
         />
-        <SettingItems
+        <StorageItems
           v-if="selectedNode && tab.title === 'Settings'"
           :selectedNode="selectedNode"
         />

@@ -75,7 +75,7 @@ const getters = {
       return acc
     }, [])
 
-    console.log(result)
+    // console.log(result)
     return result
   },
 
@@ -94,7 +94,7 @@ const getters = {
       }
     })
 
-    console.log(allConnections)
+    // console.log(allConnections)
     return allConnections
   }
 }
