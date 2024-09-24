@@ -18,6 +18,9 @@ export default {
     updateSelectedItem(section, type, value) {
       this.selectedItems[section][type] = value
     },
+    settingFormUpdate() {
+      this.updateFormData({ nodeId: this.selectedNodeId, formData: this.formData })
+    },
     validateRequired(field, value) {
       if (this.getSchemaRequiredFields.includes(field)) {
         return !!value || `${field} field is required`
@@ -26,12 +29,13 @@ export default {
     }
   },
   watch: {
-    formData: {
-      handler(newVal) {
-        this.updateFormData({ nodeId: this.selectedNodeId, formData: newVal })
-      },
-      deep: true
-    },
+    // 자동 저장
+    // formData: {
+    //   handler(newVal) {
+    //     this.updateFormData({ nodeId: this.selectedNodeId, formData: newVal })
+    //   },
+    //   deep: true
+    // },
     selectedNodeId: {
       handler(newVal, oldVal) {
         if (newVal !== oldVal) {

@@ -48,7 +48,17 @@ export default {
     }),
     ...mapMutations('argo', {
       updateContainerTemplate: 'UPDATE_CONTAINER_TEMPLATE'
-    })
+    }),
+    metadataFormUpdate() {
+      this.updateContainerTemplate({
+        name: this.selectedNode.id,
+        metadata: this.metadata
+      })
+      this.updateMetadaData({
+        nodeId: this.selectedNode.id,
+        metadata: this.metadata
+      })
+    }
   },
   computed: {
     ...mapGetters('nodeDetail', {
@@ -68,24 +78,24 @@ export default {
       return this.getDefaultMetadataNodeSchema(this.selectedNode.id)
     }
   },
-  mounted() {
-    this.metadata = { ...this.initMetadata }
-    this.inputNodes = { ...this.getInputNodes }
-  },
   watch: {
-    metadata: {
-      handler(newVal) {
-        this.updateContainerTemplate({
-          name: this.selectedNode.id,
-          metadata: newVal
-        })
-        this.updateMetadaData({
-          nodeId: this.selectedNode.id,
-          metadata: newVal
-        })
-      },
-      deep: true
-    },
+    // 자동 저장
+    // metadata: {
+    //   handler(newVal) {
+    //     // this.metadata = newVal
+    //     console.log(this.metadata)
+    //     // this.updateContainerTemplate({
+    //     //   name: this.selectedNode.id,
+    //     //   metadata: newVal
+    //     // })
+    //     // this.updateMetadaData({
+    //     //   nodeId: this.selectedNode.id,
+    //     //   metadata: newVal
+    //     // })
+    //   },
+    //   deep: true
+    // },
+
     'selectedNode.id': {
       handler(newVal, oldVal) {
         if (newVal !== oldVal) {
@@ -101,6 +111,10 @@ export default {
       deep: true,
       immediate: true
     }
+  },
+  mounted() {
+    this.metadata = { ...this.initMetadata }
+    this.inputNodes = { ...this.getInputNodes }
   }
 }
 </script>

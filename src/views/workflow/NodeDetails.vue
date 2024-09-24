@@ -8,6 +8,7 @@
     <v-tabs-window v-model="selectedTabIdx">
       <v-tabs-window-item v-for="(tab, idx) in tabs" :key="idx">
         <SettingItems
+          ref="settingItems"
           v-if="selectedNode && tab.title === 'Settings'"
           :selectedNode="selectedNode"
         />
@@ -16,13 +17,14 @@
           :selectedNode="selectedNode"
         />
         <MetadataItem
+          ref="metadataItem"
           :selectedNode="selectedNode"
           v-else-if="selectedNode && tab.title === 'Metadata'"
         />
       </v-tabs-window-item>
     </v-tabs-window>
     <div v-if="selectedNode" class="execution-footer">
-      <v-btn>OK</v-btn>
+      <v-btn @click="saveForms">OK</v-btn>
       <v-btn>Cancel</v-btn>
       <v-btn>Execute</v-btn>
     </div>
@@ -39,7 +41,7 @@ export default {
   components: { StorageItems, SettingItems, MetadataItem },
   data() {
     return {
-      selectedTabIdx: 1,
+      selectedTabIdx: 0,
       selectedTabTitle: '',
       tabs: [{ title: 'Metadata' }, { title: 'Settings' }, { title: 'Output' }, { title: 'Logs' }]
     }
@@ -69,7 +71,21 @@ export default {
       immediate: true
     }
   },
-  methods: {}
+  methods: {
+    saveForms() {
+      if (this.$refs.metadataItem && this.$refs.metadataItem[0]) {
+        this.$refs.metadataItem[0].metadataFormUpdate()
+      }
+
+      if (
+        this.$refs.settingItems &&
+        this.$refs.settingItems[0] &&
+        this.$refs.settingItems[0].$refs.settingItem
+      ) {
+        this.$refs.settingItems[0].$refs.settingItem.settingFormUpdate()
+      }
+    }
+  }
 }
 </script>
 <style lang="scss">

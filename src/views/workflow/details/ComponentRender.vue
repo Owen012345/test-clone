@@ -1,6 +1,11 @@
 <template lang="">
   <vFormValidation :id="selectedNode.id">
-    <component v-if="selectedNode" :is="selectedNode.nodeId" :selectedNodeId="selectedNode.id" />
+    <component
+      ref="settingItem"
+      v-if="selectedNode"
+      :is="selectedNode.nodeId"
+      :selectedNodeId="selectedNode.id"
+    />
   </vFormValidation>
 </template>
 <script>
