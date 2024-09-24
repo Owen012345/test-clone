@@ -17,6 +17,12 @@ export default {
     }),
     updateSelectedItem(section, type, value) {
       this.selectedItems[section][type] = value
+    },
+    validateRequired(field, value) {
+      if (this.getSchemaRequiredFields.includes(field)) {
+        return !!value || `${field} field is required`
+      }
+      return true
     }
   },
   watch: {
@@ -47,6 +53,9 @@ export default {
     },
     schema() {
       return this.getInitSettingNodeSchema(this.selectedNodeId)
+    },
+    getSchemaRequiredFields() {
+      return this.getInitSettingNodeSchema(this.selectedNodeId).required
     }
   }
 }

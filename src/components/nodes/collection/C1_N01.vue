@@ -5,12 +5,13 @@
       <v-select
         :items="schema.properties.readFromEnum.enum"
         v-model="formData.readFromEnum"
+        :rules="[(v) => validateRequired('readFromEnum', v)]"
       ></v-select>
       <span>File(csv)</span>
       <v-text-field
-        hide-details
         v-model="formData.file"
         :type="schema.properties.file.type"
+        :rules="[(v) => validateRequired('file', v)]"
       ></v-text-field>
     </CustomCard>
     <CustomCard title="Reader Options" flat>
