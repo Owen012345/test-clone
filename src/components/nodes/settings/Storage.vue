@@ -1,48 +1,54 @@
 <template>
   <v-container fluid>
-    <CustomCard title="Output Storage Settings" v-if="Object.keys(formData).length > 0">
-      <CustomCard v-for="(item, key) in Object.keys(formData)" :key="key">
-        <span>{{ item }} Storage</span>
-        <v-radio-group
-          v-model="formData[item]['type']"
-          inline
-          hide-details
-          @update:modelValue="(value) => handleStorageTypeChange(value, item)"
-        >
-          <v-radio
-            v-for="(item, index) in storageType"
-            :key="index"
-            :label="item"
-            :value="item"
-            hide-details
+    <vFormValidation ref="formValidation" :id="this.selectedNode.id">
+      <CustomCard title="Output Storage Settings" v-if="Object.keys(formData).length > 0">
+        <CustomCard v-for="(item, key) in Object.keys(formData)" :key="key">
+          <span>{{ item }} Storage</span>
+          <v-radio-group
+            v-model="formData[item]['type']"
+            inline
+            @update:modelValue="(value) => handleStorageTypeChange(value, item)"
           >
-          </v-radio>
-        </v-radio-group>
-        <CustomCard v-if="formData[item]['type'] === 's3'">
-          <span>aws_access_key_id</span>
-          <v-text-field hide-details v-model="formData[item]['aws_access_key_id']"></v-text-field>
-          <span>aws_secret_access_key</span>
-          <v-text-field
-            hide-details
-            v-model="formData[item]['aws_secret_access_key']"
-          ></v-text-field>
-          <span>bucket_name</span>
-          <v-text-field hide-details v-model="formData[item]['bucket_name']"></v-text-field>
-          <span>prefix</span>
-          <v-text-field hide-details v-model="formData[item]['prefix']"></v-text-field>
+            <v-radio v-for="(item, index) in storageType" :key="index" :label="item" :value="item">
+            </v-radio>
+          </v-radio-group>
+          <CustomCard v-if="formData[item]['type'] === 's3'">
+            <span>aws_access_key_id</span>
+            <v-text-field
+              v-model="formData[item]['aws_access_key_id']"
+              :rules="[(v) => validateRequired('aws_access_key_id', v)]"
+            ></v-text-field>
+            <span>aws_secret_access_key</span>
+            <v-text-field
+              v-model="formData[item]['aws_secret_access_key']"
+              :rules="[(v) => validateRequired('aws_secret_access_key', v)]"
+            ></v-text-field>
+            <span>bucket_name</span>
+            <v-text-field
+              v-model="formData[item]['bucket_name']"
+              :rules="[(v) => validateRequired('bucket_name', v)]"
+            ></v-text-field>
+            <span>prefix</span>
+            <v-text-field
+              v-model="formData[item]['prefix']"
+              :rules="[(v) => validateRequired('prefix', v)]"
+            ></v-text-field>
+          </CustomCard>
         </CustomCard>
       </CustomCard>
-    </CustomCard>
+    </vFormValidation>
   </v-container>
 </template>
 
 <script>
 import CustomCard from '@/components/custom/CustomCard.vue'
+import vFormValidation from '@/components/validation/vFormValidation.vue'
 import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'StorageItems',
   components: {
-    CustomCard
+    CustomCard,
+    vFormValidation
   },
   props: {
     selectedNode: {
@@ -52,11 +58,15 @@ export default {
   },
   computed: {
     ...mapGetters('nodeDetail', {
+      getInitStorageNodeSchema: 'getInitStorageNodeSchema',
       getNodeOutputStorage: 'getNodeOutputStorage',
       getNodeOuputs: 'getNodeOuputs'
     }),
     initNodeOutputStorage() {
       return this.getNodeOutputStorage(this.selectedNode.id)
+    },
+    getStorageSchemaRequiredFields() {
+      return this.getInitStorageNodeSchema(this.selectedNode.id).required
     }
   },
   data() {
@@ -71,12 +81,21 @@ export default {
       updateNodeStorageOutputType: 'updateNodeStorageOutputType',
       updateNodeStorageOuputForm: 'updateNodeStorageOuputForm'
     }),
+    validateRequired(field, value) {
+      if (this.getStorageSchemaRequiredFields.includes(field)) {
+        return !!value || `${field} field is required`
+      }
+      return true
+    },
     handleStorageTypeChange(type, outputKey) {
       this.updateNodeStorageOutputType({
         id: this.selectedNode.id,
         outputKey: outputKey,
         type: type
       })
+    },
+    triggerValidation() {
+      this.$refs.formValidation.validateForm() // vFormValidation 컴포넌트의 validateForm 호출
     }
   },
   watch: {
@@ -93,14 +112,17 @@ export default {
       handler(newVal, oldVal) {
         if (newVal !== oldVal) {
           this.formData = { ...this.initNodeOutputStorage }
+          this.triggerValidation()
         }
-      },
-      immediate: true
+      }
     }
   },
 
   mounted() {
     this.formData = { ...this.initNodeOutputStorage }
+    this.$nextTick(() => {
+      this.triggerValidation()
+    })
   }
 }
 </script>

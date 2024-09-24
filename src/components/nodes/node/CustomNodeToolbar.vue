@@ -1,26 +1,38 @@
 <template>
   <div class="node-status">
-    <div :class="['circle', readyClass]"></div>
+    <div :class="['circle', 'grey']"></div>
     <div :class="['circle', inProgressClass]"></div>
     <div :class="['circle', resultClass]"></div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   name: 'nodeStatus',
   props: {
-    status: {
+    id: {
       type: String,
-      default: 'ready'
+      required: true
+    }
+  },
+  data() {
+    return {
+      status: 'null'
     }
   },
   computed: {
+    ...mapGetters('nodeDetail', {
+      getNodeStatus: 'getNodeStatus'
+    }),
+    getNodeStatusById() {
+      return this.getNodeStatus(this.id) || 'unknown'
+    },
     readyClass() {
-      return this.status === 'ready' ? 'red' : 'grey'
+      return this.status === null
     },
     inProgressClass() {
-      return this.status === 'inProgress' ? 'yellow' : 'grey'
+      return this.status === 'ready' ? 'yellow' : 'grey'
     },
     resultClass() {
       if (this.status === 'success') {

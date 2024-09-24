@@ -35,11 +35,24 @@ const mutations = {
       }
     }
   },
+  INIT_NODE_STORAGE_SCHEMA(state, { id, data }) {
+    if (state.initialNodeSchema[id]) {
+      state.initialNodeSchema[id].storage = {
+        ...state.initialNodeSchema[id].storage,
+        ...data
+      }
+    } else {
+      state.initialNodeSchema[id] = {
+        storage: data
+      }
+    }
+  },
   INIT_NODE_DEFAULT(state, { id, group, label }) {
     state.defaultNodeSchema[id] = {
       ...state.defaultNodeSchema[id],
       group: group,
-      label: label
+      label: label,
+      status: null
     }
   },
   REMOVE_NODE_SCHEMA(state, id) {
@@ -76,6 +89,10 @@ const mutations = {
       }
     }
   },
+  UPDATE_NODE_VALIDITY(state, { id, isValid }) {
+    const status = isValid ? 'ready' : 'error'
+    state.defaultNodeSchema[id].status = status
+  },
 
   UPDATE_NODE_STORAGE_OUTPUT(state, { id, outputKey, formData }) {
     // console.log(formData)
@@ -97,6 +114,9 @@ const getters = {
   getInitSettingNodeSchema: (state) => (id) => {
     return state.initialNodeSchema[id].settings
   },
+  getInitStorageNodeSchema: (state) => (id) => {
+    return state.initialNodeSchema[id].storage
+  },
   getDockerImageUrl: (state) => (id) => {
     return state.defaultNodeSchema[id].metadata.address &&
       state.defaultNodeSchema[id].metadata.version
@@ -104,6 +124,9 @@ const getters = {
           ':' +
           state.defaultNodeSchema[id].metadata.version
       : ''
+  },
+  getNodeStatus: (state) => (id) => {
+    return state.defaultNodeSchema[id].status
   },
   getNodeOutputStorage: (state) => (id) => {
     return state.defaultNodeSchema[id].storage
@@ -191,7 +214,7 @@ const actions = {
       console.error(error)
     }
   },
-  async initNodeStorageOuput({ state }, { id, storage }) {
+  async initNodeStorageOuput({ state, commit }, { id, storage }) {
     const initStorageType = 'ceph'
     if (!state.defaultNodeSchema[id]) {
       state.defaultNodeSchema[id] = {}
@@ -205,12 +228,14 @@ const actions = {
       }
       return acc
     }, {})
+
+    commit('INIT_NODE_STORAGE_SCHEMA', { id, data: schema.default })
   },
   async updateNodeStorageOutputType({ commit }, { id, outputKey, type }) {
-    // console.log(id, outputKey, type)
     const schema = await import(`@/components/nodes/schema/STORAGE_${type}.json`)
     const formData = getSchemaPropertySet(schema.properties)
 
+    commit('INIT_NODE_STORAGE_SCHEMA', { id, data: schema.default })
     commit('UPDATE_NODE_STORAGE_OUTPUT', { id, outputKey, formData })
   },
   removeNodeDataWithSchema({ commit }, id) {

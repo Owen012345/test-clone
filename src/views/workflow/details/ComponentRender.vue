@@ -1,7 +1,10 @@
 <template lang="">
-  <component v-if="selectedNode" :is="selectedNode.nodeId" :selectedNodeId="selectedNode.id" />
+  <vFormValidation :id="selectedNode.id">
+    <component v-if="selectedNode" :is="selectedNode.nodeId" :selectedNodeId="selectedNode.id" />
+  </vFormValidation>
 </template>
 <script>
+import vFormValidation from '@/components/validation/vFormValidation.vue'
 import C1_N01 from '@/components/nodes/collection/C1_N01.vue'
 import C1_N02 from '@/components/nodes/collection/C1_N02.vue'
 import C1_N03 from '@/components/nodes/collection/C1_N03.vue'
@@ -46,6 +49,7 @@ import C5_N12 from '@/components/nodes/datamining/C5_N12.vue'
 export default {
   name: 'ComponentRender',
   components: {
+    vFormValidation,
     C1_N01,
     C1_N02,
     C1_N03,
