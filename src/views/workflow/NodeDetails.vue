@@ -13,6 +13,7 @@
           :selectedNode="selectedNode"
         />
         <StorageItems
+          ref="storageItems"
           v-if="selectedNode && tab.title === 'Settings'"
           :selectedNode="selectedNode"
         />
@@ -83,6 +84,10 @@ export default {
         this.$refs.settingItems[0].$refs.settingItem
       ) {
         this.$refs.settingItems[0].$refs.settingItem.settingFormUpdate()
+      }
+
+      if (this.$refs.storageItems && this.$refs.storageItems[0]) {
+        this.$refs.storageItems[0].storageFormUpdate()
       }
     }
   }

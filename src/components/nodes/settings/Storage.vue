@@ -87,31 +87,29 @@ export default {
       }
       return true
     },
-    handleStorageTypeChange(type, outputKey) {
-      this.updateNodeStorageOutputType({
+    async handleStorageTypeChange(type, outputKey) {
+      await this.updateNodeStorageOutputType({
         id: this.selectedNode.id,
         outputKey: outputKey,
         type: type
       })
+      this.formData = JSON.parse(JSON.stringify(this.initNodeOutputStorage))
     },
     triggerValidation() {
       this.$refs.formValidation.validateForm() // vFormValidation 컴포넌트의 validateForm 호출
+    },
+    storageFormUpdate() {
+      this.updateNodeStorageOuputForm({
+        id: this.selectedNode.id,
+        formData: this.formData
+      })
     }
   },
   watch: {
-    formData: {
-      handler(newVal) {
-        this.updateNodeStorageOuputForm({
-          id: this.selectedNode.id,
-          formData: newVal
-        })
-      },
-      deep: true
-    },
     'selectedNode.id': {
       handler(newVal, oldVal) {
         if (newVal !== oldVal) {
-          this.formData = { ...this.initNodeOutputStorage }
+          this.formData = JSON.parse(JSON.stringify(this.initNodeOutputStorage))
           this.triggerValidation()
         }
       }
@@ -119,7 +117,7 @@ export default {
   },
 
   mounted() {
-    this.formData = { ...this.initNodeOutputStorage }
+    this.formData = JSON.parse(JSON.stringify(this.initNodeOutputStorage))
     this.$nextTick(() => {
       this.triggerValidation()
     })

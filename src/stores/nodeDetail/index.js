@@ -95,11 +95,9 @@ const mutations = {
   },
 
   UPDATE_NODE_STORAGE_OUTPUT(state, { id, outputKey, formData }) {
-    // console.log(formData)
     state.defaultNodeSchema[id].storage[outputKey] = formData
   },
   UPDATE_NODE_STORAGE_OUTPUT_FORM(state, { id, formData }) {
-    // console.log(id, formData)
     state.defaultNodeSchema[id].storage = formData
   }
 }
