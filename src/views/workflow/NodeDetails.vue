@@ -27,7 +27,7 @@
     <div v-if="selectedNode" class="execution-footer">
       <v-btn @click="saveForms">OK</v-btn>
       <v-btn>Cancel</v-btn>
-      <v-btn>Execute</v-btn>
+      <v-btn @click="executionNode">Execute</v-btn>
     </div>
   </div>
 </template>
@@ -76,7 +76,27 @@ export default {
     ...mapMutations('nodeDetail', {
       updateNodeStatus: 'UPDATE_NODE_STATUS'
     }),
-    saveForms() {
+    async validateAll() {
+      const { valid: isSettingItemsValid } = await this.$refs.settingItems[0].validate()
+      const { valid: isStorageItemsValid } = await this.$refs.storageItems[0].validate()
+      const { valid: isMetadataItemValid } = await this.$refs.metadataItem[0].validate()
+
+      // 모든 컴포넌트가 유효할 때 true 반환
+      console.log(isSettingItemsValid, isStorageItemsValid, isMetadataItemValid)
+      return isSettingItemsValid && isStorageItemsValid && isMetadataItemValid
+      //
+    },
+
+    async executionNode() {
+      const checkValidation = await this.validateAll()
+      if (checkValidation) {
+        console.log('passed validation')
+      } else {
+        console.log('failed validation')
+      }
+    },
+    async saveForms() {
+      console.log(this.$refs.settingItems)
       if (this.$refs.metadataItem && this.$refs.metadataItem[0]) {
         this.$refs.metadataItem[0].metadataFormUpdate()
       }
@@ -86,10 +106,12 @@ export default {
         this.$refs.settingItems[0] &&
         this.$refs.settingItems[0].$refs.settingItem
       ) {
+        console.log('check settings')
         this.$refs.settingItems[0].$refs.settingItem.settingFormUpdate()
       }
 
       if (this.$refs.storageItems && this.$refs.storageItems[0]) {
+        console.log('check storage')
         this.$refs.storageItems[0].storageFormUpdate()
       }
 

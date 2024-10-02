@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <vFormValidation ref="formValidation" :id="this.selectedNode.id">
+    <v-form ref="form">
       <CustomCard title="Output Storage Settings" v-if="Object.keys(formData).length > 0">
         <CustomCard v-for="(item, key) in Object.keys(formData)" :key="key">
           <span>{{ item }} Storage</span>
@@ -36,24 +36,21 @@
           </CustomCard>
         </CustomCard>
       </CustomCard>
-    </vFormValidation>
+    </v-form>
   </v-container>
 </template>
 
 <script>
 import CustomCard from '@/components/custom/CustomCard.vue'
-import vFormValidation from '@/components/validation/vFormValidation.vue'
 import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'StorageItems',
   components: {
-    CustomCard,
-    vFormValidation
+    CustomCard
   },
   props: {
     selectedNode: {
-      type: Object,
-      required: true
+      type: Object
     }
   },
   computed: {
@@ -63,7 +60,7 @@ export default {
       getNodeOuputs: 'getNodeOuputs'
     }),
     initNodeOutputStorage() {
-      return this.getNodeOutputStorage(this.selectedNode.id)
+      return this.getNodeOutputStorage(this.selectedNode?.id)
     },
     getStorageSchemaRequiredFields() {
       return this.getInitStorageNodeSchema(this.selectedNode.id).required
@@ -95,9 +92,12 @@ export default {
       })
       this.formData = JSON.parse(JSON.stringify(this.initNodeOutputStorage))
     },
-    triggerValidation() {
-      this.$refs.formValidation.validateForm() // vFormValidation 컴포넌트의 validateForm 호출
+    validate() {
+      return this.$refs.form.validate()
     },
+    // triggerValidation() {
+    //   this.$refs.formValidation.validateForm() // vFormValidation 컴포넌트의 validateForm 호출
+    // },
     storageFormUpdate() {
       this.updateNodeStorageOuputForm({
         id: this.selectedNode.id,
@@ -109,18 +109,25 @@ export default {
     'selectedNode.id': {
       handler(newVal, oldVal) {
         if (newVal !== oldVal) {
-          this.formData = JSON.parse(JSON.stringify(this.initNodeOutputStorage))
-          this.triggerValidation()
+          if (this.initNodeOutputStorage) {
+            this.formData = JSON.parse(JSON.stringify(this.initNodeOutputStorage))
+          }
+          // this.formData = JSON.parse(JSON.stringify(this.initNodeOutputStorage))
+          // this.triggerValidation()
         }
       }
     }
   },
 
   mounted() {
-    this.formData = JSON.parse(JSON.stringify(this.initNodeOutputStorage))
-    this.$nextTick(() => {
-      this.triggerValidation()
-    })
+    if (this.initNodeOutputStorage) {
+      console.log('initNodeOutputStorage', this.initNodeOutputStorage)
+      this.formData = JSON.parse(JSON.stringify(this.initNodeOutputStorage))
+    }
+    // this.formData = JSON.parse(JSON.stringify(this.initNodeOutputStorage))
+    // this.$nextTick(() => {
+    //   this.triggerValidation()
+    // })
   }
 }
 </script>

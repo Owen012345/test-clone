@@ -1,15 +1,14 @@
 <template lang="">
-  <vFormValidation :id="selectedNode.id">
+  <v-form ref="form">
     <component
       ref="settingItem"
       v-if="selectedNode"
       :is="selectedNode.nodeId"
       :selectedNodeId="selectedNode.id"
     />
-  </vFormValidation>
+  </v-form>
 </template>
 <script>
-import vFormValidation from '@/components/validation/vFormValidation.vue'
 import C1_N01 from '@/components/nodes/collection/C1_N01.vue'
 import C1_N02 from '@/components/nodes/collection/C1_N02.vue'
 import C1_N03 from '@/components/nodes/collection/C1_N03.vue'
@@ -54,7 +53,6 @@ import C5_N12 from '@/components/nodes/datamining/C5_N12.vue'
 export default {
   name: 'ComponentRender',
   components: {
-    vFormValidation,
     C1_N01,
     C1_N02,
     C1_N03,
@@ -92,8 +90,12 @@ export default {
   },
   props: {
     selectedNode: {
-      type: Object,
-      required: true
+      type: Object
+    }
+  },
+  methods: {
+    validate() {
+      return this.$refs.form.validate()
     }
   }
 }

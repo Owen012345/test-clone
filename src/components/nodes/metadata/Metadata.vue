@@ -1,6 +1,6 @@
 <template lang="">
   <v-container fluid>
-    <vFormValidation ref="formValidation" :id="this.selectedNode.id">
+    <v-form ref="form">
       <CustomCard title="Input Node(s)" v-if="Object.keys(inputNodes).length > 0">
         <InputTable :inputNodes="inputNodes"></InputTable>
       </CustomCard>
@@ -22,26 +22,23 @@
         >
         </v-select>
       </CustomCard>
-      <CustomCard title="information"> </CustomCard>
-    </vFormValidation>
+    </v-form>
+    <CustomCard title="information"> </CustomCard>
   </v-container>
 </template>
 <script>
 import CustomCard from '@/components/custom/CustomCard.vue'
 import InputTable from './InputTable.vue'
-import vFormValidation from '@/components/validation/vFormValidation.vue'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 export default {
   name: 'MetadataItem',
   components: {
     CustomCard,
-    InputTable,
-    vFormValidation
+    InputTable
   },
   props: {
     selectedNode: {
-      type: Object,
-      required: true
+      type: Object
     }
   },
   data() {
@@ -67,6 +64,9 @@ export default {
         nodeId: this.selectedNode.id,
         metadata: this.metadata
       })
+    },
+    validate() {
+      return this.$refs.form.validate()
     }
   },
   computed: {
@@ -81,10 +81,10 @@ export default {
       return this.getTargetNodeInputConnections
     },
     getInputNodes() {
-      return this.getTargetNodeInputInfo(this.selectedNode.id)
+      return this.getTargetNodeInputInfo(this.selectedNode?.id)
     },
     initMetadata() {
-      return this.getDefaultMetadataNodeSchema(this.selectedNode.id)
+      return this.getDefaultMetadataNodeSchema(this.selectedNode?.id)
     }
   },
   watch: {
