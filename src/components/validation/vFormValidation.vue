@@ -19,9 +19,9 @@ export default {
     }
   },
   methods: {
-    ...mapMutations('nodeDetail', ['UPDATE_NODE_VALIDITY']),
+    ...mapMutations('nodeDetail', ['UPDATE_NODE_VALIDATION']),
     updateNodeValidity() {
-      this.UPDATE_NODE_VALIDITY({ id: this.id, isValid: this.isValid })
+      this.UPDATE_NODE_VALIDATION({ id: this.id, validation: this.isValid })
     },
     validateForm() {
       return this.$refs.form.validate() // 강제 validation

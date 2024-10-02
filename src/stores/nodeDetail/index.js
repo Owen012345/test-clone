@@ -52,7 +52,8 @@ const mutations = {
       ...state.defaultNodeSchema[id],
       group: group,
       label: label,
-      status: null
+      status: null,
+      validation: null
     }
   },
   REMOVE_NODE_SCHEMA(state, id) {
@@ -89,8 +90,11 @@ const mutations = {
       }
     }
   },
-  UPDATE_NODE_VALIDITY(state, { id, isValid }) {
-    const status = isValid ? 'ready' : 'error'
+  UPDATE_NODE_VALIDATION(state, { id, validation }) {
+    const status = validation ? 'success' : 'error'
+    state.defaultNodeSchema[id].validation = status
+  },
+  UPDATE_NODE_STATUS(state, { id, status }) {
     state.defaultNodeSchema[id].status = status
   },
 
@@ -122,6 +126,9 @@ const getters = {
           ':' +
           state.defaultNodeSchema[id].metadata.version
       : ''
+  },
+  getNodeValidation: (state) => (id) => {
+    return state.defaultNodeSchema[id].validation
   },
   getNodeStatus: (state) => (id) => {
     return state.defaultNodeSchema[id].status

@@ -8,6 +8,7 @@ import { registerPlugins } from '@/plugins'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import timezone from 'dayjs/plugin/timezone'
+import CustomModal from '@/components/custom/CustomModal.vue'
 
 // dayjs 플러그인 설정
 dayjs.extend(utc)
@@ -18,6 +19,8 @@ const app = createApp(App)
 app.config.globalProperties.$guessTimezone = function () {
   return dayjs.tz.guess()
 }
+
+app.component('CustomModal', CustomModal)
 
 registerPlugins(app)
 

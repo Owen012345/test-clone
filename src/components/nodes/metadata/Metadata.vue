@@ -1,33 +1,42 @@
 <template lang="">
   <v-container fluid>
-    <CustomCard title="Input Node(s)" v-if="Object.keys(inputNodes).length > 0">
-      <InputTable :inputNodes="inputNodes"></InputTable>
-    </CustomCard>
-    <CustomCard title="docker repo address">
-      <v-text-field placeholder="Insert address" hide-details v-model="metadata.address">
-      </v-text-field>
-    </CustomCard>
-    <CustomCard title="version settings">
-      <v-select
-        single-line
-        label="docker image versions"
-        :items="dockerImageVersionList"
-        v-model="metadata.version"
-      >
-      </v-select>
-    </CustomCard>
-    <CustomCard title="information"> </CustomCard>
+    <vFormValidation ref="formValidation" :id="this.selectedNode.id">
+      <CustomCard title="Input Node(s)" v-if="Object.keys(inputNodes).length > 0">
+        <InputTable :inputNodes="inputNodes"></InputTable>
+      </CustomCard>
+      <CustomCard title="docker repo address">
+        <v-text-field
+          placeholder="Insert address"
+          v-model="metadata.address"
+          :rules="[(v) => !!v || 'Address is required']"
+        >
+        </v-text-field>
+      </CustomCard>
+      <CustomCard title="version settings">
+        <v-select
+          single-line
+          label="docker image versions"
+          :items="dockerImageVersionList"
+          v-model="metadata.version"
+          :rules="[(v) => !!v || 'Version is required']"
+        >
+        </v-select>
+      </CustomCard>
+      <CustomCard title="information"> </CustomCard>
+    </vFormValidation>
   </v-container>
 </template>
 <script>
 import CustomCard from '@/components/custom/CustomCard.vue'
 import InputTable from './InputTable.vue'
+import vFormValidation from '@/components/validation/vFormValidation.vue'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 export default {
   name: 'MetadataItem',
   components: {
     CustomCard,
-    InputTable
+    InputTable,
+    vFormValidation
   },
   props: {
     selectedNode: {
@@ -106,7 +115,7 @@ export default {
     },
     getTargetNodeInputConnections: {
       handler(newVal, oldVal) {
-        console.log(newVal, oldVal)
+        // console.log(newVal, oldVal)
       },
       deep: true,
       immediate: true

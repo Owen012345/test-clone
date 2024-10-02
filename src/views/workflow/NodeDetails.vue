@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 import StorageItems from '@/components/nodes/settings/Storage.vue'
 import SettingItems from '@/views/workflow/details/ComponentRender.vue'
 import MetadataItem from '@/components/nodes/metadata/Metadata.vue'
@@ -73,6 +73,9 @@ export default {
     }
   },
   methods: {
+    ...mapMutations('nodeDetail', {
+      updateNodeStatus: 'UPDATE_NODE_STATUS'
+    }),
     saveForms() {
       if (this.$refs.metadataItem && this.$refs.metadataItem[0]) {
         this.$refs.metadataItem[0].metadataFormUpdate()
@@ -89,6 +92,9 @@ export default {
       if (this.$refs.storageItems && this.$refs.storageItems[0]) {
         this.$refs.storageItems[0].storageFormUpdate()
       }
+
+      // OK 버튼 누르면 무조건 ready 상태로 변경
+      this.updateNodeStatus({ id: this.selectedNode.id, status: 'ready' })
     }
   }
 }
