@@ -33,7 +33,7 @@
 
     <div v-if="selectedNode" class="execution-footer">
       <v-btn @click="saveForms">OK</v-btn>
-      <v-btn>Cancel</v-btn>
+      <v-btn @click="cancelForms">Cancel</v-btn>
       <v-btn @click="executionNode">Execute</v-btn>
     </div>
   </div>
@@ -102,6 +102,15 @@ export default {
       const { valid: isMetadataItemValid } = await this.$refs.metadataItem.validate()
 
       return isSettingItemsValid && isStorageItemsValid && isMetadataItemValid
+    },
+
+    cancelForms() {
+      if (this.selectedTabTitle === 'Metadata') {
+        this.$refs.metadataItem.metadataFormReset()
+      } else if (this.selectedTabTitle === 'Settings') {
+        this.$refs.settingItems.$refs.settingItem.settingFormReset()
+        this.$refs.storageItems.storageFormReset()
+      }
     },
 
     async executionNode() {

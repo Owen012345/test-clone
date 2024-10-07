@@ -21,6 +21,9 @@ export default {
     settingFormUpdate() {
       this.updateFormData({ nodeId: this.selectedNodeId, formData: this.formData })
     },
+    settingFormReset() {
+      this.formData = { ...this.initFormData }
+    },
     validateRequired(field, value) {
       if (this.getSchemaRequiredFields.includes(field)) {
         return !!value || `${field} field is required`

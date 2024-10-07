@@ -100,6 +100,9 @@ export default {
         id: this.selectedNode.id,
         formData: this.formData
       })
+    },
+    storageFormReset() {
+      this.formData = JSON.parse(JSON.stringify(this.initNodeOutputStorage))
     }
   },
   watch: {

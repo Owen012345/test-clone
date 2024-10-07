@@ -65,6 +65,9 @@ export default {
         metadata: this.metadata
       })
     },
+    metadataFormReset() {
+      this.metadata = { ...this.initMetadata }
+    },
     validate() {
       return this.$refs.form.validate()
     }
