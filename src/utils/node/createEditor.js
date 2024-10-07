@@ -50,7 +50,9 @@ export async function createEditor(container) {
   }
 
   function CustomNodeBind() {
-    return h(CustomNode, {})
+    return h(CustomNode, {
+      store: store
+    })
   }
 
   render.addPreset(
