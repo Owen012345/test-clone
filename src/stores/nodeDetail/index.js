@@ -131,7 +131,7 @@ const getters = {
     return state.defaultNodeSchema[id].validation
   },
   getNodeStatus: (state) => (id) => {
-    return state.defaultNodeSchema[id].status
+    return state.defaultNodeSchema[id]?.status
   },
   getNodeOutputStorage: (state) => (id) => {
     return state.defaultNodeSchema[id].storage
@@ -214,6 +214,7 @@ const actions = {
       commit('INIT_NODE_DEFAULT', { id: node.id, group: node.group, label: node.label }) // group, label
       commit('argo/INIT_CONTAINER_TEMPLATE', { name: node.id, group: node.group }, { root: true })
 
+      console.log('check')
       await dispatch('initNodeStorageOuput', { id: node.id, storage: Object.keys(node.outputs) }) // storage
     } catch (error) {
       console.error(error)

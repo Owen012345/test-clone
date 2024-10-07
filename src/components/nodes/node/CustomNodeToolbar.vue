@@ -14,11 +14,12 @@ export default {
     id: {
       type: String,
       required: true
-    }
+    },
+    store: {}
   },
   data() {
     return {
-      status: 'null'
+      status: 'init'
     }
   },
   computed: {
@@ -26,22 +27,28 @@ export default {
       getNodeStatus: 'getNodeStatus'
     }),
     getNodeStatusById() {
-      return this.getNodeStatus(this.id) || 'unknown'
+      const status = this.store.getters['nodeDetail/getNodeStatus'](this.id)
+      if (status) {
+        return this.store.getters['nodeDetail/getNodeStatus'](this.id) // getters 접근
+      } else return 'init'
     },
     readyClass() {
-      return this.status === null
+      return this.getNodeStatusById === 'init'
     },
     inProgressClass() {
-      return this.status === 'ready' ? 'yellow' : 'grey'
+      return this.getNodeStatusById === 'ready' ? 'yellow' : 'grey'
     },
     resultClass() {
-      if (this.status === 'success') {
+      if (this.getNodeStatusById === 'success') {
         return 'green'
-      } else if (this.status === 'failed') {
+      } else if (this.getNodeStatusById === 'failed') {
         return 'red'
       }
       return 'grey'
     }
+  },
+  mounted() {
+    console.log('check1')
   }
 }
 </script>
