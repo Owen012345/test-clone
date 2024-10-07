@@ -95,9 +95,6 @@ export default {
     validate() {
       return this.$refs.form.validate()
     },
-    // triggerValidation() {
-    //   this.$refs.formValidation.validateForm() // vFormValidation 컴포넌트의 validateForm 호출
-    // },
     storageFormUpdate() {
       this.updateNodeStorageOuputForm({
         id: this.selectedNode.id,
@@ -112,8 +109,6 @@ export default {
           if (this.initNodeOutputStorage) {
             this.formData = JSON.parse(JSON.stringify(this.initNodeOutputStorage))
           }
-          // this.formData = JSON.parse(JSON.stringify(this.initNodeOutputStorage))
-          // this.triggerValidation()
         }
       }
     }
@@ -121,13 +116,8 @@ export default {
 
   mounted() {
     if (this.initNodeOutputStorage) {
-      console.log('initNodeOutputStorage', this.initNodeOutputStorage)
       this.formData = JSON.parse(JSON.stringify(this.initNodeOutputStorage))
     }
-    // this.formData = JSON.parse(JSON.stringify(this.initNodeOutputStorage))
-    // this.$nextTick(() => {
-    //   this.triggerValidation()
-    // })
   }
 }
 </script>

@@ -1,29 +1,36 @@
 <template lang="">
   <div class="nodedetails-container">
-    <v-tabs v-model="selectedTabIdx">
-      <v-tab v-for="(tab, idx) in tabs" :key="idx" :title="tab.title">
+    <!-- Tab 버튼 구현 -->
+    <div class="tabs">
+      <button
+        v-for="(tab, idx) in tabs"
+        :key="idx"
+        @click="selectTab(idx)"
+        :class="{ active: selectedTabIdx === idx }"
+      >
         {{ tab.title }}
-      </v-tab>
-    </v-tabs>
-    <v-tabs-window v-model="selectedTabIdx">
-      <v-tabs-window-item v-for="(tab, idx) in tabs" :key="idx">
-        <SettingItems
-          ref="settingItems"
-          v-if="selectedNode && tab.title === 'Settings'"
-          :selectedNode="selectedNode"
-        />
-        <StorageItems
-          ref="storageItems"
-          v-if="selectedNode && tab.title === 'Settings'"
-          :selectedNode="selectedNode"
-        />
-        <MetadataItem
-          ref="metadataItem"
-          :selectedNode="selectedNode"
-          v-else-if="selectedNode && tab.title === 'Metadata'"
-        />
-      </v-tabs-window-item>
-    </v-tabs-window>
+      </button>
+    </div>
+
+    <!-- Tab 내용 구현 -->
+    <div class="tabs-content">
+      <SettingItems
+        v-show="selectedNode && selectedTabTitle === 'Settings'"
+        ref="settingItems"
+        :selectedNode="selectedNode"
+      />
+      <StorageItems
+        v-show="selectedNode && selectedTabTitle === 'Settings'"
+        ref="storageItems"
+        :selectedNode="selectedNode"
+      />
+      <MetadataItem
+        v-show="selectedNode && selectedTabTitle === 'Metadata'"
+        ref="metadataItem"
+        :selectedNode="selectedNode"
+      />
+    </div>
+
     <div v-if="selectedNode" class="execution-footer">
       <v-btn @click="saveForms">OK</v-btn>
       <v-btn>Cancel</v-btn>
@@ -37,6 +44,7 @@ import { mapGetters, mapMutations } from 'vuex'
 import StorageItems from '@/components/nodes/settings/Storage.vue'
 import SettingItems from '@/views/workflow/details/ComponentRender.vue'
 import MetadataItem from '@/components/nodes/metadata/Metadata.vue'
+
 export default {
   name: 'NodeDetails',
   components: { StorageItems, SettingItems, MetadataItem },
@@ -74,62 +82,77 @@ export default {
   },
   methods: {
     ...mapMutations('nodeDetail', {
-      updateNodeStatus: 'UPDATE_NODE_STATUS'
+      updateNodeStatus: 'UPDATE_NODE_STATUS',
+      updateNodeValidation: 'UPDATE_NODE_VALIDATION'
     }),
-    async validateAll() {
-      const { valid: isSettingItemsValid } = await this.$refs.settingItems[0].validate()
-      const { valid: isStorageItemsValid } = await this.$refs.storageItems[0].validate()
-      const { valid: isMetadataItemValid } = await this.$refs.metadataItem[0].validate()
+    selectTab(index) {
+      this.selectedTabIdx = index
+    },
+    async saveForms() {
+      this.$refs.metadataItem.metadataFormUpdate()
+      this.$refs.settingItems.$refs.settingItem.settingFormUpdate()
+      this.$refs.storageItems.storageFormUpdate()
 
-      // 모든 컴포넌트가 유효할 때 true 반환
-      console.log(isSettingItemsValid, isStorageItemsValid, isMetadataItemValid)
+      this.updateNodeStatus({ id: this.selectedNode.id, status: 'ready' })
+    },
+
+    async validateAll() {
+      const { valid: isSettingItemsValid } = await this.$refs.settingItems.validate()
+      const { valid: isStorageItemsValid } = await this.$refs.storageItems.validate()
+      const { valid: isMetadataItemValid } = await this.$refs.metadataItem.validate()
+
       return isSettingItemsValid && isStorageItemsValid && isMetadataItemValid
-      //
     },
 
     async executionNode() {
       const checkValidation = await this.validateAll()
+
       if (checkValidation) {
         console.log('passed validation')
+        this.updateNodeValidation({ id: this.selectedNode.id, validation: checkValidation })
+
+        // 임시로 validation 통과할시 그냥 node excution 성공으로 처리
+        this.updateNodeStatus({ id: this.selectedNode.id, status: 'success' })
       } else {
+        this.updateNodeValidation({ id: this.selectedNode.id, validation: checkValidation })
+        this.updateNodeStatus({ id: this.selectedNode.id, status: 'failed' })
         console.log('failed validation')
       }
-    },
-    async saveForms() {
-      console.log(this.$refs.settingItems)
-      if (this.$refs.metadataItem && this.$refs.metadataItem[0]) {
-        this.$refs.metadataItem[0].metadataFormUpdate()
-      }
-
-      if (
-        this.$refs.settingItems &&
-        this.$refs.settingItems[0] &&
-        this.$refs.settingItems[0].$refs.settingItem
-      ) {
-        console.log('check settings')
-        this.$refs.settingItems[0].$refs.settingItem.settingFormUpdate()
-      }
-
-      if (this.$refs.storageItems && this.$refs.storageItems[0]) {
-        console.log('check storage')
-        this.$refs.storageItems[0].storageFormUpdate()
-      }
-
-      // OK 버튼 누르면 무조건 ready 상태로 변경
-      this.updateNodeStatus({ id: this.selectedNode.id, status: 'ready' })
     }
   }
 }
 </script>
-<style lang="scss">
+
+<style lang="scss" scoped>
 .nodedetails-container {
   position: relative;
   padding-bottom: 60px;
 }
+
+.tabs {
+  display: flex;
+  margin: 10px;
+}
+
+.tabs button {
+  margin-right: 10px;
+  padding: 10px;
+  cursor: pointer;
+  border: none;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.tabs button.active {
+  background-color: #1976d2;
+  color: white;
+}
+
 .execution-footer {
-  position: absolute; /* 또는 fixed로 설정 가능 */
+  position: absolute;
   width: 100%;
-  height: 40px; /* 고정 높이 */
+  height: 40px;
   display: flex;
   justify-content: center;
   align-items: center;

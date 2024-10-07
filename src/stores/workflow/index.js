@@ -52,8 +52,16 @@ const getters = {
   getConnections: (state) => state.connections,
 
   getTargetNodeInputInfo: (state) => (nodeId) => {
-    const targetNode = state.editor.getNode(nodeId)
+    // editor와 targetNode의 존재 여부를 먼저 확인
+    const targetNode = state.editor?.getNode(nodeId)
+    if (!targetNode) {
+      return [] // targetNode가 없으면 빈 배열 반환
+    }
+
     const inputs = targetNode.inputs
+    if (!inputs) {
+      return [] // inputs가 없으면 빈 배열 반환
+    }
 
     const result = Object.keys(inputs).reduce((acc, inputName) => {
       const input = inputs[inputName]

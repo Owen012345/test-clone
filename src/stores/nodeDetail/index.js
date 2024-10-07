@@ -91,7 +91,7 @@ const mutations = {
     }
   },
   UPDATE_NODE_VALIDATION(state, { id, validation }) {
-    const status = validation ? 'success' : 'error'
+    const status = validation ? 'success' : 'failed'
     state.defaultNodeSchema[id].validation = status
   },
   UPDATE_NODE_STATUS(state, { id, status }) {
@@ -111,7 +111,7 @@ const getters = {
     return state.defaultNodeSchema[id].settings
   },
   getDefaultMetadataNodeSchema: (state) => (id) => {
-    return state.defaultNodeSchema[id].metadata
+    return state.defaultNodeSchema[id]?.metadata
   },
   getInitSettingNodeSchema: (state) => (id) => {
     return state.initialNodeSchema[id].settings
@@ -134,7 +134,7 @@ const getters = {
     return state.defaultNodeSchema[id]?.status
   },
   getNodeOutputStorage: (state) => (id) => {
-    return state.defaultNodeSchema[id].storage
+    return state.defaultNodeSchema[id]?.storage
   },
   getNodeOuputs: (state) => (id) => {
     return Object.keys(state.defaultNodeSchema[id].storage)
