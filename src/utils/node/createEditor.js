@@ -187,6 +187,16 @@ export async function createEditor(container) {
       //   })
       // })
     }
+    if (context.type === 'connectionremoved') {
+      const { data } = context
+      const targetNode = editor.getNode(data.target)
+      const targetInput = data.targetInput
+      const connectionId = data.id
+
+      if (targetNode.inputs[targetInput].connections) {
+        delete targetNode.inputs[targetInput].connections[connectionId]
+      }
+    }
 
     return context
   })
