@@ -29,7 +29,7 @@ export const protectedRoute = [
         path: '/home',
         name: 'home',
         meta: {
-          title: 'home',
+          title: 'Home',
           group: 'apps'
         },
         component: () => import('@/views/home/Home.vue')
@@ -38,7 +38,7 @@ export const protectedRoute = [
         path: '/myspace',
         name: 'myspace',
         meta: {
-          title: 'MySpace',
+          title: 'My Space',
           group: 'apps'
         },
         component: () => import('@/views/myspace/MySpace.vue')
@@ -47,7 +47,7 @@ export const protectedRoute = [
         path: '/workflow',
         name: 'workflow',
         meta: {
-          title: 'workflow',
+          title: 'Workflow',
           group: 'apps'
         },
         component: () => import('@/views/workflow/Workflow.vue')

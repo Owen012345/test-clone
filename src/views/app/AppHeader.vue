@@ -3,16 +3,27 @@
     <div class="rectangle" />
     <div class="title">Workflow Designer</div>
     <div class="navigation">
-      <div class="tab">Home</div>
-      <div class="tab">My Space</div>
-      <div class="tab">Workflows</div>
+      <div @click="routeTo(route.path)" v-for="route in routes" :key="route.name" class="tab">
+        {{ route.meta.title }}
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import { protectedRoute as routes } from '@/utils/router/menu'
 export default {
-  name: 'TopBar'
+  name: 'TopBar',
+  computed: {
+    routes() {
+      return routes[0].children
+    }
+  },
+  methods: {
+    routeTo(path) {
+      this.$router.push(path)
+    }
+  }
 }
 </script>
 
@@ -69,5 +80,6 @@ export default {
   position: relative;
   white-space: nowrap;
   width: fit-content;
+  cursor: pointer;
 }
 </style>
