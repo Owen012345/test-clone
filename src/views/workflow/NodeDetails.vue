@@ -89,11 +89,24 @@ export default {
       this.selectedTabIdx = index
     },
     async saveForms() {
-      this.$refs.metadataItem.metadataFormUpdate()
-      this.$refs.settingItems.$refs.settingItem.settingFormUpdate()
-      this.$refs.storageItems.storageFormUpdate()
+      if (this.selectedTabTitle === 'Metadata') {
+        this.$refs.metadataItem.metadataFormUpdate()
+      } else if (this.selectedTabTitle === 'Settings') {
+        this.$refs.settingItems.$refs.settingItem.settingFormUpdate()
+        this.$refs.storageItems.storageFormUpdate()
+      }
 
-      this.updateNodeStatus({ id: this.selectedNode.id, status: 'ready' })
+      const checkValidation = await this.validateAll()
+
+      if (checkValidation) {
+        console.log('passed validation')
+        this.updateNodeValidation({ id: this.selectedNode.id, validation: checkValidation })
+        this.updateNodeStatus({ id: this.selectedNode.id, status: 'ready' })
+      } else {
+        console.log('failed validation')
+        this.updateNodeValidation({ id: this.selectedNode.id, validation: checkValidation })
+        this.updateNodeStatus({ id: this.selectedNode.id, status: 'failed' })
+      }
     },
 
     async validateAll() {
@@ -114,19 +127,8 @@ export default {
     },
 
     async executionNode() {
-      const checkValidation = await this.validateAll()
-
-      if (checkValidation) {
-        console.log('passed validation')
-        this.updateNodeValidation({ id: this.selectedNode.id, validation: checkValidation })
-
-        // 임시로 validation 통과할시 그냥 node excution 성공으로 처리
-        this.updateNodeStatus({ id: this.selectedNode.id, status: 'success' })
-      } else {
-        this.updateNodeValidation({ id: this.selectedNode.id, validation: checkValidation })
-        this.updateNodeStatus({ id: this.selectedNode.id, status: 'failed' })
-        console.log('failed validation')
-      }
+      // TODO : 현재는 항상 단독 node excution 시, status 'success'
+      this.updateNodeStatus({ id: this.selectedNode.id, status: 'success' })
     }
   }
 }

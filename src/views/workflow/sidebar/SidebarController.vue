@@ -25,8 +25,8 @@ export default {
   },
   methods: {
     updateTab(value) {
-      this.localTab = value // 로컬 데이터 업데이트
-      this.$emit('update:tab', value) // 부모에게 이벤트 emit
+      this.localTab = value
+      this.$emit('update:tab', value)
     }
   }
 }
