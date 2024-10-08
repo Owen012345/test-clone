@@ -2,8 +2,12 @@
   <div class="workflow">
     <ControlToolbar />
     <div style="height: calc(100% - 45px); display: flex">
+      <div class="sidebar-controller">
+        <SidebarController v-model:tab="controlTab" />
+      </div>
       <div class="sidebar-container">
-        <NodeList class="node-list" />
+        <NodeList v-if="controlTab === 'tasks'" class="node-list" />
+        <WorkflowList v-if="controlTab === 'workflows'" class="workflow-list" />
       </div>
       <div class="main-container">
         <FlowChart class="flow-chart" :style="{ flex: flowChartFlex }" />
@@ -17,7 +21,9 @@
 import FlowChart from '@/views/workflow/Canvas.vue'
 import NodeDetails from '@/views/workflow/NodeDetails.vue'
 import NodeList from '@/views/workflow/sidebar/NodeList.vue'
+import WorkflowList from '@/views/workflow/sidebar/WorkflowList.vue'
 import ControlToolbar from '@/views/workflow/toolbar/ControlToolbar.vue'
+import SidebarController from '@/views/workflow/sidebar/SidebarController.vue'
 
 export default {
   name: 'Workflow',
@@ -25,7 +31,9 @@ export default {
     FlowChart,
     NodeDetails,
     NodeList,
-    ControlToolbar
+    WorkflowList,
+    ControlToolbar,
+    SidebarController
   },
   data() {
     return {
@@ -34,7 +42,9 @@ export default {
       initialFlexFlowChart: 6,
       initialFlexNodeDetails: 4,
       flowChartFlex: 6,
-      nodeDetailsFlex: 4
+      nodeDetailsFlex: 4,
+
+      controlTab: 'tasks'
     }
   },
   methods: {
@@ -77,7 +87,8 @@ export default {
 .flow-execution {
   min-height: 45px;
 }
-.node-list {
+.node-list,
+.workflow-list {
   flex: 9;
 }
 .main-container {
@@ -87,10 +98,13 @@ export default {
 }
 .sidebar-container {
   display: flex;
-  width: 220px;
+  width: 250px;
   border-right: 1px solid #ccc;
   box-sizing: border-box;
   flex-direction: column;
+  background-color: #f4f4f4;
+  padding: 10px;
+  overflow-y: auto;
 }
 .flow-chart {
   flex: 8;

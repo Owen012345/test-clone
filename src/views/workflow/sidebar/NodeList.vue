@@ -1,12 +1,6 @@
 <template>
   <div class="sidebar">
-    <v-text-field
-      v-model="search"
-      label="Search"
-      clearable
-      @input="filterItems"
-      @click:clear="clearSearch"
-    ></v-text-field>
+    <SearchField :search="search" @update:search="filterItems" />
     <v-expansion-panels v-model="expandedPanels">
       <v-expansion-panel v-for="(group, index) in filteredData" :key="index">
         <v-expansion-panel-title>{{ group.name }}</v-expansion-panel-title>
@@ -31,12 +25,17 @@
 </template>
 
 <script>
+import SearchField from '@/views/workflow/sidebar/SearchField.vue'
 import NodeList from '@/assets/nodes.json'
+
 export default {
   name: 'NodeList',
+  components: {
+    SearchField
+  },
   data() {
     return {
-      search: '',
+      search: '', // 검색어 상태
       expandedPanels: [],
       filteredData: []
     }
@@ -47,11 +46,8 @@ export default {
     }
   },
   methods: {
-    clearSearch() {
-      this.search = ''
-      this.filterItems()
-    },
-    filterItems() {
+    filterItems(search) {
+      this.search = search || ''
       if (!this.search) {
         this.filteredData = Object.keys(this.jsonData).map((key) => ({
           name: key,
@@ -89,12 +85,7 @@ export default {
 }
 </script>
 
-<style>
-.sidebar {
-  background-color: #f4f4f4;
-  padding: 10px;
-  overflow-y: auto;
-}
+<style scoped>
 .node {
   margin: 5px 0;
   padding: 10px;
