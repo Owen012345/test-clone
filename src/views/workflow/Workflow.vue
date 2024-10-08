@@ -1,13 +1,15 @@
 <template lang="">
   <div class="workflow">
-    <div class="sidebar-container">
-      <NodeExecution class="flow-execution" />
-      <NodeList class="node-list" />
-    </div>
-    <div class="main-container">
-      <FlowChart class="flow-chart" :style="{ flex: flowChartFlex }" />
-      <div class="resizer" id="resizer" @mousedown="startResize"></div>
-      <NodeDetails class="node-details" :style="{ flex: nodeDetailsFlex }" />
+    <ControlToolbar />
+    <div style="height: calc(100% - 45px); display: flex">
+      <div class="sidebar-container">
+        <NodeList class="node-list" />
+      </div>
+      <div class="main-container">
+        <FlowChart class="flow-chart" :style="{ flex: flowChartFlex }" />
+        <div class="resizer" id="resizer" @mousedown="startResize"></div>
+        <NodeDetails class="node-details" :style="{ flex: nodeDetailsFlex }" />
+      </div>
     </div>
   </div>
 </template>
@@ -15,7 +17,7 @@
 import FlowChart from '@/views/workflow/Canvas.vue'
 import NodeDetails from '@/views/workflow/NodeDetails.vue'
 import NodeList from '@/views/workflow/sidebar/NodeList.vue'
-import NodeExecution from '@/views/workflow/sidebar/NodeExecution.vue'
+import ControlToolbar from '@/views/workflow/toolbar/ControlToolbar.vue'
 
 export default {
   name: 'Workflow',
@@ -23,7 +25,7 @@ export default {
     FlowChart,
     NodeDetails,
     NodeList,
-    NodeExecution
+    ControlToolbar
   },
   data() {
     return {
@@ -69,6 +71,7 @@ export default {
 <style scoped>
 .workflow {
   display: flex;
+  flex-direction: column;
   height: 100%;
 }
 .flow-execution {
