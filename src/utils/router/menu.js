@@ -4,7 +4,7 @@ export const publicRoute = [
     component: () => import('@/views/public/NotFound.vue')
   },
   {
-    path: '/auth/login',
+    path: '/login',
     name: 'login',
     meta: {
       title: 'Login'
@@ -12,7 +12,7 @@ export const publicRoute = [
     component: () => import('@/views/public/Login.vue')
   },
   {
-    path: '/auth/register',
+    path: '/register',
     name: 'register',
     meta: {
       title: 'Register'
@@ -27,7 +27,7 @@ export const protectedRoute = [
     children: [
       {
         path: '/home',
-        name: 'Home',
+        name: 'home',
         meta: {
           title: 'home',
           group: 'apps'
@@ -36,7 +36,7 @@ export const protectedRoute = [
       },
       {
         path: '/myspace',
-        name: 'MySpace',
+        name: 'myspace',
         meta: {
           title: 'MySpace',
           group: 'apps'
@@ -45,7 +45,7 @@ export const protectedRoute = [
       },
       {
         path: '/workflow',
-        name: 'Workflow',
+        name: 'workflow',
         meta: {
           title: 'workflow',
           group: 'apps'
