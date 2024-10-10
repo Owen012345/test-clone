@@ -1,5 +1,5 @@
 <template lang="">
-  <div class="workflow">
+  <div class="workflow-container">
     <ControlToolbar />
     <div style="height: calc(100% - 45px); display: flex">
       <div class="sidebar-controller">
@@ -75,11 +75,18 @@ export default {
       window.removeEventListener('mousemove', this.resize)
       window.removeEventListener('mouseup', this.stopResize)
     }
+  },
+  mounted() {
+    const state = history.state
+
+    if (state) {
+      console.log(state)
+    }
   }
 }
 </script>
 <style scoped>
-.workflow {
+.workflow-container {
   display: flex;
   flex-direction: column;
   height: 100%;

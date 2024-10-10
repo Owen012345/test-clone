@@ -38,6 +38,7 @@ export default {
   position: relative;
   width: 100%;
   height: 80px;
+  min-height: 80px;
 }
 
 .top-bar .rectangle {

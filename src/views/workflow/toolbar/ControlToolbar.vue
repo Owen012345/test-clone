@@ -69,6 +69,7 @@ export default {
 .node-execution {
   display: flex;
   min-height: 45px;
+  max-height: 45px;
   border-bottom: 1px solid black;
   > button {
     flex: 0 0 auto;

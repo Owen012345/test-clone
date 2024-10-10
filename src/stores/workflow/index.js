@@ -63,8 +63,6 @@ const getters = {
   },
   getConnections: (state, getters) => {
     const editor = getters.getEditor
-
-    console.log(editor)
     const connections = editor.connections
 
     return connections
