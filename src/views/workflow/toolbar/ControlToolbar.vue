@@ -1,8 +1,8 @@
 <template lang="">
   <div class="node-execution">
-    <button>Save</button>
+    <button @click="saveWorkflow">Save</button>
     <button @click="flowExecution">Execution</button>
-    <button>Debug</button>
+    <button @click="dataStructure">Debug</button>
     <v-switch v-model="debugMode" hide-details inset></v-switch>
     <!-- <div @click="dataStructure">test</div> -->
     <v-dialog v-model="dialog" width="auto">
@@ -19,6 +19,7 @@ import { getDataStructure } from '@/utils/node/getDataStructure'
 import { redrawGraph } from '@/utils/node/redrawNode'
 
 import api from '@/api'
+import { mapGetters } from 'vuex'
 export default {
   name: 'ControlToolbar',
   data() {
@@ -30,10 +31,19 @@ export default {
       debugMode: false
     }
   },
-
+  computed: {
+    ...mapGetters('workflow', ['getNodes', 'getConnections'])
+  },
   methods: {
     dataStructure() {
       redrawGraph()
+    },
+    saveWorkflow() {
+      const workflow = {
+        nodes: this.getNodes,
+        connections: this.getConnections
+      }
+      console.log(workflow)
     },
     async flowExecution() {
       try {

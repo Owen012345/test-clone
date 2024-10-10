@@ -36,10 +36,9 @@ export async function createNode(selectedNode, event) {
   area.area.setPointerFrom(event)
   const { x, y } = area.area.pointer
   node.position = { x: x, y: y }
-
+  node.data = null
   await editor.addNode(node)
   await area.translate(node.id, { x: x, y: y })
-
   return {
     destroy: () => area.destroy()
   }

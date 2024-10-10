@@ -48,7 +48,7 @@ export default {
     }
   },
   mounted() {
-    console.log('check1')
+    // console.log('check1')
   }
 }
 </script>

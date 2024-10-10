@@ -48,8 +48,27 @@ const getters = {
       nodeId: state.selectedNode?.nodeId
     }
   },
-  getNodes: (state) => state.nodes,
-  getConnections: (state) => state.connections,
+  getNodes: (state, getters) => {
+    const editor = getters.getEditor
+    const nodes = editor.nodes
+
+    return nodes
+  },
+  getNode: (state, getters) => (nodeId) => {
+    const editor = getters.getEditor
+
+    const node = editor.getNode(nodeId)
+
+    return node
+  },
+  getConnections: (state, getters) => {
+    const editor = getters.getEditor
+
+    console.log(editor)
+    const connections = editor.connections
+
+    return connections
+  },
 
   getTargetNodeInputInfo: (state) => (nodeId) => {
     // editor와 targetNode의 존재 여부를 먼저 확인

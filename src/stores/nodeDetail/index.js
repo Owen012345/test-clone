@@ -1,3 +1,5 @@
+import { updateNodeData } from "@/utils/node/updateNodeData"
+
 function getSchemaPropertySet(property) {
   // const property = schema.properties
   const formData = Object.keys(property).reduce((acc, key) => {
@@ -214,8 +216,9 @@ const actions = {
       commit('INIT_NODE_DEFAULT', { id: node.id, group: node.group, label: node.label }) // group, label
       commit('argo/INIT_CONTAINER_TEMPLATE', { name: node.id, group: node.group }, { root: true })
 
-      console.log('check')
       await dispatch('initNodeStorageOuput', { id: node.id, storage: Object.keys(node.outputs) }) // storage
+
+      updateNodeData(node.id, state.defaultNodeSchema[node.id])
     } catch (error) {
       console.error(error)
     }
