@@ -1,4 +1,4 @@
-import { updateNodeData } from "@/utils/node/updateNodeData"
+import { updateNodeData } from '@/utils/node/updateNodeData'
 
 function getSchemaPropertySet(property) {
   // const property = schema.properties
@@ -250,14 +250,17 @@ const actions = {
   removeNodeDataWithSchema({ commit }, id) {
     commit('REMOVE_NODE_SCHEMA', id)
   },
-  updateFormData({ commit }, { nodeId, formData }) {
-    commit('UPDATE_NODE_SCHEMA_SETTING', { id: nodeId, formData: formData })
+  async updateFormData({ commit }, { nodeId, formData }) {
+    await commit('UPDATE_NODE_SCHEMA_SETTING', { id: nodeId, formData: formData })
+    updateNodeData(nodeId, state.defaultNodeSchema[nodeId])
   },
-  updateMetadaData({ commit }, { nodeId, metadata }) {
-    commit('UPDATE_NODE_METADATA', { id: nodeId, metadata: metadata })
+  async updateMetadaData({ commit }, { nodeId, metadata }) {
+    await commit('UPDATE_NODE_METADATA', { id: nodeId, metadata: metadata })
+    updateNodeData(nodeId, state.defaultNodeSchema[nodeId])
   },
-  updateNodeStorageOuputForm({ commit }, { id, formData }) {
-    commit('UPDATE_NODE_STORAGE_OUTPUT_FORM', { id, formData })
+  async updateNodeStorageOuputForm({ commit }, { id, formData }) {
+    await commit('UPDATE_NODE_STORAGE_OUTPUT_FORM', { id, formData })
+    updateNodeData(id, state.defaultNodeSchema[id])
   }
 }
 
