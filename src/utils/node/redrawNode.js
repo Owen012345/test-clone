@@ -1,4 +1,4 @@
-import workflow from '@/assets/workflow.json'
+// import workflow from '@/assets/workflow.json'
 import { ClassicPreset } from 'rete'
 import store from '@/stores' // Vuex store import
 
@@ -12,10 +12,10 @@ class Node extends ClassicPreset.Node {
 }
 
 // 노드와 연결을 기반으로 Rete.js에서 그래프를 재구성하는 함수
-export async function redrawGraph() {
+export async function redrawGraph(data) {
   const editor = store.getters['workflow/getEditor']
   const area = store.getters['workflow/getArea']
-  const { nodes, connections } = workflow
+  const { nodes, connections } = data
 
   // 1. 기존 노드와 연결 삭제
   await editor.clear()

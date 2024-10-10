@@ -1,5 +1,7 @@
 import axios from 'axios'
 import Argo from './modules/argo'
+import Workflow from './modules/workflow'
+import Test from './modules/test'
 class Api {
   constructor(url = import.meta.env.VITE_API_URL) {
     this.instance = axios.create({
@@ -23,6 +25,20 @@ class Api {
   get argo() {
     return this.#getInstance(Argo, {
       baseURL: '/argo',
+      timeout: 30000
+    })
+  }
+
+  get workflow() {
+    return this.#getInstance(Workflow, {
+      baseURL: '/workflow',
+      timeout: 30000
+    })
+  }
+
+  get test() {
+    return this.#getInstance(Test, {
+      baseURL: '/',
       timeout: 30000
     })
   }

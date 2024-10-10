@@ -1,0 +1,96 @@
+{
+    "nodes": [
+        {
+            "inputs": {},
+            "outputs": {
+                "OUTPUT0": {
+                    "socket": {
+                        "name": "socket"
+                    },
+                    "multipleConnections": false,
+                    "id": "604c053a61b41e61"
+                },
+                "OUTPUT1": {
+                    "socket": {
+                        "name": "socket"
+                    },
+                    "multipleConnections": false,
+                    "id": "5ba48ad4ae843648"
+                }
+            },
+            "controls": {},
+            "label": "CSV Reader",
+            "id": "n998d70fd353f8acb",
+            "width": 120,
+            "height": 80,
+            "nodeId": "C1_N01",
+            "group": "collection",
+            "position": {
+                "x": -360.21875,
+                "y": -49
+            },
+            "data": "{\"settings\":{\"readFromEnum\":\"Local File System\",\"file\":\"2\",\"columnDelimiter\":\",\",\"hasColumnHeader\":false,\"hasRowId\":false},\"metadata\":{\"address\":\"1\",\"version\":\"latest\"},\"group\":\"collection\",\"label\":\"CSV Reader\",\"status\":\"ready\",\"validation\":\"success\",\"storage\":{\"OUTPUT0\":{\"type\":\"s3\",\"aws_access_key_id\":\"1\",\"aws_secret_access_key\":\"23\",\"bucket_name\":\"4\",\"prefix\":\"5\"},\"OUTPUT1\":{\"type\":\"ceph\",\"end_point\":\"{{system.datalake.object_storage.end_point}}\",\"access_key\":null,\"secret_key\":null,\"bucket_name\":\"fs_test\",\"object_path\":null}}}",
+            "selected": false
+        },
+        {
+            "inputs": {
+                "INPUT0": {
+                    "socket": {
+                        "name": "socket"
+                    },
+                    "multipleConnections": true,
+                    "id": "9db14491fced4d8c",
+                    "control": null,
+                    "showControl": true,
+                    "connections": {
+                        "b38b6e2a1cd685e2": {
+                            "sourceNodeId": "n998d70fd353f8acb",
+                            "sourceNodeLabel": "CSV Reader",
+                            "sourceOutputKey": "OUTPUT0"
+                        }
+                    }
+                },
+                "INPUT1": {
+                    "socket": {
+                        "name": "socket"
+                    },
+                    "multipleConnections": true,
+                    "id": "b85abee73b05267e",
+                    "control": null,
+                    "showControl": true
+                }
+            },
+            "outputs": {
+                "OUTPUT0": {
+                    "socket": {
+                        "name": "socket"
+                    },
+                    "multipleConnections": true,
+                    "id": "138db7595abc91cc"
+                }
+            },
+            "controls": {},
+            "label": "CSV Writer",
+            "id": "n7b0de09eebd3e923",
+            "width": 120,
+            "height": 80,
+            "nodeId": "C1_N02",
+            "group": "collection",
+            "position": {
+                "x": -48.21875,
+                "y": -24
+            },
+            "data": "{\"settings\":{\"writeToEnum\":\"Local File System\",\"file\":\"\",\"columnDelimiter\":\",\",\"hasColumnHeader\":false,\"hasRowId\":false},\"metadata\":{\"address\":\"123\",\"version\":\"1.0.1\"},\"group\":\"collection\",\"label\":\"CSV Writer\",\"status\":null,\"validation\":null,\"storage\":{\"OUTPUT0\":{\"type\":\"ceph\",\"end_point\":\"{{system.datalake.object_storage.end_point}}\",\"access_key\":null,\"secret_key\":null,\"bucket_name\":\"fs_test\",\"object_path\":null}}}",
+            "selected": false
+        }
+    ],
+    "connections": [
+        {
+            "id": "b38b6e2a1cd685e2",
+            "source": "n998d70fd353f8acb",
+            "sourceOutput": "OUTPUT0",
+            "target": "n7b0de09eebd3e923",
+            "targetInput": "INPUT0"
+        }
+    ]
+}
