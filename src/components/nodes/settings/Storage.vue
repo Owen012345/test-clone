@@ -170,9 +170,38 @@ export default {
 
       this.formData[outputKey] = { ...initStorageForm }
     },
-    validate() {
-      return this.$refs.form.validate()
+    async validate() {
+      // $refs.form이 배열인지 체크
+      const forms = Array.isArray(this.$refs.form) ? this.$refs.form : [this.$refs.form]
+
+      // 각 form에 대해 validate 호출하고, Promise 배열로 결과 처리
+      const validations = forms.map(async (form, index) => {
+        const outputKey = `OUTPUT${index}`
+        const formData = this.formData[outputKey]
+
+        // formData가 빈 객체일 경우(초기 상태) 무조건 true 반환
+        if (!formData || Object.keys(formData).length === 0) {
+          console.log('check1')
+          return true
+        }
+
+        // form이 존재하고 validate 메서드가 있을 경우만 호출
+        if (form && typeof form.validate === 'function') {
+          const { valid } = await form.validate()
+          return valid
+        }
+
+        return false // validate 메서드가 없으면 false 처리
+      })
+
+      // 모든 Promise가 resolve될 때까지 기다리고, 그 결과로 true/false 반환
+      const results = await Promise.all(validations)
+      const allValid = results.every((result) => result === true)
+
+      console.log(allValid)
+      return allValid
     },
+
     storageFormUpdate() {
       this.updateNodeStorageOuputForm({
         id: this.selectedNode.id,

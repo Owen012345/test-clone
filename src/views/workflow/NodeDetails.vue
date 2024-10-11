@@ -110,10 +110,18 @@ export default {
     },
 
     async validateAll() {
+      // console.log(this.$refs.storageItems.validate())
       const { valid: isSettingItemsValid } = await this.$refs.settingItems.validate()
-      const { valid: isStorageItemsValid } = await this.$refs.storageItems.validate()
+      const isStorageItemsValid = await this.$refs.storageItems.validate()
       const { valid: isMetadataItemValid } = await this.$refs.metadataItem.validate()
-
+      // console.log(
+      //   'isSettingItemsValid',
+      //   isSettingItemsValid,
+      //   'isStorageItemsValid',
+      //   isStorageItemsValid,
+      //   'isMetadataItemValid',
+      //   isMetadataItemValid
+      // )
       return isSettingItemsValid && isStorageItemsValid && isMetadataItemValid
     },
 
