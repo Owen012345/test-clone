@@ -169,6 +169,8 @@ export default {
       })
 
       this.formData[outputKey] = { ...initStorageForm }
+
+      await this.validate()
     },
     async validate() {
       // $refs.form이 배열인지 체크
@@ -181,7 +183,6 @@ export default {
 
         // formData가 빈 객체일 경우(초기 상태) 무조건 true 반환
         if (!formData || Object.keys(formData).length === 0) {
-          console.log('check1')
           return true
         }
 
@@ -198,7 +199,6 @@ export default {
       const results = await Promise.all(validations)
       const allValid = results.every((result) => result === true)
 
-      console.log(allValid)
       return allValid
     },
 
