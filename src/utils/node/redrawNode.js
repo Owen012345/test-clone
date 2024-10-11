@@ -15,14 +15,39 @@ class Node extends ClassicPreset.Node {
 export async function redrawGraph(data) {
   const editor = store.getters['workflow/getEditor']
   const area = store.getters['workflow/getArea']
+
   const { nodes, connections } = data
+
+  console.log(nodes)
+  // for (const node of nodes) {
+  //   const id = node.id
+  //   const nodeId = node.nodeId
+  //   const nodeData = JSON.parse(node.data)
+
+  //   // settings, metadata, group, label, outputs 추출
+  //   const { settings, metadata, storage } = nodeData
+  //   const { label, outputs } = node
+  //   const group = nodeData.group || '' // group이 없는 경우 기본값 처리
+
+  //   // dispatch initNodeDataWithJSON action
+  //   await store.dispatch('nodeDetail/initNodeDataWithJSON', {
+  //     id: id,
+  //     nodeId: nodeId,
+  //     settings,
+  //     metadata,
+  //     group,
+  //     label,
+  //     outputs: outputs
+  //   })
+  // }
 
   // 1. 기존 노드와 연결 삭제
   await editor.clear()
 
   // 2. 노드 생성 및 매핑
   const nodeMap = new Map()
-  for (const nodeData of nodes) {
+  // 노드 생성 및 매핑
+  for (let nodeData of nodes) {
     const socket = new ClassicPreset.Socket('socket')
     const node = new Node(nodeData.label, nodeData.nodeId)
 
@@ -43,9 +68,11 @@ export async function redrawGraph(data) {
       }
     }
 
+    node.data = nodeData.data
     // 노드 위치 설정
     node.position = { x: nodeData.position.x, y: nodeData.position.y }
-    await editor.addNode(node)
+
+    await editor.addNode(JSON.parse(JSON.stringify(node)))
     await area.translate(node.id, { x: nodeData.position.x, y: nodeData.position.y })
 
     nodeMap.set(nodeData.id, node)

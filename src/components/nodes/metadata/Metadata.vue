@@ -50,7 +50,7 @@ export default {
   },
   methods: {
     ...mapActions('nodeDetail', {
-      updateMetadaData: 'updateMetadaData'
+      updateMetadata: 'updateMetadata'
     }),
     ...mapMutations('argo', {
       updateContainerTemplate: 'UPDATE_CONTAINER_TEMPLATE'
@@ -60,7 +60,7 @@ export default {
         name: this.selectedNode.id,
         metadata: this.metadata
       })
-      this.updateMetadaData({
+      this.updateMetadata({
         nodeId: this.selectedNode.id,
         metadata: this.metadata
       })
@@ -100,7 +100,7 @@ export default {
     //     //   name: this.selectedNode.id,
     //     //   metadata: newVal
     //     // })
-    //     // this.updateMetadaData({
+    //     // this.updateMetadata({
     //     //   nodeId: this.selectedNode.id,
     //     //   metadata: newVal
     //     // })

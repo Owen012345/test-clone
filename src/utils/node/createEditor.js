@@ -102,8 +102,7 @@ export async function createEditor(container) {
   editor.addPipe((context) => {
     if (context.type === 'nodecreated') {
       const { data } = context
-
-      store.dispatch('nodeDetail/initNodeDataWithSchema', data)
+      store.dispatch('nodeDetail/initNodeDataWithSchema', JSON.parse(JSON.stringify(data)))
     }
     if (context.type === 'noderemoved') {
       const { data } = context

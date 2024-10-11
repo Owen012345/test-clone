@@ -37,7 +37,7 @@ export default {
       // 1. 그릴 수있는 workflow json 가져오기
       // 2. vuex 에 추가 및 그리기
       const NodeConnectionData = await api.test.getWorkflow(workflow)
-      redrawGraph(NodeConnectionData)
+      await redrawGraph(NodeConnectionData)
     },
     filterItems(search) {
       this.search = search || ''
