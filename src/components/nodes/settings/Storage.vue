@@ -16,22 +16,22 @@
             <span>aws_access_key_id</span>
             <v-text-field
               v-model="formData[item]['aws_access_key_id']"
-              :rules="[(v) => validateRequired('aws_access_key_id', v)]"
+              :rules="[(v) => validateRequired('aws_access_key_id', v, item)]"
             ></v-text-field>
             <span>aws_secret_access_key</span>
             <v-text-field
               v-model="formData[item]['aws_secret_access_key']"
-              :rules="[(v) => validateRequired('aws_secret_access_key', v)]"
+              :rules="[(v) => validateRequired('aws_secret_access_key', v, item)]"
             ></v-text-field>
             <span>bucket_name</span>
             <v-text-field
               v-model="formData[item]['bucket_name']"
-              :rules="[(v) => validateRequired('bucket_name', v)]"
+              :rules="[(v) => validateRequired('bucket_name', v, item)]"
             ></v-text-field>
             <span>prefix</span>
             <v-text-field
               v-model="formData[item]['prefix']"
-              :rules="[(v) => validateRequired('prefix', v)]"
+              :rules="[(v) => validateRequired('prefix', v, item)]"
             ></v-text-field>
           </CustomCard>
         </CustomCard>
@@ -61,10 +61,10 @@ export default {
     }),
     initNodeOutputStorage() {
       return this.getNodeOutputStorage(this.selectedNode?.id)
-    },
-    getStorageSchemaRequiredFields() {
-      return this.getInitStorageNodeSchema(this.selectedNode.id).required
     }
+    // getStorageSchemaRequiredFields() {
+    //   return this.getInitStorageNodeSchema(this.selectedNode.id)
+    // }
   },
   data() {
     return {
@@ -78,19 +78,28 @@ export default {
       updateNodeStorageOutputType: 'updateNodeStorageOutputType',
       updateNodeStorageOuputForm: 'updateNodeStorageOuputForm'
     }),
-    validateRequired(field, value) {
-      if (this.getStorageSchemaRequiredFields.includes(field)) {
+    getStorageSchemaRequiredFields() {
+      return this.getInitStorageNodeSchema(this.selectedNode.id)
+    },
+    validateRequired(field, value, outputKey) {
+      const validation = this.getStorageSchemaRequiredFields()
+
+      const list = validation[outputKey]?.required
+      if (list?.includes(field)) {
         return !!value || `${field} field is required`
       }
       return true
     },
     async handleStorageTypeChange(type, outputKey) {
+      console.log(outputKey, type)
       await this.updateNodeStorageOutputType({
         id: this.selectedNode.id,
         outputKey: outputKey,
         type: type
       })
-      this.formData = JSON.parse(JSON.stringify(this.initNodeOutputStorage))
+
+      console.log(this.initNodeOutputStorage[outputKey])
+      this.formData[outputKey] = JSON.parse(JSON.stringify(this.initNodeOutputStorage[outputKey]))
     },
     validate() {
       return this.$refs.form.validate()

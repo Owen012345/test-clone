@@ -37,15 +37,23 @@ const mutations = {
       }
     }
   },
-  INIT_NODE_STORAGE_SCHEMA(state, { id, data }) {
+  INIT_NODE_STORAGE_SCHEMA(state, { id, outputKey, data }) {
+    // 노드 스키마가 이미 존재하는 경우
     if (state.initialNodeSchema[id]) {
-      state.initialNodeSchema[id].storage = {
-        ...state.initialNodeSchema[id].storage,
-        ...data
+      if (!state.initialNodeSchema[id].storage) {
+        state.initialNodeSchema[id].storage = {}
+      }
+
+      // outputKey에 해당하는 데이터를 바로 할당 (중첩 방지)
+      state.initialNodeSchema[id].storage[outputKey] = {
+        ...data // 데이터 중첩을 방지하기 위해 바로 data 할당
       }
     } else {
+      // 노드 스키마가 없을 경우 새로 생성하고 해당 outputKey에 데이터 저장
       state.initialNodeSchema[id] = {
-        storage: data
+        storage: {
+          [outputKey]: data // 중첩 방지
+        }
       }
     }
   },
@@ -101,6 +109,7 @@ const mutations = {
   },
 
   UPDATE_NODE_STORAGE_OUTPUT(state, { id, outputKey, formData }) {
+    console.log('checkkkkkk', id, outputKey, formData)
     state.defaultNodeSchema[id].storage[outputKey] = formData
   },
   UPDATE_NODE_STORAGE_OUTPUT_FORM(state, { id, formData }) {
@@ -225,6 +234,7 @@ const actions = {
   },
   async initNodeStorageOuput({ state, commit }, { id, storage }) {
     const initStorageType = 'ceph'
+
     if (!state.defaultNodeSchema[id]) {
       state.defaultNodeSchema[id] = {}
     }
@@ -238,13 +248,20 @@ const actions = {
       return acc
     }, {})
 
-    commit('INIT_NODE_STORAGE_SCHEMA', { id, data: schema.default })
+    console.log(schema.default)
+    for (const outputKey of storage) {
+      commit('INIT_NODE_STORAGE_SCHEMA', {
+        id,
+        outputKey,
+        data: schema.default // outputKey에 대한 데이터 추가
+      })
+    }
   },
   async updateNodeStorageOutputType({ commit }, { id, outputKey, type }) {
     const schema = await import(`@/components/nodes/schema/STORAGE_${type}.json`)
     const formData = getSchemaPropertySet(schema.properties)
 
-    commit('INIT_NODE_STORAGE_SCHEMA', { id, data: schema.default })
+    commit('INIT_NODE_STORAGE_SCHEMA', { id, outputKey, data: schema.default })
     commit('UPDATE_NODE_STORAGE_OUTPUT', { id, outputKey, formData })
   },
   removeNodeDataWithSchema({ commit }, id) {
@@ -254,7 +271,7 @@ const actions = {
     await commit('UPDATE_NODE_SCHEMA_SETTING', { id: nodeId, formData: formData })
     updateNodeData(nodeId, state.defaultNodeSchema[nodeId])
   },
-  async updateMetadaData({ commit }, { nodeId, metadata }) {
+  async updateMetadata({ commit }, { nodeId, metadata }) {
     await commit('UPDATE_NODE_METADATA', { id: nodeId, metadata: metadata })
     updateNodeData(nodeId, state.defaultNodeSchema[nodeId])
   },
