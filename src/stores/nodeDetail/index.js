@@ -20,6 +20,7 @@ function getSchemaPropertySet(property) {
 }
 
 const state = {
+  initialStorageSchema: {},
   initialNodeSchema: {},
   defaultNodeSchema: {}
 }
@@ -35,6 +36,11 @@ const mutations = {
       state.initialNodeSchema[id] = {
         settings: data
       }
+    }
+  },
+  INIT_NODE_STORAGE_SCHEMA_TEST(state, { type, data }) {
+    state.initialStorageSchema[type] = {
+      ...data
     }
   },
   INIT_NODE_STORAGE_SCHEMA(state, { id, outputKey, data }) {
@@ -109,7 +115,6 @@ const mutations = {
   },
 
   UPDATE_NODE_STORAGE_OUTPUT(state, { id, outputKey, formData }) {
-    console.log('checkkkkkk', id, outputKey, formData)
     state.defaultNodeSchema[id].storage[outputKey] = formData
   },
   UPDATE_NODE_STORAGE_OUTPUT_FORM(state, { id, formData }) {
@@ -129,6 +134,9 @@ const getters = {
   },
   getInitStorageNodeSchema: (state) => (id) => {
     return state.initialNodeSchema[id].storage
+  },
+  getInitStorageSchema: (state) => (type) => {
+    return state.initialStorageSchema[type]
   },
   getDockerImageUrl: (state) => (id) => {
     return state.defaultNodeSchema[id].metadata.address &&
@@ -206,31 +214,80 @@ const actions = {
   async initNodeDataWithSchema({ commit, dispatch }, node) {
     try {
       // TODO : C2_N01 부터 C2_N04 는 C2_N01 의 스키마를 사용하도록
+      if (node.data === null) {
+        const schemaNodeId =
+          node.nodeId === 'C2_N02' || node.nodeId === 'C2_N03' || node.nodeId === 'C2_N04'
+            ? 'C2_N01'
+            : node.nodeId
+
+        const schema = await import(`@/components/nodes/schema/${schemaNodeId}_schema.json`)
+        const metadata = {
+          address: '',
+          version: ''
+        }
+
+        commit('INIT_NODE_SCHEMA', { id: node.id, data: schema.default })
+
+        const formData = getSchemaPropertySet(schema.properties)
+
+        commit('UPDATE_NODE_SCHEMA_SETTING', { id: node.id, formData: formData }) // settings
+        commit('UPDATE_NODE_METADATA', { id: node.id, metadata: metadata }) // metadata
+        commit('INIT_NODE_DEFAULT', { id: node.id, group: node.group, label: node.label }) // group, label
+        commit('argo/INIT_CONTAINER_TEMPLATE', { name: node.id, group: node.group }, { root: true })
+
+        await dispatch('initNodeStorageOuputTest', {
+          id: node.id,
+          storage: Object.keys(node.outputs)
+        }) // storage
+
+        updateNodeData(node.id, state.defaultNodeSchema[node.id])
+      } else dispatch('initNodeDataWithJSON', { node })
+    } catch (error) {
+      console.error(error)
+    }
+  },
+
+  // JSON 형태의 Node 데이터를 기반으로 Node 데이터 초기화
+  async initNodeDataWithJSON({ commit, dispatch }, { node }) {
+    try {
       const schemaNodeId =
         node.nodeId === 'C2_N02' || node.nodeId === 'C2_N03' || node.nodeId === 'C2_N04'
           ? 'C2_N01'
           : node.nodeId
 
       const schema = await import(`@/components/nodes/schema/${schemaNodeId}_schema.json`)
-      const metadata = {
-        address: '',
-        version: ''
-      }
+
       commit('INIT_NODE_SCHEMA', { id: node.id, data: schema.default })
+      commit('UPDATE_NODE_SCHEMA_SETTING', { id: node.id, formData: node.data.settings }) // settings
+      commit('UPDATE_NODE_METADATA', { id: node.id, metadata: node.data.metadata }) // metadata
+      commit('INIT_NODE_DEFAULT', { id: node.id, group: node.data.group, label: node.data.label }) // group, labe
 
-      const formData = getSchemaPropertySet(schema.properties)
-
-      commit('UPDATE_NODE_SCHEMA_SETTING', { id: node.id, formData: formData }) // settings
-      commit('UPDATE_NODE_METADATA', { id: node.id, metadata: metadata }) // metadata
-      commit('INIT_NODE_DEFAULT', { id: node.id, group: node.group, label: node.label }) // group, label
       commit('argo/INIT_CONTAINER_TEMPLATE', { name: node.id, group: node.group }, { root: true })
 
-      await dispatch('initNodeStorageOuput', { id: node.id, storage: Object.keys(node.outputs) }) // storage
-
-      updateNodeData(node.id, state.defaultNodeSchema[node.id])
+      state.defaultNodeSchema[node.id].storage = node.data.storage
     } catch (error) {
       console.error(error)
     }
+  },
+
+  async initStorageSchema({ commit }) {
+    const storageType = ['ceph', 'postgres', 's3']
+    for (const type of storageType) {
+      const schema = await import(`@/components/nodes/schema/STORAGE_${type}.json`)
+
+      commit('INIT_NODE_STORAGE_SCHEMA_TEST', { type: type, data: schema.default })
+    }
+  },
+
+  async initNodeStorageOuputTest({ commit }, { id, storage }) {
+    if (!state.defaultNodeSchema[id]) {
+      state.defaultNodeSchema[id] = {}
+    }
+
+    state.defaultNodeSchema[id].storage = storage.reduce((acc, key) => {
+      acc[key] = {}
+      return acc
+    }, {})
   },
   async initNodeStorageOuput({ state, commit }, { id, storage }) {
     const initStorageType = 'ceph'
@@ -248,16 +305,22 @@ const actions = {
       return acc
     }, {})
 
-    console.log(schema.default)
     for (const outputKey of storage) {
       commit('INIT_NODE_STORAGE_SCHEMA', {
         id,
         outputKey,
-        data: schema.default // outputKey에 대한 데이터 추가
+        data: schema.default
       })
     }
   },
+  async updateNodeStorageOuputTypeTest({ commit }, { id, outputKey, type }) {
+    const schema = state.initialStorageSchema[type]
+    const formData = getSchemaPropertySet(schema.properties)
+
+    return formData
+  },
   async updateNodeStorageOutputType({ commit }, { id, outputKey, type }) {
+    console.log(id, outputKey, type)
     const schema = await import(`@/components/nodes/schema/STORAGE_${type}.json`)
     const formData = getSchemaPropertySet(schema.properties)
 

@@ -14,6 +14,8 @@ import CustomModal from '@/components/custom/CustomModal.vue'
 dayjs.extend(utc)
 dayjs.extend(timezone)
 
+stores.dispatch('nodeDetail/initStorageSchema')
+
 const app = createApp(App)
 
 app.config.globalProperties.$guessTimezone = function () {

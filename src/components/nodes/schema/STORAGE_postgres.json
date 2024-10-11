@@ -6,43 +6,31 @@
       "type": "string",
       "default": "postgres"
     },
+    "user_name": {
+      "type": "string",
+      "default": "{{system.auth.username}}"
+    },
+    "refresh_token": {
+      "type": "string",
+      "default": "{{system.auth.offline_token}}"
+    },
     "host": {
       "type": "string",
       "pattern": "^(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,}$",
-      "default": "{{system.datalake.rdbms.end_point}}"
+      "default": "{{system.datalake.postgresql.end_point}}"
     },
-    "port": {
-      "type": "integer",
-      "minimum": 1,
-      "maximum": 65535,
-      "examples": [
-        5432
-      ]
-    },
-    "database": {
+    "base_url": {
       "type": "string",
-      "examples": [
-        "db_01"
-      ]
+      "default": ""
     },
-    "user": {
-      "type": "string"
-    },
-    "password": {
-      "type": "string"
-    },
-    "table": {
+    "database_name": {
       "type": "string",
-      "examples": [
-        "table_01"
-      ]
+      "default": ""
+    },
+    "table_name": {
+      "type": "string",
+      "default": ""
     }
   },
-  "required": [
-    "storage_type",
-    "host",
-    "database",
-    "user",
-    "password"
-  ]
+  "required": ["user_name", "refresh_token", "host", "base_url", "database_name", "table_name"]
 }

@@ -1,40 +1,37 @@
 {
-    "type": "object",
-    "properties": {
-        "type": {
-            "type": "string",
-            "default": "ceph"
-        },
-        "end_point": {
-            "type": "string",
-            "default": "{{system.datalake.object_storage.end_point}}"
-        },
-        "access_key": {
-            "type": "string"
-        },
-        "secret_key": {
-            "type": "string"
-        },
-        "bucket_name": {
-            "type": "string",
-            "default": "fs_test"
-        },
-        "object_path": {
-            "type": "string",
-            "description": "txt, csv, tar, parquet, orc, pickle, docx, xlsx, images, audios, videos, etc.",
-            "pattern": "^(\\/([^\\/\\0]+\\/)*[^\\/\\0]+(\\.[^\\/\\0]+)?)$",
-            "examples": [
-                "file01.txt",
-                "/dir01/file02.csv"
-            ]
-        }
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "default": "ceph"
     },
-    "required": [
-        "storage_type",
-        "end_point",
-        "access_key",
-        "secret_key",
-        "bucket_name",
-        "object_path"
-    ]
+    "user_name": {
+      "type": "string",
+      "default": "{{system.auth.username}}"
+    },
+    "refresh_token": {
+      "type": "string",
+      "default": "{{system.auth.offline_token}}"
+    },
+    "end_point": {
+      "type": "string",
+      "default": "{{system.datalake.object_storage.end_point}}"
+    },
+    "base_url": {
+      "type": "string",
+      "default": ""
+    },
+    "bucket_name": {
+      "type": "string",
+      "default": ""
+    },
+    "object_name": {
+      "type": "string",
+      "description": "txt, csv, tar, parquet, orc, pickle, docx, xlsx, images, audios, videos, etc.",
+      "pattern": "^(\\/([^\\/\\0]+\\/)*[^\\/\\0]+(\\.[^\\/\\0]+)?)$",
+      "examples": ["file01.txt", "/dir01/file02.csv"],
+      "default": ""
+    }
+  },
+  "required": ["user_name", "refresh_token", "end_point", "base_url", "bucket_name", "object_name"]
 }
