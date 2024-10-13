@@ -153,8 +153,7 @@ export default {
   methods: {
     ...mapActions('nodeDetail', {
       updateNodeStorageOutputType: 'updateNodeStorageOutputType',
-      updateNodeStorageOuputForm: 'updateNodeStorageOuputForm',
-      updateNodeStorageOuputTypeTest: 'updateNodeStorageOuputTypeTest'
+      updateNodeStorageOuputForm: 'updateNodeStorageOuputForm'
     }),
 
     validateRequired(field, value, type) {
@@ -166,7 +165,7 @@ export default {
       return true
     },
     async handleStorageTypeChange(type, outputKey) {
-      const initStorageForm = await this.updateNodeStorageOuputTypeTest({
+      const initStorageForm = await this.updateNodeStorageOutputType({
         id: this.selectedNode.id,
         outputKey: outputKey,
         type: type

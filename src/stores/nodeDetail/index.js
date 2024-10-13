@@ -38,29 +38,9 @@ const mutations = {
       }
     }
   },
-  INIT_NODE_STORAGE_SCHEMA_TEST(state, { type, data }) {
+  INIT_NODE_STORAGE_SCHEMA(state, { type, data }) {
     state.initialStorageSchema[type] = {
       ...data
-    }
-  },
-  INIT_NODE_STORAGE_SCHEMA(state, { id, outputKey, data }) {
-    // 노드 스키마가 이미 존재하는 경우
-    if (state.initialNodeSchema[id]) {
-      if (!state.initialNodeSchema[id].storage) {
-        state.initialNodeSchema[id].storage = {}
-      }
-
-      // outputKey에 해당하는 데이터를 바로 할당 (중첩 방지)
-      state.initialNodeSchema[id].storage[outputKey] = {
-        ...data // 데이터 중첩을 방지하기 위해 바로 data 할당
-      }
-    } else {
-      // 노드 스키마가 없을 경우 새로 생성하고 해당 outputKey에 데이터 저장
-      state.initialNodeSchema[id] = {
-        storage: {
-          [outputKey]: data // 중첩 방지
-        }
-      }
     }
   },
   INIT_NODE_DEFAULT(state, { id, group, label }) {
@@ -235,7 +215,7 @@ const actions = {
         commit('INIT_NODE_DEFAULT', { id: node.id, group: node.group, label: node.label }) // group, label
         commit('argo/INIT_CONTAINER_TEMPLATE', { name: node.id, group: node.group }, { root: true })
 
-        await dispatch('initNodeStorageOuputTest', {
+        await dispatch('initNodeStorageOuput', {
           id: node.id,
           storage: Object.keys(node.outputs)
         }) // storage
@@ -275,11 +255,11 @@ const actions = {
     for (const type of storageType) {
       const schema = await import(`@/components/nodes/schema/STORAGE_${type}.json`)
 
-      commit('INIT_NODE_STORAGE_SCHEMA_TEST', { type: type, data: schema.default })
+      commit('INIT_NODE_STORAGE_SCHEMA', { type: type, data: schema.default })
     }
   },
 
-  async initNodeStorageOuputTest({ commit }, { id, storage }) {
+  async initNodeStorageOuput({ commit }, { id, storage }) {
     if (!state.defaultNodeSchema[id]) {
       state.defaultNodeSchema[id] = {}
     }
@@ -289,43 +269,12 @@ const actions = {
       return acc
     }, {})
   },
-  async initNodeStorageOuput({ state, commit }, { id, storage }) {
-    const initStorageType = 'ceph'
 
-    if (!state.defaultNodeSchema[id]) {
-      state.defaultNodeSchema[id] = {}
-    }
-    const schema = await import(`@/components/nodes/schema/STORAGE_${initStorageType}.json`)
-    const formData = getSchemaPropertySet(schema.properties)
-
-    state.defaultNodeSchema[id].storage = storage.reduce((acc, key) => {
-      acc[key] = {
-        ...formData
-      }
-      return acc
-    }, {})
-
-    for (const outputKey of storage) {
-      commit('INIT_NODE_STORAGE_SCHEMA', {
-        id,
-        outputKey,
-        data: schema.default
-      })
-    }
-  },
-  async updateNodeStorageOuputTypeTest({ commit }, { id, outputKey, type }) {
+  async updateNodeStorageOutputType({ commit }, { id, outputKey, type }) {
     const schema = state.initialStorageSchema[type]
     const formData = getSchemaPropertySet(schema.properties)
 
     return formData
-  },
-  async updateNodeStorageOutputType({ commit }, { id, outputKey, type }) {
-    console.log(id, outputKey, type)
-    const schema = await import(`@/components/nodes/schema/STORAGE_${type}.json`)
-    const formData = getSchemaPropertySet(schema.properties)
-
-    commit('INIT_NODE_STORAGE_SCHEMA', { id, outputKey, data: schema.default })
-    commit('UPDATE_NODE_STORAGE_OUTPUT', { id, outputKey, formData })
   },
   removeNodeDataWithSchema({ commit }, id) {
     commit('REMOVE_NODE_SCHEMA', id)
