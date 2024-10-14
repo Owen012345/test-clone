@@ -11,28 +11,6 @@ function createTask(value) {
     // }
   }
 
-  // console.log(value)
-  // if (
-  //   value.group === 'collection' &&
-  //   (value.label === 'JSON Reader' || value.label === 'DF Writer')
-  // ) {
-  //   return { name: task.name, inline: task.inline }
-  // }
-  // 파라미터 값 결정
-  // if (value.group === 'restAPI') {
-  //   const data = store.getters['nodeDetail/getDefaultSettingNodeSchema'](value.id)
-
-  //   task.arguments.parameters.push(
-  //     { name: 'function', value: value.id },
-  //     { name: 'url', value: data.connectionURL }
-  //   )
-  // } else {
-  //   task.arguments.parameters.push({
-  //     name: 'settings',
-  //     value: JSON.stringify(store.getters['nodeDetail/getDefaultSettingNodeSchema'](value.id))
-  //   })
-  // }
-
   // 종속성이 있는 경우 추가
   if (value.dependencies.length > 0) {
     task.dependencies = value.dependencies

@@ -87,8 +87,17 @@ const mutations = {
     }
   },
   UPDATE_NODE_VALIDATION(state, { id, validation }) {
-    const status = validation ? 'success' : 'failed'
-    state.defaultNodeSchema[id].validation = status
+    let status
+
+    if (validation === true || validation === false) {
+      status = validation ? 'success' : 'failed'
+    } else if (validation === 'success' || validation === 'failed') {
+      status = validation
+    }
+
+    if (status) {
+      state.defaultNodeSchema[id].validation = status
+    }
   },
   UPDATE_NODE_STATUS(state, { id, status }) {
     state.defaultNodeSchema[id].status = status
@@ -241,8 +250,22 @@ const actions = {
       commit('UPDATE_NODE_SCHEMA_SETTING', { id: node.id, formData: node.data.settings }) // settings
       commit('UPDATE_NODE_METADATA', { id: node.id, metadata: node.data.metadata }) // metadata
       commit('INIT_NODE_DEFAULT', { id: node.id, group: node.data.group, label: node.data.label }) // group, labe
+      commit('UPDATE_NODE_VALIDATION', { id: node.id, validation: node.data.validation }) // validation
+      commit('UPDATE_NODE_STATUS', { id: node.id, status: node.data.status }) // status
+      commit(
+        'argo/INIT_CONTAINER_TEMPLATE',
+        { name: node.id, group: node.data.group },
+        { root: true }
+      )
 
-      commit('argo/INIT_CONTAINER_TEMPLATE', { name: node.id, group: node.group }, { root: true })
+      commit(
+        'argo/UPDATE_CONTAINER_TEMPLATE',
+        {
+          name: node.id,
+          metadata: node.data.metadata
+        },
+        { root: true }
+      )
 
       state.defaultNodeSchema[node.id].storage = node.data.storage
     } catch (error) {

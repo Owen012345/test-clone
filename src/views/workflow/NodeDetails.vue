@@ -99,11 +99,11 @@ export default {
       const checkValidation = await this.validateAll()
 
       if (checkValidation) {
-        console.log('passed validation')
+        // console.log('passed validation')
         this.updateNodeValidation({ id: this.selectedNode.id, validation: checkValidation })
         this.updateNodeStatus({ id: this.selectedNode.id, status: 'ready' })
       } else {
-        console.log('failed validation')
+        // console.log('failed validation')
         this.updateNodeValidation({ id: this.selectedNode.id, validation: checkValidation })
         this.updateNodeStatus({ id: this.selectedNode.id, status: 'failed' })
       }
