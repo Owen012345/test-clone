@@ -50,7 +50,7 @@ const getters = {
   },
   getNodes: (state, getters) => {
     const editor = getters.getEditor
-    const nodes = editor.nodes
+    const nodes = editor?.nodes
 
     return nodes
   },

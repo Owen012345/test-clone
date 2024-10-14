@@ -1,7 +1,8 @@
 <template lang="">
   <div class="nodedetails-container">
     <!-- Tab 버튼 구현 -->
-    <div class="tabs">
+    <div v-if="!selectedNode" class="placeholder">Show property inputs and node outputs.</div>
+    <div class="tabs" v-show="selectedNode">
       <button
         v-for="(tab, idx) in tabs"
         :key="idx"
@@ -143,6 +144,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.placeholder {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 18px;
+  color: #aaa;
+  text-align: center;
+}
 .nodedetails-container {
   position: relative;
   padding-bottom: 60px;
@@ -164,8 +174,8 @@ export default {
 }
 
 .tabs button.active {
-  background-color: #1976d2;
-  color: white;
+  background-color: #d9d9d9;
+  color: black;
 }
 
 .execution-footer {

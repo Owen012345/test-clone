@@ -1,11 +1,18 @@
 <template>
-  <div id="editor" ref="editor" @drop="(e) => onDrop(e)" @dragover="onDragOver"></div>
+  <div id="editor" ref="editor" @drop="(e) => onDrop(e)" @dragover="onDragOver">
+    <div
+      v-if="!getDefaultNodeSchemaList || getDefaultNodeSchemaList.length === 0"
+      class="placeholder"
+    >
+      Start building your workflow by dropping nodes here.
+    </div>
+  </div>
 </template>
 
 <script>
 import { createEditor } from '@/utils/node/createEditor'
 import { createNode } from '@/utils/node/createNode'
-import { mapMutations } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 
 export default {
   name: 'Canvas',
@@ -14,6 +21,11 @@ export default {
       editor: null,
       area: null
     }
+  },
+  computed: {
+    ...mapGetters('nodeDetail', {
+      getDefaultNodeSchemaList: 'getDefaultNodeSchemaList'
+    })
   },
   methods: {
     ...mapMutations('workflow', ['SET_EDITOR', 'SET_AREA']),
@@ -59,5 +71,14 @@ export default {
   width: 100%;
   height: 100%;
   position: relative;
+}
+.placeholder {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 18px;
+  color: #aaa;
+  text-align: center;
 }
 </style>

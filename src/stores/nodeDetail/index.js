@@ -112,6 +112,9 @@ const mutations = {
 }
 
 const getters = {
+  getDefaultNodeSchemaList: (state) => {
+    return Object.keys(state.defaultNodeSchema)
+  },
   getDefaultSettingNodeSchema: (state) => (id) => {
     return state.defaultNodeSchema[id].settings
   },
