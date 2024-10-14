@@ -21,6 +21,9 @@ const mutations = {
       return item
     })
   },
+  REMOVE_CONTAINER_TEMPLATE(state, name) {
+    state.containerTemplatesList = state.containerTemplatesList.filter((item) => item.name !== name)
+  },
   INIT_CONTAINER_TEMPLATE(state, data) {
     const { name, group } = data
 

@@ -108,6 +108,7 @@ export async function createEditor(container) {
       const { data } = context
       store.dispatch('workflow/removeNode')
       store.dispatch('nodeDetail/removeNodeDataWithSchema', data.id)
+      store.commit('argo/REMOVE_CONTAINER_TEMPLATE', data.id)
     }
     if (context.type === 'connectionremoved') {
       // console.log(context)
