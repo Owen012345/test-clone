@@ -1,7 +1,6 @@
 <template>
   <div class="sidebar">
     <SearchField :search="search" @update:search="filterItems" />
-
     <v-list>
       <v-list-item
         @click="getWorkflow(workflow)"

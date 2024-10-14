@@ -8,6 +8,7 @@
       <div class="sidebar-container">
         <NodeList v-if="controlTab === 'tasks'" class="node-list" />
         <WorkflowList v-if="controlTab === 'workflows'" class="workflow-list" />
+        <WorkflowCreate v-if="controlTab === 'workflows'" class="workflow-create" />
       </div>
       <div class="main-container">
         <FlowChart class="flow-chart" :style="{ flex: flowChartFlex }" />
@@ -24,6 +25,7 @@ import NodeList from '@/views/workflow/sidebar/NodeList.vue'
 import WorkflowList from '@/views/workflow/sidebar/WorkflowList.vue'
 import ControlToolbar from '@/views/workflow/toolbar/ControlToolbar.vue'
 import SidebarController from '@/views/workflow/sidebar/SidebarController.vue'
+import WorkflowCreate from '@/views/workflow/sidebar/WorkflowCreate.vue'
 
 export default {
   name: 'Workflow',
@@ -33,7 +35,8 @@ export default {
     NodeList,
     WorkflowList,
     ControlToolbar,
-    SidebarController
+    SidebarController,
+    WorkflowCreate
   },
   data() {
     return {
