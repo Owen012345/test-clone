@@ -37,6 +37,8 @@ export default {
   width: 250px;
 }
 .main-container {
+  width: 100%;
+  position: relative;
   padding: 1.25rem 0.65rem 1.25rem 0.65rem;
 }
 </style>

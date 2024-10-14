@@ -30,7 +30,8 @@ export default {
 <style scoped>
 .top-bar {
   align-items: center;
-  background-color: #ffffff;
+  background: #fff;
+  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.12);
   display: flex;
   gap: 20px;
   justify-content: center;

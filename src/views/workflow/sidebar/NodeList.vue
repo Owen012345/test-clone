@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import SearchField from '@/views/workflow/sidebar/SearchField.vue'
+import SearchField from '@/components/custom/CustomSearchField.vue'
 import NodeList from '@/assets/nodes.json'
 
 export default {

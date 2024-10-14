@@ -16,7 +16,7 @@
 
 <script>
 import api from '@/api'
-import SearchField from '@/views/workflow/sidebar/SearchField.vue'
+import SearchField from '@/components/custom/CustomSearchField.vue'
 import { redrawGraph } from '@/utils/node/redrawNode'
 
 export default {

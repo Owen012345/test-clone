@@ -12,6 +12,16 @@ class Test {
       throw error
     }
   }
+
+  async getWorkflowList() {
+    try {
+      const response = await this.instance.get('/workflowlist.json')
+      return response.data
+    } catch (error) {
+      console.error(error)
+      throw error
+    }
+  }
 }
 
 export default Test
