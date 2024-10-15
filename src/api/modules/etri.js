@@ -3,6 +3,23 @@ class Etri {
     this.instance = instance
   }
 
+  async login(userData) {
+    try {
+      const response = await this.instance.post('/authnz/authentication/user/login', userData)
+      const { accessToken } = response.data
+
+      if (accessToken) {
+        this.token = accessToken
+        this.instance.defaults.headers.common['Authorization'] = `Bearer ${this.token}`
+      }
+
+      return response.data
+    } catch (error) {
+      this.handleError(error)
+      throw error
+    }
+  }
+
   // 분산 파이프라인 생성
   async createDistributedPipeline(pipelineData) {
     try {

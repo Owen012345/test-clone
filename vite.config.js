@@ -43,6 +43,10 @@ export default defineConfig(({ mode }) => {
           target: env.VITE_ARGO_WORKFLOW_API_URL,
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/argo/, '')
+        },
+        '/api/v1': {
+          target: env.VITE_ETRI_API_URL,
+          changeOrigin: true
         }
       }
     },

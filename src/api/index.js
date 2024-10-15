@@ -2,6 +2,7 @@ import axios from 'axios'
 import Argo from './modules/argo'
 import Workflow from './modules/workflow'
 import Test from './modules/test'
+import Etri from './modules/etri'
 class Api {
   constructor(url = import.meta.env.VITE_API_URL) {
     this.instance = axios.create({
@@ -39,6 +40,13 @@ class Api {
   get test() {
     return this.#getInstance(Test, {
       baseURL: '/',
+      timeout: 30000
+    })
+  }
+
+  get etri() {
+    return this.#getInstance(Etri, {
+      baseURL: import.meta.env.VITE_ETRI_API_URL,
       timeout: 30000
     })
   }

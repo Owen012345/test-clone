@@ -43,7 +43,7 @@ export default {
   methods: {
     ...mapActions('auth', ['login']),
     submitLogin() {
-      const result = this.login({ username: this.username, password: this.password })
+      const result = this.login({ id: this.username, password: this.password })
       if (result) {
         this.$router.push({ name: 'home' })
       } else {
