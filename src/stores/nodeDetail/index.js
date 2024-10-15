@@ -177,7 +177,7 @@ const getters = {
 
         properties.forEach((propertyKey) => {
           value[propertyKey] =
-            `tasks.${sourceNodeId}.inline.container.env.${sourceOutputKey}.value.${propertyKey}`
+            `{{tasks.${sourceNodeId}.inline.container.env.${sourceOutputKey}.value.${propertyKey}}}`
         })
 
         return {
