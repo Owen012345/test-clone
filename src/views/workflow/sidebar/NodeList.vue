@@ -1,6 +1,6 @@
 <template>
   <div class="sidebar">
-    <SearchField :search="search" @update:search="filterItems" />
+    <!-- <SearchField :search="search" @update:search="filterItems" /> -->
     <v-expansion-panels v-model="expandedPanels">
       <v-expansion-panel v-for="(group, index) in filteredData" :key="index">
         <v-expansion-panel-title>{{ group.name }}</v-expansion-panel-title>
@@ -25,55 +25,38 @@
 </template>
 
 <script>
-import SearchField from '@/components/custom/CustomSearchField.vue'
+// import SearchField from '@/components/custom/CustomSearchField.vue'
 import NodeList from '@/assets/nodes.json'
 
 export default {
   name: 'NodeList',
   components: {
-    SearchField
+    // SearchField
   },
   data() {
     return {
-      search: '', // 검색어 상태
+      // search: '', // 검색어 상태
       expandedPanels: [],
       filteredData: []
     }
   },
   computed: {
     jsonData() {
+      console.log(NodeList)
       return NodeList
     }
   },
   methods: {
-    filterItems(search) {
-      this.search = search || ''
-      if (!this.search) {
-        this.filteredData = Object.keys(this.jsonData).map((key) => ({
-          name: key,
-          items: this.jsonData[key].map((item) => ({
-            ...item,
-            group: key
-          }))
+    filterItems() {
+      this.filteredData = Object.keys(this.jsonData).map((key) => ({
+        name: key,
+        items: this.jsonData[key].map((item) => ({
+          ...item,
+          group: key
         }))
-        this.expandedPanels = []
-        return
-      }
-
-      const searchLower = this.search.toLowerCase()
-      this.filteredData = Object.keys(this.jsonData)
-        .map((key) => ({
-          name: key,
-          items: this.jsonData[key]
-            .filter((item) => item.label.toLowerCase().includes(searchLower))
-            .map((item) => ({
-              ...item,
-              group: key
-            }))
-        }))
-        .filter((group) => group.items.length > 0)
-
-      this.expandedPanels = this.filteredData.map((_, index) => index)
+      }))
+      // console.log(this.filteredData)
+      // this.expandedPanels = []
     },
     onDragStart(e, node) {
       e.dataTransfer.setData('node', JSON.stringify(node))

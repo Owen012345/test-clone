@@ -151,24 +151,44 @@ const getters = {
     return Object.keys(state.defaultNodeSchema[id].storage)
   },
   getNodeOutputStorageEnv: (state, getters, rootState, rootGetters) => (id) => {
-    // workflow 네임스페이스의 getEditor getter 호출
     const editor = rootGetters['workflow/getEditor']
     const node = editor.getNode(id)
 
-    // 기본적으로 node의 storage 정보 가져오기
-    const result = Object.keys(state.defaultNodeSchema[id].storage).map((key) => {
-      return {
-        name: key,
-        value: JSON.stringify(state.defaultNodeSchema[id].storage[key])
+    const result = [
+      {
+        name: 'settings',
+        value: JSON.stringify(getters.getDefaultSettingNodeSchema(id))
       }
-    })
+    ]
 
-    result.push({
-      name: 'settings',
-      value: JSON.stringify(getters.getDefaultSettingNodeSchema(id))
-    })
+    const getStorageResult = (schemaId) => {
+      return Object.keys(state.defaultNodeSchema[schemaId].storage).map((key) => ({
+        name: key,
+        value: JSON.stringify(state.defaultNodeSchema[schemaId].storage[key])
+      }))
+    }
 
-    // 추가로 connections 정보를 활용한 데이터 추가
+    const addConnectionResult = (inputKey, sourceNodeId, sourceOutputKey) => {
+      if (state.defaultNodeSchema[sourceNodeId]?.storage[sourceOutputKey]) {
+        const properties = Object.keys(
+          state.defaultNodeSchema[sourceNodeId].storage[sourceOutputKey]
+        )
+        const value = {}
+
+        properties.forEach((propertyKey) => {
+          value[propertyKey] =
+            `tasks.${sourceNodeId}.inline.container.env.${sourceOutputKey}.value.${propertyKey}`
+        })
+
+        return {
+          name: inputKey,
+          value: JSON.stringify(value)
+        }
+      }
+    }
+
+    result.push(...getStorageResult(id))
+
     if (node.inputs) {
       Object.keys(node.inputs).forEach((inputKey) => {
         const input = node.inputs[inputKey]
@@ -176,23 +196,11 @@ const getters = {
         if (input.connections) {
           Object.keys(input.connections).forEach((connectionId) => {
             const connection = input.connections[connectionId]
-
-            // connection 정보에서 sourceNodeId, sourceOutputKey 추출
             const sourceNodeId = connection.sourceNodeId
             const sourceOutputKey = connection.sourceOutputKey
 
-            // sourceNodeId 및 sourceOutputKey로 storage 값을 찾아 result에 추가
-            if (
-              state.defaultNodeSchema[sourceNodeId] &&
-              state.defaultNodeSchema[sourceNodeId].storage[sourceOutputKey]
-            ) {
-              result.push({
-                name: inputKey, // ex: INPUT0
-                value: JSON.stringify(
-                  state.defaultNodeSchema[sourceNodeId].storage[sourceOutputKey]
-                )
-              })
-            }
+            const connectionResult = addConnectionResult(inputKey, sourceNodeId, sourceOutputKey)
+            if (connectionResult) result.push(connectionResult)
           })
         }
       })
