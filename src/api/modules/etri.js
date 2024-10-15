@@ -106,7 +106,12 @@ class Etri {
     }
   }
 
-  async listDistributedPipelines({ offset = 0, limit = 10, sort = 'issued', ordered = 'ASC' }) {
+  async listDistributedPipelines({
+    offset = 0,
+    limit = 10,
+    sort = 'issued',
+    ordered = 'ASC'
+  } = {}) {
     try {
       const url = '/distributed-pipeline/list'
       const params = {

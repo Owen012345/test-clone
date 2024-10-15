@@ -51,8 +51,14 @@ export default {
       )
     }
   },
-  created() {
-    this.filterItems()
+  async mounted() {
+    try {
+      // const result = await api.etri.listDistributedPipelines()
+      // console.log(result)
+      this.filterItems()
+    } catch (error) {
+      console.log(error)
+    }
   }
 }
 </script>
