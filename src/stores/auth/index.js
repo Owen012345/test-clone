@@ -9,21 +9,8 @@ const mutations = {
   }
 }
 const actions = {
-  async login({ commit }, payload) {
-    try {
-      const result = await api.etri.login(payload)
-      commit('setUser', result)
-      return true
-    } catch (error) {
-      console.error('Failed to login:', error)
-      return false
-    }
-  },
-  logout({ commit }) {
-    // 로그아웃 API 호출
-    // 성공 시, 사용자 정보를 제거
-    commit('setUser', null)
-  }
+  login({ commit }, payload) {},
+  logout({ commit }) {}
 }
 const getters = {
   getUser(state) {

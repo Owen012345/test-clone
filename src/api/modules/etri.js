@@ -1,6 +1,11 @@
 class Etri {
   constructor(instance) {
     this.instance = instance
+    this.token = localStorage.getItem('token') || null
+
+    if (this.token) {
+      this.instance.defaults.headers.common['Authorization'] = `Bearer ${this.token}`
+    }
   }
 
   async login(userData) {
@@ -11,9 +16,9 @@ class Etri {
       if (accessToken) {
         this.token = accessToken
         this.instance.defaults.headers.common['Authorization'] = `Bearer ${this.token}`
+        localStorage.setItem('token', this.token)
       }
-
-      return response.data
+      return true
     } catch (error) {
       this.handleError(error)
       throw error

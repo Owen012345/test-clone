@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import api from '@/api'
 export default {
   name: 'Login',
   data() {
@@ -41,13 +41,17 @@ export default {
     }
   },
   methods: {
-    ...mapActions('auth', ['login']),
-    submitLogin() {
-      const result = this.login({ id: this.username, password: this.password })
-      if (result) {
-        this.$router.push({ name: 'home' })
-      } else {
-        alert('Login failed')
+    async submitLogin() {
+      try {
+        await api.etri.login({ id: this.username, password: this.password })
+
+        const token = localStorage.getItem('token')
+
+        if (token) {
+          this.$router.push({ name: 'home' })
+        }
+      } catch (error) {
+        alert('로그인에 실패했습니다. 다시 시도해주세요.')
       }
     }
   }
