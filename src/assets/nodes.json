@@ -116,6 +116,34 @@
           "multiple": false
         }
       }
+    },
+    {
+      "id": "C1_N12",
+      "label": "Web Crawler",
+      "options": {
+        "input": {
+          "cnt": 0,
+          "multiple": false
+        },
+        "output": {
+          "cnt": 1,
+          "multiple": false
+        }
+      }
+    },
+    {
+      "id": "C1_N13",
+      "label": "Table Uploader",
+      "options": {
+        "input": {
+          "cnt": 1,
+          "multiple": false
+        },
+        "output": {
+          "cnt": 1,
+          "multiple": false
+        }
+      }
     }
   ],
   "restAPI": [

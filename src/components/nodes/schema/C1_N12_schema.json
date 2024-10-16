@@ -1,0 +1,20 @@
+{
+    "type": "object",
+    "properties": {
+        "portalNameEnum": {
+            "type": "string",
+            "enum": [
+                "고용24",
+                "워크투게더",
+                "정보드림",
+                "서울시장애인일자리통합지원센터"
+            ],
+            "default": "고용24"
+        },
+        "timestamp": {
+            "type": "date",
+            "default": null
+        }
+    },
+    "required": []
+}

@@ -1,0 +1,21 @@
+{
+    "type": "object",
+    "properties": {
+        "saveFormatEnum": {
+            "type": "string",
+            "enum": [
+                "Parquet"
+            ],
+            "default": "Parquet"
+        },
+        "categoryId": {
+            "type": "string",
+            "default": ""
+        },
+        "profileId": {
+            "type": "string",
+            "default": ""
+        }
+    },
+    "required": []
+}
