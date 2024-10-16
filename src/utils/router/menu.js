@@ -23,7 +23,7 @@ export const publicRoute = [
 
 export const protectedRoute = [
   {
-    redirect: '/home',
+    redirect: '/workflow',
     children: [
       {
         path: '/home',

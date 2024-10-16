@@ -28,8 +28,9 @@ class Etri {
   // 분산 파이프라인 생성
   async createDistributedPipeline(pipelineData) {
     try {
-      const response = await this.instance.post('/distributed-pipeline/create', pipelineData)
-      return response.data
+      console.log(pipelineData)
+      // const response = await this.instance.post('/distributed-pipeline/create', pipelineData)
+      // return response.data
     } catch (error) {
       if (error.response) {
         const { statusCode, code, flag, message } = error.response.data

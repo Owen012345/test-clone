@@ -1,27 +1,36 @@
 <template>
-  <div class="sidebar">
-    <SearchField :search="search" @update:search="filterItems" />
-    <v-list>
-      <v-list-item
-        @click="getWorkflow(workflow)"
-        v-for="(workflow, index) in filteredData"
-        :key="index"
-        :title="workflow"
-      >
-      </v-list-item>
-    </v-list>
+  <div class="workflow-list">
+    <div class="search-field">
+      <SearchField :search="search" @update:search="filterItems" />
+    </div>
+    <div class="list-container">
+      <v-list>
+        <v-list-item
+          @click="getWorkflow(workflow)"
+          v-for="(workflow, index) in filteredData"
+          :key="index"
+          :title="workflow"
+        >
+        </v-list-item>
+      </v-list>
+    </div>
+    <div class="workflow-create">
+      <WorkflowCreateButton />
+    </div>
   </div>
 </template>
 
 <script>
 import api from '@/api'
 import SearchField from '@/components/custom/CustomSearchField.vue'
+import WorkflowCreateButton from '@/views/workflow/sidebar/components/WorkflowCreateButton.vue'
 import { redrawGraph } from '@/utils/node/redrawNode'
 
 export default {
   name: 'WorkflowList',
   components: {
-    SearchField
+    SearchField,
+    WorkflowCreateButton
   },
   data() {
     return {
@@ -33,8 +42,6 @@ export default {
   methods: {
     async getWorkflow(workflow) {
       console.log(workflow)
-      // 1. 그릴 수있는 workflow json 가져오기
-      // 2. vuex 에 추가 및 그리기
       const NodeConnectionData = await api.test.getWorkflow(workflow)
       await redrawGraph(NodeConnectionData)
     },
@@ -53,8 +60,6 @@ export default {
   },
   async mounted() {
     try {
-      // const result = await api.etri.listDistributedPipelines()
-      // console.log(result)
       this.filterItems()
     } catch (error) {
       console.log(error)
@@ -64,7 +69,25 @@ export default {
 </script>
 
 <style scoped>
-.v-list {
-  background-color: inherit !important;
+.workflow-list {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.search-field {
+  flex: 1;
+}
+
+.list-container {
+  flex: 8;
+  overflow-y: auto; /* 스크롤을 위해 추가 */
+}
+
+.workflow-create {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
