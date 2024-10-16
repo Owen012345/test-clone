@@ -46,6 +46,7 @@ const actions = {
 const getters = {
   getEditor: (state) => state.editor,
   getArea: (state) => state.area,
+  getCurrentWorkflow: (state) => state.currentWorkflow,
   getCurrentWorkflowName: (state) => state.currentWorkflow?.name,
   getSelectedNode: (state) => {
     return {

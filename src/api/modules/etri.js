@@ -161,8 +161,9 @@ class Etri {
     try {
       const url = '/distributed-pipeline/update'
 
-      const response = await this.instance.post(url, pipelineData)
-      return response.data
+      console.log(pipelineData)
+      // const response = await this.instance.post(url, pipelineData)
+      // return response.data
     } catch (error) {
       if (error.response) {
         const { statusCode, code, flag, message } = error.response.data

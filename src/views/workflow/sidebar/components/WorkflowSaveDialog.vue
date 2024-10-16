@@ -1,17 +1,15 @@
 <template>
   <v-dialog v-model="internalDialog" max-width="500">
     <v-card>
-      <v-card-title class="d-flex justify-space-between">
-        <span>Dialog Title</span>
-        <v-btn icon @click="closeDialog">
+      <v-card-title class="d-flex justify-space-between align-center">
+        <span>Save your workflow?</span>
+        <v-btn variant="text" icon @click="this.$emit('save-dialog-handler', false)">
           <v-icon>mdi-close</v-icon>
         </v-btn>
       </v-card-title>
-
-      <v-card-text> This is the content of the dialog. </v-card-text>
-
       <v-card-actions>
-        <v-btn color="primary" text @click="closeDialog">Close</v-btn>
+        <v-btn text @click="this.$emit('save-dialog-handler', true)">Save</v-btn>
+        <v-btn text @click="this.$emit('save-dialog-handler', false)">Cancel</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -25,19 +23,14 @@ export default {
       required: true
     }
   },
-  emits: ['update:dialog'],
+  emits: ['update:dialog', 'save-dialog-handler'],
   computed: {
-    internalDialog: {
-      get() {
-        return this.dialog
-      },
-      set(value) {
-        this.$emit('update:dialog', value)
-      }
+    internalDialog() {
+      return this.dialog
     }
   },
   methods: {
-    closeDialog() {
+    cancelDialog() {
       this.internalDialog = false
     }
   }
