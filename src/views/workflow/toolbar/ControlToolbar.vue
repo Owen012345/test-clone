@@ -4,7 +4,7 @@
     <button @click="flowExecution">Execution</button>
     <button @click="dataStructure">Debug</button>
     <v-switch v-model="debugMode" hide-details inset></v-switch>
-    <!-- <div @click="dataStructure">test</div> -->
+    <span class="current-workflow">Current Workflow : {{ getCurrentWorkflowName }}</span>
     <v-dialog v-model="dialog" width="auto">
       <v-card min-width="400" :text="dialogText" title="Submit">
         <template v-slot:actions>
@@ -32,7 +32,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('workflow', ['getNodes', 'getConnections'])
+    ...mapGetters('workflow', ['getNodes', 'getConnections', 'getCurrentWorkflowName'])
   },
   methods: {
     dataStructure() {
@@ -67,6 +67,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .node-execution {
+  position: relative;
   display: flex;
   min-height: 45px;
   max-height: 45px;
@@ -79,5 +80,12 @@ export default {
     font-size: 1rem;
     color: rgba(0, 0, 0, 0.45);
   }
+}
+.current-workflow {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  font-size: 16px;
+  color: #aaa;
 }
 </style>

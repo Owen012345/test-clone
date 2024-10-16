@@ -2,6 +2,7 @@ const state = {
   editor: null,
   area: null,
   selectedNode: null,
+  currentWorkflow: null,
   nodes: [],
   connections: []
 }
@@ -23,6 +24,9 @@ const mutations = {
   },
   SET_AREA(state, area) {
     state.area = area
+  },
+  SET_CURRENT_WORKFLOW(state, workflow) {
+    state.currentWorkflow = workflow
   }
 }
 const actions = {
@@ -42,6 +46,7 @@ const actions = {
 const getters = {
   getEditor: (state) => state.editor,
   getArea: (state) => state.area,
+  getCurrentWorkflowName: (state) => state.currentWorkflow?.name,
   getSelectedNode: (state) => {
     return {
       id: state.selectedNode?.id,

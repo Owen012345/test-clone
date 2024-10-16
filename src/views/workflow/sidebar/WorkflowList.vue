@@ -7,10 +7,10 @@
       <v-list>
         <v-list-item
           @click="getWorkflow(workflow)"
-          v-for="(workflow, index) in filteredData"
-          :key="index"
-          :title="workflow"
+          v-for="workflow in filteredData"
+          :key="workflow.id"
         >
+          {{ workflow.name }}
         </v-list-item>
       </v-list>
     </div>
@@ -25,6 +25,7 @@ import api from '@/api'
 import SearchField from '@/components/custom/CustomSearchField.vue'
 import WorkflowCreateButton from '@/views/workflow/sidebar/components/WorkflowCreateButton.vue'
 import { redrawGraph } from '@/utils/node/redrawNode'
+import { mapMutations } from 'vuex'
 
 export default {
   name: 'WorkflowList',
@@ -35,27 +36,37 @@ export default {
   data() {
     return {
       search: '',
-      workflows: ['test1', 'test2', 'test3'],
-      filteredData: []
+      workflows: [
+        { id: '1', name: 'test1' },
+        { id: '2', name: 'test2' },
+        { id: '3', name: 'test3' }
+      ],
+      filteredData: [],
+      selectedWorkflow: null
     }
   },
   methods: {
+    ...mapMutations('workflow', ['SET_CURRENT_WORKFLOW']),
     async getWorkflow(workflow) {
-      console.log(workflow)
-      const NodeConnectionData = await api.test.getWorkflow(workflow)
+      this.selectedWorkflow = workflow
+      this.SET_CURRENT_WORKFLOW(workflow)
+
+      const NodeConnectionData = await api.test.getWorkflow(workflow.name)
       await redrawGraph(NodeConnectionData)
     },
     filterItems(search) {
       this.search = search || ''
       if (!this.search) {
         this.filteredData = [...this.workflows]
+        console.log('Filtered Data:', this.filteredData) // 중복 확인
         return
       }
 
       const searchLower = this.search.toLowerCase()
       this.filteredData = this.workflows.filter((workflow) =>
-        workflow.toLowerCase().includes(searchLower)
+        workflow.name.toLowerCase().includes(searchLower)
       )
+      console.log('Filtered Data:', this.filteredData) // 중복 확인
     }
   },
   async mounted() {
